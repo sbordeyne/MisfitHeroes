@@ -1,0 +1,43 @@
+{
+    "source": "assets/raw/Scan_20260723_222106.jpg",
+    "layout": "hero",
+    "faction": "human",
+    "effect_category": null,
+    "name": "JOUEUR",
+    "effect_text": "REVELEZ 3 CARTES DE LA PIOCHE,\nGAGNEZ :g: EGALES AU TOTAL DE LEURS\nCOÛTS PUIS DEFAUSSEZ CES CARTES.",
+    "cost": 4,
+    "victory_points": null,
+    "regions": {
+        "artwork": {
+            "x": 0.0,
+            "y": 0.0,
+            "width": 1.0,
+            "height": 0.7143
+        },
+        "cost": {
+            "x": 0.0,
+            "y": 0.0,
+            "width": 0.9692,
+            "height": 0.0556
+        },
+        "faction_tab": {
+            "x": 0.0092,
+            "y": 0.1044,
+            "width": 0.1492,
+            "height": 0.5422
+        },
+        "name": {
+            "x": 0.0954,
+            "y": 0.6667,
+            "width": 0.8,
+            "height": 0.08
+        },
+        "effect": {
+            "x": 0.3453,
+            "y": 0.58,
+            "width": 0.3218,
+            "height": 0.1541
+        }
+    },
+    "artwork_path": "assets/processed/joueur/joueur.png"
+}

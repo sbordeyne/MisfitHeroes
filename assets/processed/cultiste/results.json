@@ -1,0 +1,43 @@
+{
+    "source": "assets/raw/Scan_20260723_134748.jpg",
+    "layout": "hero",
+    "faction": "human",
+    "effect_category": null,
+    "name": "CULTISTE",
+    "effect_text": "ACTIVEZ 1 CARTE DANS CETTE LIGNE",
+    "cost": 5,
+    "victory_points": null,
+    "regions": {
+        "artwork": {
+            "x": 0.0,
+            "y": 0.0,
+            "width": 1.0,
+            "height": 0.7143
+        },
+        "cost": {
+            "x": 0.0395,
+            "y": 0.1046,
+            "width": 0.0999,
+            "height": 0.0759
+        },
+        "faction_tab": {
+            "x": 0.0124,
+            "y": 0.1824,
+            "width": 0.1677,
+            "height": 0.4672
+        },
+        "name": {
+            "x": 0.4473,
+            "y": 0.6082,
+            "width": 0.1669,
+            "height": 0.0718
+        },
+        "effect": {
+            "x": 0.4041,
+            "y": 0.6118,
+            "width": 0.1882,
+            "height": 0.106
+        }
+    },
+    "artwork_path": "assets/processed/cultiste/cultiste.png"
+}
