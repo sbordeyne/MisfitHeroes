@@ -48,6 +48,7 @@ from extract_artwork import (  # noqa: E402
     analyze_card,
     build_artwork,
     check_tesseract_available,
+    find_raw_scans,
     rel_display,
 )
 
@@ -134,7 +135,7 @@ class ReviewApp:
         root.geometry("1650x950")
         root.minsize(1200, 720)
 
-        self.raw_files: list[Path] = sorted(RAW_DIR.glob("*.jpg"))
+        self.raw_files: list[Path] = find_raw_scans(RAW_DIR)
         self.item_to_path: dict[str, Path] = {}
         self.processed_by_source: dict[str, Path] = {}
 

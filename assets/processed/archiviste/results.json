@@ -1,11 +1,11 @@
 {
-    "source": "assets/raw/Scan_20260723_122744.jpg",
+    "source": "assets/raw/Scan_20260723_123223.jpg",
     "layout": "background",
     "faction": "human",
     "effect_category": "on_play",
-    "name": "AVEC DIPLÔME",
-    "effect_text": "GAGNEZ 10:g:, PUIS :",
-    "cost": 7,
+    "name": "ARCHIVISTE",
+    "effect_text": "ECHANGEZ LA POSITION\nDE 2 DE VOS CARTES, PUIS :",
+    "cost": 5,
     "victory_points": 1,
     "regions": {
         "artwork": {
@@ -15,10 +15,10 @@
             "height": 0.7143
         },
         "cost": {
-            "x": 0.0398,
-            "y": 0.0278,
-            "width": 0.0987,
-            "height": 0.0757
+            "x": 0.0,
+            "y": 0.0,
+            "width": 0.1402,
+            "height": 0.1048
         },
         "effect_category": {
             "x": 0.07,
@@ -27,29 +27,29 @@
             "height": 0.1
         },
         "victory_points": {
-            "x": 0.8535,
-            "y": 0.0205,
-            "width": 0.0881,
-            "height": 0.1073
+            "x": 0.8174,
+            "y": 0.0,
+            "width": 0.1826,
+            "height": 0.1278
         },
         "faction_tab": {
-            "x": 0.0472,
-            "y": 0.205,
-            "width": 0.0759,
-            "height": 0.3992
+            "x": 0.0076,
+            "y": 0.1811,
+            "width": 0.1385,
+            "height": 0.4189
         },
         "name": {
             "x": 0.05,
             "y": 0.58,
-            "width": 0.9,
+            "width": 0.8657,
             "height": 0.22
         },
         "effect": {
-            "x": 0.0996,
+            "x": 0.0127,
             "y": 0.72,
-            "width": 0.8996,
-            "height": 0.0841
+            "width": 0.9873,
+            "height": 0.1548
         }
     },
-    "artwork_path": "assets/processed/avec_diplome/avec_diplome.png"
+    "artwork_path": "assets/processed/archiviste/archiviste.png"
 }

@@ -90,6 +90,18 @@ REVIEW_JSON = PROJECT_ROOT / "src" / "extracted_data.json"
 
 OCR_LANG = "fra"
 
+RAW_SCAN_EXTENSIONS = ("*.jpg", "*.jpeg", "*.png")
+
+
+def find_raw_scans(directory: Path) -> list[Path]:
+    """Every raw scan directly in `directory` (non-recursive -- e.g. a
+    'done' subfolder some review sessions use to set aside finished scans is
+    deliberately not descended into), across the extensions actual scans
+    show up in. Used by both this CLI and review_extraction.py so the two
+    tools always agree on what counts as a scan."""
+    paths = [p for ext in RAW_SCAN_EXTENSIONS for p in directory.glob(ext)]
+    return sorted(set(paths))
+
 # A card is 5:7 (width:height). Artwork is standardized to a 1000x1000
 # square: at 1000px card-width, full card height would be 1400px, so a
 # 1000px-tall crop captures the top CARD_ASPECT_W/CARD_ASPECT_H = 5/7 of the
@@ -693,7 +705,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "files", nargs="*", type=Path,
-        help="Specific raw scans to process (default: every .jpg in --input-dir)",
+        help="Specific raw scans to process (default: every scan in --input-dir)",
     )
     parser.add_argument("--input-dir", type=Path, default=RAW_DIR)
     parser.add_argument("--output-dir", type=Path, default=OUTPUT_DIR)
@@ -702,7 +714,7 @@ def main() -> None:
 
     check_tesseract_available()
 
-    targets = args.files if args.files else sorted(args.input_dir.glob("*.jpg"))
+    targets = args.files if args.files else find_raw_scans(args.input_dir)
     results = []
     for path in targets:
         try:
