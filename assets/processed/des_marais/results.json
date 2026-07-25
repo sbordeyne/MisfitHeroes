@@ -1,11 +1,11 @@
 {
-    "source": "assets/raw/Scan_20260723_122744.jpg",
+    "source": "assets/raw/bg_desmarais.jpg",
     "layout": "background",
-    "faction": "human",
+    "faction": "monster",
     "effect_category": "on_play",
-    "name": "AVEC DIPLÔME",
-    "effect_text": "GAGNEZ 10:g:, PUIS :",
-    "cost": 7,
+    "name": "DES MARAIS",
+    "effect_text": "GAGNEZ :water:, PUIS :",
+    "cost": 6,
     "victory_points": 1,
     "regions": {
         "artwork": {
@@ -15,10 +15,10 @@
             "height": 0.7143
         },
         "cost": {
-            "x": 0.0398,
-            "y": 0.0278,
-            "width": 0.0987,
-            "height": 0.0757
+            "x": 0.0466,
+            "y": 0.0284,
+            "width": 0.0926,
+            "height": 0.073
         },
         "effect_category": {
             "x": 0.07,
@@ -27,16 +27,16 @@
             "height": 0.1
         },
         "victory_points": {
-            "x": 0.8535,
-            "y": 0.0205,
-            "width": 0.0881,
-            "height": 0.1073
+            "x": 0.8563,
+            "y": 0.0186,
+            "width": 0.0868,
+            "height": 0.1069
         },
         "faction_tab": {
-            "x": 0.0472,
-            "y": 0.205,
-            "width": 0.0759,
-            "height": 0.3992
+            "x": 0.0543,
+            "y": 0.2041,
+            "width": 0.0734,
+            "height": 0.3998
         },
         "name": {
             "x": 0.05,
@@ -45,11 +45,11 @@
             "height": 0.22
         },
         "effect": {
-            "x": 0.0996,
+            "x": 0.3123,
             "y": 0.72,
-            "width": 0.8996,
-            "height": 0.0841
+            "width": 0.323,
+            "height": 0.0409
         }
     },
-    "artwork_path": "assets/processed/avec_diplome/avec_diplome.png"
+    "artwork_path": "assets/processed/des_marais/des_marais.png"
 }

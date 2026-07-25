@@ -21,14 +21,14 @@
             "height": 0.0728
         },
         "victory_points": {
-            "x": 0.8526,
+            "x": 0.8315,
             "y": 0.0189,
-            "width": 0.0906,
-            "height": 0.1083
+            "width": 0.1378,
+            "height": 0.1089
         },
         "faction_tab": {
-            "x": 0.1221,
-            "y": 0.2645,
+            "x": 0.0,
+            "y": 0.1789,
             "width": 0.0979,
             "height": 0.3605
         },
@@ -39,10 +39,10 @@
             "height": 0.1
         },
         "name": {
-            "x": 0.05,
-            "y": 0.58,
-            "width": 0.9,
-            "height": 0.22
+            "x": 0.2772,
+            "y": 0.7056,
+            "width": 0.4288,
+            "height": 0.0411
         },
         "effect": {
             "x": 0.1539,
@@ -51,5 +51,5 @@
             "height": 0.1463
         }
     },
-    "artwork_path": "assets/processed/maritime/artwork.png"
+    "artwork_path": "assets/processed/maritime/maritime.png"
 }

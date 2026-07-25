@@ -1,0 +1,43 @@
+{
+    "source": "assets/raw/20260723_132400.jpg",
+    "layout": "hero",
+    "faction": "human",
+    "effect_category": null,
+    "name": "BANDIT",
+    "effect_text": "GAGNEZ 25:g:",
+    "cost": 2,
+    "victory_points": null,
+    "regions": {
+        "artwork": {
+            "x": 0.0,
+            "y": 0.0,
+            "width": 1.0,
+            "height": 0.7143
+        },
+        "cost": {
+            "x": 0.0717,
+            "y": 0.1236,
+            "width": 0.095,
+            "height": 0.063
+        },
+        "faction_tab": {
+            "x": 0.0733,
+            "y": 0.2089,
+            "width": 0.0758,
+            "height": 0.389
+        },
+        "name": {
+            "x": 0.0804,
+            "y": 0.5372,
+            "width": 0.0068,
+            "height": 0.0043
+        },
+        "effect": {
+            "x": 0.4085,
+            "y": 0.65,
+            "width": 0.536,
+            "height": 0.2577
+        }
+    },
+    "artwork_path": "assets/processed/bandit/artwork.png"
+}

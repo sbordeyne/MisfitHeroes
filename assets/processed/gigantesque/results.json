@@ -4,15 +4,15 @@
     "faction": "monster",
     "effect_category": "condition",
     "name": "GIGANTESQUE",
-    "effect_text": "SI VOUS AVEZ PLUS DE :m: QUE\nVOTRE VOISIN(E) DE GAUCHE, ALORS :",
+    "effect_text": "SI VOUS AVEZ PLUS DE :rock: QUE\nVOTRE VOISIN(E) DE GAUCHE, ALORS :",
     "cost": 1,
     "victory_points": 1,
     "regions": {
         "cost": {
             "x": 0.0,
             "y": 0.0,
-            "width": 0.17,
-            "height": 0.12
+            "width": 0.1103,
+            "height": 0.0616
         },
         "victory_points": {
             "x": 0.83,
@@ -23,8 +23,8 @@
         "faction_tab": {
             "x": 0.0,
             "y": 0.15,
-            "width": 0.19,
-            "height": 0.45
+            "width": 0.1088,
+            "height": 0.4793
         },
         "effect_category": {
             "x": 0.07,
@@ -39,10 +39,10 @@
             "height": 0.7143
         },
         "name": {
-            "x": 0.12,
-            "y": 0.63,
-            "width": 0.76,
-            "height": 0.13
+            "x": 0.3294,
+            "y": 0.7234,
+            "width": 0.3441,
+            "height": 0.0448
         },
         "effect": {
             "x": 0.03,
@@ -51,5 +51,5 @@
             "height": 0.18
         }
     },
-    "artwork_path": "assets/processed/gigantesque/artwork.png"
+    "artwork_path": "assets/processed/gigantesque/gigantesque.png"
 }

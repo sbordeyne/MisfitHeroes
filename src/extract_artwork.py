@@ -77,6 +77,7 @@ import json
 import sys
 from dataclasses import asdict, dataclass
 from pathlib import Path
+from typing import Callable
 
 import cv2
 import numpy as np
@@ -504,26 +505,41 @@ def clean_alpha(alpha: np.ndarray) -> np.ndarray:
     return cv2.GaussianBlur(alpha, (k, k), 0)
 
 
-def build_artwork(image_bgr: np.ndarray, analysis: dict) -> np.ndarray:
+def build_artwork(
+    image_bgr: np.ndarray, analysis: dict, on_step: Callable[[str], None] | None = None
+) -> np.ndarray:
     """Standardized ARTWORK_OUTPUT_SIZE x ARTWORK_OUTPUT_SIZE artwork: crop
     boxes["artwork"] (the top ARTWORK_HEIGHT_FRACTION of the card -- see that
     constant's comment), segment the backdrop out with GrabCut, erase the
     detected badge/tab shapes on top, clean up the alpha mask, then resize to
     exactly ARTWORK_OUTPUT_SIZE regardless of the source photo's resolution.
-    `analysis` is analyze_card()'s return value for this same image.
+    `analysis` is analyze_card()'s return value for this same image. `on_step`,
+    if given, is called with a short human-readable label before each phase
+    (GrabCut is the slow one) -- e.g. to drive a progress bar.
     """
+    def step(label: str) -> None:
+        if on_step:
+            on_step(label)
+
+    step("Cropping artwork region")
     art_box = analysis["boxes"]["artwork"]
     crop = crop_fraction(image_bgr, art_box)
     erase_crop = crop_fraction(analysis["erase_mask"], art_box)
 
+    step("Removing background (GrabCut)")
     bgra = remove_background_grabcut(crop)
+
+    step("Erasing badges/tab")
     alpha = bgra[:, :, 3]
     alpha[erase_crop > 0] = 0
     bgra[:, :, 3] = clean_alpha(alpha)
 
+    step("Resizing to standard size")
     h, w = bgra.shape[:2]
     interpolation = cv2.INTER_AREA if w > ARTWORK_OUTPUT_SIZE else cv2.INTER_CUBIC
-    return cv2.resize(bgra, (ARTWORK_OUTPUT_SIZE, ARTWORK_OUTPUT_SIZE), interpolation=interpolation)
+    result = cv2.resize(bgra, (ARTWORK_OUTPUT_SIZE, ARTWORK_OUTPUT_SIZE), interpolation=interpolation)
+    step("Artwork built")
+    return result
 
 
 # Insets/upscale tuned in module docstring's test notes -- ring outlines and

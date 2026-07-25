@@ -4,16 +4,19 @@ final per-card assets.
 Pick a raw scan, hit "Scan with OCR" (runs the exact same detect+OCR pipeline
 as extract_artwork.py's analyze_card, on just that one image -- badges/tab/
 text boxes are detected per-card, not looked up from a fixed template; see
-that module's docstring), fix whatever it got wrong, and "Save" to write:
-  assets/processed/<slugified name>/artwork.png   -- standardized artwork
-                                                       crop, backdrop removed
-                                                       via GrabCut, badges/tab
-                                                       erased
-  assets/processed/<slugified name>/results.json  -- card data + the
-                                                       fractional {x,y,width,
-                                                       height} box of every
-                                                       detected field, for
-                                                       recomposing cards later
+that module's docstring), fix whatever it got wrong -- including dragging a
+box's corners/edges to fit, if the detected one is off -- and "Save" to write:
+  assets/processed/<slug>/<slug>.png       -- standardized artwork crop,
+                                               backdrop removed via GrabCut,
+                                               badges/tab erased
+  assets/processed/<slug>/results.json     -- card data + the fractional
+                                               {x,y,width,height} box of every
+                                               detected field, for recomposing
+                                               cards later
+
+Saving runs on a background thread (GrabCut is slow enough to otherwise
+freeze the window for a few seconds) with a progress bar tracking each step;
+the UI stays responsive but the Save button is disabled until it finishes.
 
 Re-selecting a raw scan that's already been saved reloads its saved values
 (rather than blanking the form), so a review pass can be stopped and resumed.
@@ -24,14 +27,17 @@ Run with: python src/review_extraction.py
 from __future__ import annotations
 
 import json
+import queue
 import re
 import sys
+import threading
 import unicodedata
 from pathlib import Path
 from tkinter import BooleanVar, DoubleVar, StringVar, Tk, Canvas, Text, messagebox
 from tkinter import ttk
 
 import cv2
+import numpy as np
 from PIL import Image, ImageTk
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -62,6 +68,15 @@ EFFECT_CATEGORIES = ["additional_cost", *EFFECT_CATEGORY_HUES]  # additional_cos
 
 COST_MAX = 30
 
+# "artwork" is derived from the card's aspect ratio (see ARTWORK_HEIGHT_FRACTION
+# in extract_artwork.py), not something to hand-tune per card, so it's the one
+# box excluded from dragging.
+EDITABLE_BOX_FIELDS = {"cost", "victory_points", "faction_tab", "effect_category", "name", "effect"}
+HANDLE_RADIUS = 6  # canvas px; corner-hit tolerance for starting a resize drag
+
+PREVIEW_MAX_W = 680
+PREVIEW_MAX_H = 900
+
 
 def slugify(text: str) -> str:
     text = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode("ascii")
@@ -90,11 +105,34 @@ def xywh_to_box(d: dict) -> tuple[float, float, float, float]:
     return (d["x"], d["y"], d["x"] + d["width"], d["y"] + d["height"])
 
 
+def rebuild_erase_mask(image_shape: tuple, boxes: dict) -> np.ndarray:
+    """Full-resolution erase mask built fresh from whatever boxes are
+    CURRENTLY shown (auto-detected, manually dragged, or reloaded from a
+    saved review) -- so a manual correction actually changes what gets
+    erased from the artwork, not just what the JSON reports. This trades the
+    precise faction-tab contour (its pointed tip corners) for a plain
+    rectangle at save time; the tradeoff is intentional, since a rectangle is
+    the only shape a drag-to-resize UI can express, and it's still a tight
+    fit around the same contour's bounding box, not the old oversized guess."""
+    h, w = image_shape[:2]
+    mask = np.zeros((h, w), dtype=np.uint8)
+    for field in ("cost", "victory_points", "faction_tab"):
+        box = boxes.get(field)
+        if box is None:
+            continue
+        left, top, right, bottom = box
+        x1, y1 = max(int(left * w), 0), max(int(top * h), 0)
+        x2, y2 = min(int(right * w), w), min(int(bottom * h), h)
+        mask[y1:y2, x1:x2] = 255
+    return mask
+
+
 class ReviewApp:
     def __init__(self, root: Tk) -> None:
         self.root = root
         root.title("Misfit Heroes -- card extraction review")
-        root.geometry("1280x800")
+        root.geometry("1650x950")
+        root.minsize(1200, 720)
 
         self.raw_files: list[Path] = sorted(RAW_DIR.glob("*.jpg"))
         self.item_to_path: dict[str, Path] = {}
@@ -106,15 +144,14 @@ class ReviewApp:
         self.display_size = (0, 0)
 
         # Boxes are detected per-card now (not a fixed layout template), so
-        # they're only known once analyze_card has actually run on this
-        # image -- either via "Scan with OCR", or reconstructed from a
-        # previously-saved review's regions. last_analysis (which carries the
-        # full-resolution erase_mask build_artwork needs) is cheaper to just
-        # keep IF it's still for the current image, and cheap to recompute
-        # otherwise -- see _ensure_analysis.
+        # they're only known once analyze_card has actually run on this image
+        # -- either via "Scan with OCR", or reconstructed from a
+        # previously-saved review's regions. Manual corrections made by
+        # dragging a box on the canvas (see _on_canvas_*) land here directly,
+        # and Save rebuilds the erase mask from whatever's currently here
+        # (see rebuild_erase_mask), so edits always take effect.
         self.last_boxes: dict = {}
-        self.last_analysis: dict | None = None
-        self.last_analysis_path: Path | None = None
+        self.drag_state: dict | None = None
 
         self.show_boxes = BooleanVar(value=True)
         self.layout_var = StringVar(value="background")
@@ -126,6 +163,8 @@ class ReviewApp:
         # from effect_category, not a value someone reads off the card.
         self.vp_display_var = StringVar(value="")
         self.status_var = StringVar(value="Select a raw scan to begin.")
+        self.progress_step_var = StringVar(value="")
+        self.save_queue: queue.Queue | None = None
 
         self._build_ui()
         self.refresh_processed_index()
@@ -149,8 +188,14 @@ class ReviewApp:
         paned.add(form_frame, weight=2)
         self._build_form_panel(form_frame)
 
-        status_bar = ttk.Label(self.root, textvariable=self.status_var, relief="sunken", anchor="w")
-        status_bar.pack(fill="x", side="bottom")
+        bottom = ttk.Frame(self.root)
+        bottom.pack(fill="x", side="bottom")
+        self.progress_bar = ttk.Progressbar(bottom, mode="determinate", maximum=100)
+        self.progress_bar.pack(fill="x", side="top", padx=4, pady=(4, 0))
+        progress_label = ttk.Label(bottom, textvariable=self.progress_step_var, anchor="w")
+        progress_label.pack(fill="x", side="top", padx=4)
+        status_bar = ttk.Label(bottom, textvariable=self.status_var, relief="sunken", anchor="w")
+        status_bar.pack(fill="x", side="top")
 
     def _build_list_panel(self, parent: ttk.Frame) -> None:
         ttk.Label(parent, text="Raw scans").pack(anchor="w")
@@ -167,12 +212,17 @@ class ReviewApp:
         ttk.Checkbutton(
             controls, text="Show bounding boxes", variable=self.show_boxes, command=self.draw_boxes
         ).pack(side="left")
-        ttk.Button(controls, text="Scan with OCR", command=self.on_scan_ocr).pack(side="right")
+        ttk.Label(controls, text="(drag a box's corners to resize, its middle to move)").pack(side="left", padx=(8, 0))
+        self.scan_button = ttk.Button(controls, text="Scan with OCR", command=self.on_scan_ocr)
+        self.scan_button.pack(side="right")
 
         canvas_container = ttk.Frame(parent)
         canvas_container.pack(fill="both", expand=True, pady=6)
         self.canvas = Canvas(canvas_container, background="#202020", highlightthickness=0)
         self.canvas.pack(fill="both", expand=True)
+        self.canvas.bind("<ButtonPress-1>", self._on_canvas_press)
+        self.canvas.bind("<B1-Motion>", self._on_canvas_drag)
+        self.canvas.bind("<ButtonRelease-1>", self._on_canvas_release)
 
     def _build_form_panel(self, parent: ttk.Frame) -> None:
         parent.columnconfigure(0, weight=1)
@@ -237,7 +287,8 @@ class ReviewApp:
         ttk.Label(vp_row, textvariable=self.vp_display_var, font=("Segoe UI", 9, "bold")).pack(side="left")
         row += 1
 
-        ttk.Button(parent, text="Save", command=self.on_save).grid(row=row, column=0, sticky="ew", pady=(12, 0))
+        self.save_button = ttk.Button(parent, text="Save", command=self.on_save)
+        self.save_button.grid(row=row, column=0, sticky="ew", pady=(12, 0))
 
     # -- list / selection ----------------------------------------------------
 
@@ -278,11 +329,6 @@ class ReviewApp:
             return
         self.current_path = path
         self.current_image_bgr = image
-
-        # last_analysis (with its erase_mask) is only valid for the image it
-        # was computed from -- selecting a different scan invalidates it.
-        self.last_analysis = None
-        self.last_analysis_path = None
 
         saved_dir = self.processed_by_source.get(rel_display(path))
         if saved_dir is not None:
@@ -331,23 +377,12 @@ class ReviewApp:
 
     # -- preview / bounding boxes --------------------------------------------
 
-    def _ensure_analysis(self) -> dict:
-        """analyze_card()'s result for the currently-loaded image, computing
-        it fresh only if we don't already have one for this exact path (e.g.
-        a previously-saved review was loaded without re-running OCR)."""
-        if self.last_analysis is None or self.last_analysis_path != self.current_path:
-            self.last_analysis = analyze_card(self.current_image_bgr)
-            self.last_analysis_path = self.current_path
-            self.last_boxes = self.last_analysis["boxes"]
-        return self.last_analysis
-
     def render_preview(self) -> None:
         if self.current_image_bgr is None:
             return
         rgb = cv2.cvtColor(self.current_image_bgr, cv2.COLOR_BGR2RGB)
         h, w = rgb.shape[:2]
-        max_w, max_h = 520, 760
-        scale = min(max_w / w, max_h / h, 1.0)
+        scale = min(PREVIEW_MAX_W / w, PREVIEW_MAX_H / h, 1.0)
         disp_w, disp_h = max(1, int(w * scale)), max(1, int(h * scale))
         resized = cv2.resize(rgb, (disp_w, disp_h), interpolation=cv2.INTER_AREA)
         self.photo_image = ImageTk.PhotoImage(Image.fromarray(resized))
@@ -365,14 +400,89 @@ class ReviewApp:
         for field, box in self.last_boxes.items():
             left, top, right, bottom = box
             color = BOX_COLORS.get(field, "red")
-            self.canvas.create_rectangle(
-                left * disp_w, top * disp_h, right * disp_w, bottom * disp_h,
-                outline=color, width=2, tags="box",
-            )
+            x1, y1, x2, y2 = left * disp_w, top * disp_h, right * disp_w, bottom * disp_h
+            self.canvas.create_rectangle(x1, y1, x2, y2, outline=color, width=2, tags="box")
             self.canvas.create_text(
-                left * disp_w + 4, top * disp_h + 4, text=field, anchor="nw",
+                x1 + 4, y1 + 4, text=field, anchor="nw",
                 fill=color, font=("Segoe UI", 8, "bold"), tags="box",
             )
+            if field in EDITABLE_BOX_FIELDS:
+                r = HANDLE_RADIUS
+                for cx, cy in ((x1, y1), (x2, y1), (x1, y2), (x2, y2)):
+                    self.canvas.create_rectangle(
+                        cx - r, cy - r, cx + r, cy + r,
+                        fill=color, outline="white", width=1, tags="box",
+                    )
+
+    # -- manual box editing ---------------------------------------------------
+
+    def _on_canvas_press(self, event) -> None:
+        if not self.show_boxes.get() or not self.last_boxes:
+            return
+        disp_w, disp_h = self.display_size
+        x, y = event.x, event.y
+
+        for field in EDITABLE_BOX_FIELDS:
+            box = self.last_boxes.get(field)
+            if box is None:
+                continue
+            left, top, right, bottom = box
+            x1, y1, x2, y2 = left * disp_w, top * disp_h, right * disp_w, bottom * disp_h
+            for corner, (cx, cy) in (
+                ("nw", (x1, y1)), ("ne", (x2, y1)), ("sw", (x1, y2)), ("se", (x2, y2))
+            ):
+                if abs(x - cx) <= HANDLE_RADIUS and abs(y - cy) <= HANDLE_RADIUS:
+                    self.drag_state = {"field": field, "mode": "resize", "corner": corner}
+                    return
+
+        for field in EDITABLE_BOX_FIELDS:
+            box = self.last_boxes.get(field)
+            if box is None:
+                continue
+            left, top, right, bottom = box
+            x1, y1, x2, y2 = left * disp_w, top * disp_h, right * disp_w, bottom * disp_h
+            if x1 <= x <= x2 and y1 <= y <= y2:
+                self.drag_state = {"field": field, "mode": "move", "start_mouse": (x, y), "start_box": box}
+                return
+
+        self.drag_state = None
+
+    def _on_canvas_drag(self, event) -> None:
+        if self.drag_state is None:
+            return
+        disp_w, disp_h = self.display_size
+        field = self.drag_state["field"]
+
+        if self.drag_state["mode"] == "resize":
+            left, top, right, bottom = self.last_boxes[field]
+            nx = min(max(event.x / disp_w, 0.0), 1.0)
+            ny = min(max(event.y / disp_h, 0.0), 1.0)
+            corner = self.drag_state["corner"]
+            if corner == "nw":
+                left, top = nx, ny
+            elif corner == "ne":
+                right, top = nx, ny
+            elif corner == "sw":
+                left, bottom = nx, ny
+            else:
+                right, bottom = nx, ny
+            left, right = min(left, right), max(left, right)
+            top, bottom = min(top, bottom), max(top, bottom)
+        else:
+            start_x, start_y = self.drag_state["start_mouse"]
+            sl, st, sr, sb = self.drag_state["start_box"]
+            box_w, box_h = sr - sl, sb - st
+            dx = (event.x - start_x) / disp_w
+            dy = (event.y - start_y) / disp_h
+            left = min(max(sl + dx, 0.0), 1.0 - box_w)
+            top = min(max(st + dy, 0.0), 1.0 - box_h)
+            right, bottom = left + box_w, top + box_h
+
+        self.last_boxes[field] = (left, top, right, bottom)
+        self.draw_boxes()
+
+    def _on_canvas_release(self, _event) -> None:
+        self.drag_state = None
 
     # -- OCR ------------------------------------------------------------------
 
@@ -389,8 +499,6 @@ class ReviewApp:
             self.status_var.set("OCR failed.")
             return
 
-        self.last_analysis = analysis
-        self.last_analysis_path = self.current_path
         self.last_boxes = analysis["boxes"]
 
         self.layout_var.set(analysis["layout"])
@@ -426,44 +534,126 @@ class ReviewApp:
         if not name:
             messagebox.showwarning("Missing name", "Enter a card name before saving.")
             return
-
-        self.status_var.set("Building artwork...")
-        self.root.update_idletasks()
-
-        slug = slugify(name)
-        out_dir = PROCESSED_DIR / slug
-        out_dir.mkdir(parents=True, exist_ok=True)
-
-        # build_artwork needs the erase_mask, which is specific to this exact
-        # image -- _ensure_analysis recomputes it if we don't already have
-        # one (e.g. this scan was loaded from a saved review, never re-OCR'd).
-        analysis = self._ensure_analysis()
-        artwork_rgba = build_artwork(self.current_image_bgr, analysis)
-        artwork_path = out_dir / "artwork.png"
-        cv2.imwrite(str(artwork_path), artwork_rgba)
+        if "artwork" not in self.last_boxes:
+            messagebox.showwarning("Not scanned yet", "Click 'Scan with OCR' before saving.")
+            return
+        if self.save_queue is not None:
+            return  # a save is already in flight
 
         victory_points = None
         if self.layout_var.get() == "background":
             victory_points = "X" if self.effect_category_var.get() == "victory_calc" else 1
-        results = {
-            "source": rel_display(self.current_path),
-            "layout": self.layout_var.get(),
-            "faction": self.faction_var.get().strip() or "none",
-            "effect_category": self.effect_category_var.get().strip() or None,
-            "name": name,
-            "effect_text": self.effect_text.get("1.0", "end").strip(),
-            "cost": round(self.cost_var.get()),
-            "victory_points": victory_points,
-            "regions": {field: box_to_xywh(box) for field, box in analysis["boxes"].items()},
-            "artwork_path": rel_display(artwork_path),
-        }
-        (out_dir / "results.json").write_text(
-            json.dumps(results, indent=4, ensure_ascii=False), encoding="utf-8"
+
+        # Everything the worker thread needs, read from Tk state here on the
+        # main thread -- Tk variables/widgets aren't safe to touch off-thread.
+        slug = slugify(name)
+        worker_kwargs = dict(
+            image_bgr=self.current_image_bgr,
+            boxes=dict(self.last_boxes),
+            name=name,
+            slug=slug,
+            out_dir=PROCESSED_DIR / slug,
+            source=rel_display(self.current_path),
+            layout=self.layout_var.get(),
+            faction=self.faction_var.get().strip() or "none",
+            effect_category=self.effect_category_var.get().strip() or None,
+            effect_text=self.effect_text.get("1.0", "end").strip(),
+            cost=round(self.cost_var.get()),
+            victory_points=victory_points,
         )
 
-        self.refresh_processed_index()
-        self.refresh_list()
-        self.status_var.set(f"Saved {name!r} to {rel_display(out_dir)}")
+        self.save_queue = queue.Queue()
+        self.save_button.state(["disabled"])
+        self.scan_button.state(["disabled"])
+        self.progress_bar["value"] = 0
+        self.progress_step_var.set("Starting...")
+        self.status_var.set(f"Saving {name!r}...")
+
+        threading.Thread(
+            target=self._save_worker, kwargs={**worker_kwargs, "progress_q": self.save_queue}, daemon=True
+        ).start()
+        self.root.after(80, self._poll_save_queue)
+
+    @staticmethod
+    def _save_worker(
+        *, image_bgr, boxes, name, slug, out_dir, source, layout, faction, effect_category,
+        effect_text, cost, victory_points, progress_q: queue.Queue,
+    ) -> None:
+        """Runs off the main thread -- must not touch any Tk widget/variable,
+        only the plain values it was handed and the queue to report back on."""
+        try:
+            progress_q.put(("step", "Preparing regions", 5))
+            analysis = {"boxes": boxes, "erase_mask": rebuild_erase_mask(image_bgr.shape, boxes)}
+
+            def on_step(label: str) -> None:
+                progress_q.put(("step", label, None))
+
+            artwork_rgba = build_artwork(image_bgr, analysis, on_step=on_step)
+
+            progress_q.put(("step", "Writing artwork file", 88))
+            out_dir.mkdir(parents=True, exist_ok=True)
+            artwork_path = out_dir / f"{slug}.png"
+            cv2.imwrite(str(artwork_path), artwork_rgba)
+
+            progress_q.put(("step", "Writing results.json", 95))
+            results = {
+                "source": source,
+                "layout": layout,
+                "faction": faction,
+                "effect_category": effect_category,
+                "name": name,
+                "effect_text": effect_text,
+                "cost": cost,
+                "victory_points": victory_points,
+                "regions": {field: box_to_xywh(box) for field, box in boxes.items()},
+                "artwork_path": rel_display(artwork_path),
+            }
+            (out_dir / "results.json").write_text(
+                json.dumps(results, indent=4, ensure_ascii=False), encoding="utf-8"
+            )
+
+            progress_q.put(("done", rel_display(out_dir), name))
+        except Exception as exc:
+            progress_q.put(("error", str(exc)))
+
+    def _poll_save_queue(self) -> None:
+        q = self.save_queue
+        if q is None:
+            return
+        try:
+            while True:
+                msg = q.get_nowait()
+                kind = msg[0]
+                if kind == "step":
+                    _, label, pct = msg
+                    self.progress_step_var.set(label)
+                    if pct is not None:
+                        self.progress_bar["value"] = pct
+                    else:
+                        self.progress_bar["value"] = min(self.progress_bar["value"] + 12, 88)
+                elif kind == "done":
+                    _, out_dir_str, saved_name = msg
+                    self.progress_bar["value"] = 100
+                    self.progress_step_var.set("Done.")
+                    self.save_queue = None
+                    self.save_button.state(["!disabled"])
+                    self.scan_button.state(["!disabled"])
+                    self.refresh_processed_index()
+                    self.refresh_list()
+                    self.status_var.set(f"Saved {saved_name!r} to {out_dir_str}")
+                    return
+                else:  # "error"
+                    _, err = msg
+                    self.progress_step_var.set("Failed.")
+                    self.save_queue = None
+                    self.save_button.state(["!disabled"])
+                    self.scan_button.state(["!disabled"])
+                    self.status_var.set("Save failed.")
+                    messagebox.showerror("Save failed", err)
+                    return
+        except queue.Empty:
+            pass
+        self.root.after(80, self._poll_save_queue)
 
 
 def main() -> None:
