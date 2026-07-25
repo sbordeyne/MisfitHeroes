@@ -1,0 +1,6 @@
+<Button 
+    onClick="onStartClick" 
+    width="50"
+    height="20"
+    position="-500 400 0"
+>Start</Button>

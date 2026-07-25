@@ -1,0 +1,742 @@
+[
+    {
+        "source": "assets\\raw\\20260723_124600.jpg",
+        "layout": "hero",
+        "faction_tab": null,
+        "cost": null,
+        "victory_points": null,
+        "name": "LA CES re si ER x» = PR $ 5 n ns re ir Lo ‘n ÉZ ave se 2% L- SE e CA LE a AZ + De ee NU #. LP Co ÊS & Le PEN",
+        "effect_text": null,
+        "artwork_path": "assets\\extracted\\20260723_124600.jpg"
+    },
+    {
+        "source": "assets\\raw\\20260723_132400.jpg",
+        "layout": "hero",
+        "faction_tab": null,
+        "cost": null,
+        "victory_points": null,
+        "name": "Us Buy 2 Se, Le & Fi a Lx se — ne SES Le, A a … Fe NS À sù € dti CS + 25 nu: > He",
+        "effect_text": null,
+        "artwork_path": "assets\\extracted\\20260723_132400.jpg"
+    },
+    {
+        "source": "assets\\raw\\20260723_221754.jpg",
+        "layout": "background",
+        "faction_tab": null,
+        "cost": null,
+        "victory_points": null,
+        "name": "a mn se Les . . . 2 E ‘ LT . .. : . +1",
+        "effect_text": "1 A mm ‘U",
+        "artwork_path": "assets\\extracted\\20260723_221754.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_122744.jpg",
+        "layout": "background",
+        "faction_tab": "blue",
+        "cost": "7",
+        "victory_points": "1",
+        "name": "ee NS EE SE HR A L ] Fe AVEC DIPLÔME",
+        "effect_text": "É & à",
+        "artwork_path": "assets\\extracted\\Scan_20260723_122744.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_122759.jpg",
+        "layout": "background",
+        "faction_tab": "pink",
+        "cost": "4",
+        "victory_points": "42",
+        "name": "À TENTACULE",
+        "effect_text": "LA 74 #1 N Êl . 4",
+        "artwork_path": "assets\\extracted\\Scan_20260723_122759.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_122835.jpg",
+        "layout": "background",
+        "faction_tab": "pink",
+        "cost": null,
+        "victory_points": "1",
+        "name": "F2 Pr 4 LT PACE J ex da PINPANRAITrFAMAaIg",
+        "effect_text": "| SI VOUS AVEZ PLUS DE R.. D VOTRE VOISIN(E) DE CAUS LA ALCRe _E QU . \" . €",
+        "artwork_path": "assets\\extracted\\Scan_20260723_122835.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_122846.jpg",
+        "layout": "background",
+        "faction_tab": "blue",
+        "cost": "9",
+        "victory_points": "1",
+        "name": ". MEMBRE DE SECTE |",
+        "effect_text": "TS! VOUS AVEZ 3 CARTES BK S bo OU + EN JEU, ALORS : L°",
+        "artwork_path": "assets\\extracted\\Scan_20260723_122846.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_122910.jpg",
+        "layout": "background",
+        "faction_tab": null,
+        "cost": null,
+        "victory_points": "12",
+        "name": "MARITIME",
+        "effect_text": "SI VOUS AVEZ RLUS DE Q QUE . VOTRE VOISIN(E) DE GAUCHE, ALORS . à",
+        "artwork_path": "assets\\extracted\\Scan_20260723_122910.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_122923.jpg",
+        "layout": "background",
+        "faction_tab": "pink",
+        "cost": "2",
+        "victory_points": "4",
+        "name": "an",
+        "effect_text": "- SI CETTE CARTE SE TROUVE à: DANS LA 2 COLONNE, ALORS: |",
+        "artwork_path": "assets\\extracted\\Scan_20260723_122923.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_122934.jpg",
+        "layout": "background",
+        "faction_tab": "pink",
+        "cost": "41",
+        "victory_points": "42",
+        "name": "AS ref a Us ere Le ÉECHEX. Le nm ce ADAICNÉE",
+        "effect_text": "L'OS",
+        "artwork_path": "assets\\extracted\\Scan_20260723_122934.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_123100.jpg",
+        "layout": "background",
+        "faction_tab": "blue",
+        "cost": null,
+        "victory_points": "X",
+        "name": "ADCOUITECTE",
+        "effect_text": "| . MARQUES 4 \"À D POUR ne DA CHAQUE CARTE À DANS VOTRE, È mA PLUS GRAND GROUPE DE CARTES À. À",
+        "artwork_path": "assets\\extracted\\Scan_20260723_123100.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_123140.jpg",
+        "layout": "background",
+        "faction_tab": "blue",
+        "cost": null,
+        "victory_points": "4",
+        "name": "> CÉLÉRDE",
+        "effect_text": "nn Ci",
+        "artwork_path": "assets\\extracted\\Scan_20260723_123140.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_123154.jpg",
+        "layout": "background",
+        "faction_tab": null,
+        "cost": "2",
+        "victory_points": "4",
+        "name": "COUS UYPNOSE",
+        "effect_text": "DÉFAUSSEZ O@, PUIS ACTIVEZ : CETTE CARTE DEUX FOIS:",
+        "artwork_path": "assets\\extracted\\Scan_20260723_123154.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_123209.jpg",
+        "layout": "background",
+        "faction_tab": null,
+        "cost": "48",
+        "victory_points": "X",
+        "name": "pOoST-ADO",
+        "effect_text": "| MARQUEZ 24 PUINIS FUUR CHAQUE K A AA CARTE 22 DANS VOTRE PLUS GRAND D 2 GROUPE DE CARTES 7. . à",
+        "artwork_path": "assets\\extracted\\Scan_20260723_123209.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_123223.jpg",
+        "layout": "background",
+        "faction_tab": "blue",
+        "cost": null,
+        "victory_points": "4",
+        "name": "e. ADCOUIVISTE",
+        "effect_text": "a S.",
+        "artwork_path": "assets\\extracted\\Scan_20260723_123223.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_123237.jpg",
+        "layout": "background",
+        "faction_tab": null,
+        "cost": "6",
+        "victory_points": "1",
+        "name": "DES CAVERNES",
+        "effect_text": "À 4 GAGNEZ (\\, PUIS : E",
+        "artwork_path": "assets\\extracted\\Scan_20260723_123237.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_123715.jpg",
+        "layout": "background",
+        "faction_tab": null,
+        "cost": null,
+        "victory_points": "41",
+        "name": "= SOUS RADIATIONS |",
+        "effect_text": "RECIVUURNEZ VNE AVIRE LVAKIE À DANS CETTE LIGNE, k PUIS ACTIVEZ CELLE-LÀ DEUX, FOIS :",
+        "artwork_path": "assets\\extracted\\Scan_20260723_123715.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_123729.jpg",
+        "layout": "background",
+        "faction_tab": null,
+        "cost": "3",
+        "victory_points": "4",
+        "name": "À LA RETRAITE",
+        "effect_text": "VI = DMNILRL Lot CIS VeINIE . DANS LA &4E COLONNE, ALORS : LS",
+        "artwork_path": "assets\\extracted\\Scan_20260723_123729.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_123749.jpg",
+        "layout": "background",
+        "faction_tab": null,
+        "cost": "44",
+        "victory_points": "X",
+        "name": "PERSPICACE",
+        "effect_text": "\\ MANWOQUELZ € FVINID FUUR LC | d CHAQUE CARTE Ÿ 7 DANS È CETTE LIGNE ET CETTE COLONNE. À",
+        "artwork_path": "assets\\extracted\\Scan_20260723_123749.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_132253.jpg",
+        "layout": "hero",
+        "faction_tab": "pink",
+        "cost": null,
+        "victory_points": null,
+        "name": null,
+        "effect_text": "RAMEUR",
+        "artwork_path": "assets\\extracted\\Scan_20260723_132253.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_132317.jpg",
+        "layout": "hero",
+        "faction_tab": "blue",
+        "cost": null,
+        "victory_points": null,
+        "name": null,
+        "effect_text": "MAJORDOME |",
+        "artwork_path": "assets\\extracted\\Scan_20260723_132317.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_132341.jpg",
+        "layout": "hero",
+        "faction_tab": "pink",
+        "cost": null,
+        "victory_points": null,
+        "name": null,
+        "effect_text": "ORC",
+        "artwork_path": "assets\\extracted\\Scan_20260723_132341.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_132417.jpg",
+        "layout": "hero",
+        "faction_tab": "blue",
+        "cost": null,
+        "victory_points": null,
+        "name": "D D",
+        "effect_text": "MARCHANU",
+        "artwork_path": "assets\\extracted\\Scan_20260723_132417.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_132511.jpg",
+        "layout": "hero",
+        "faction_tab": "blue",
+        "cost": null,
+        "victory_points": null,
+        "name": null,
+        "effect_text": "MAGICIEN",
+        "artwork_path": "assets\\extracted\\Scan_20260723_132511.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_132700.jpg",
+        "layout": "hero",
+        "faction_tab": "blue",
+        "cost": null,
+        "victory_points": null,
+        "name": null,
+        "effect_text": "VAGABOND",
+        "artwork_path": "assets\\extracted\\Scan_20260723_132700.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_134037.jpg",
+        "layout": "hero",
+        "faction_tab": "pink",
+        "cost": null,
+        "victory_points": null,
+        "name": null,
+        "effect_text": "FEE",
+        "artwork_path": "assets\\extracted\\Scan_20260723_134037.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_134109.jpg",
+        "layout": "background",
+        "faction_tab": "blue",
+        "cost": null,
+        "victory_points": null,
+        "name": "Re de REINE",
+        "effect_text": null,
+        "artwork_path": "assets\\extracted\\Scan_20260723_134109.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_134315.jpg",
+        "layout": "background",
+        "faction_tab": "pink",
+        "cost": null,
+        "victory_points": null,
+        "name": "TROLL",
+        "effect_text": "DS",
+        "artwork_path": "assets\\extracted\\Scan_20260723_134315.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_134602.jpg",
+        "layout": "hero",
+        "faction_tab": "pink",
+        "cost": null,
+        "victory_points": null,
+        "name": null,
+        "effect_text": "VIUVLUT L RE",
+        "artwork_path": "assets\\extracted\\Scan_20260723_134602.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_134620.jpg",
+        "layout": "hero",
+        "faction_tab": "pink",
+        "cost": null,
+        "victory_points": null,
+        "name": "À",
+        "effect_text": "UIUVLUVE A ,",
+        "artwork_path": "assets\\extracted\\Scan_20260723_134620.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_134654.jpg",
+        "layout": "background",
+        "faction_tab": "blue",
+        "cost": null,
+        "victory_points": null,
+        "name": "SEIGNEUR",
+        "effect_text": ": E rt Ter DOS mn nt te Le osseuse - PRES sert ° 7° 4 “rx et Tr | +",
+        "artwork_path": "assets\\extracted\\Scan_20260723_134654.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_134748.jpg",
+        "layout": "hero",
+        "faction_tab": "blue",
+        "cost": null,
+        "victory_points": null,
+        "name": "£ 2x Me th 2 AE ), ait gs",
+        "effect_text": "VULHIOIE",
+        "artwork_path": "assets\\extracted\\Scan_20260723_134748.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_134840.jpg",
+        "layout": "background",
+        "faction_tab": "pink",
+        "cost": null,
+        "victory_points": null,
+        "name": "PRINCE",
+        "effect_text": "FE",
+        "artwork_path": "assets\\extracted\\Scan_20260723_134840.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_134905.jpg",
+        "layout": "hero",
+        "faction_tab": "blue",
+        "cost": "7",
+        "victory_points": null,
+        "name": null,
+        "effect_text": "MINEUR",
+        "artwork_path": "assets\\extracted\\Scan_20260723_134905.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_221056.jpg",
+        "layout": "background",
+        "faction_tab": "red",
+        "cost": "18",
+        "victory_points": "X",
+        "name": "NE PrIDOIIr",
+        "effect_text": "UR MARQUEZ 7 POINTS Si VOUS AVE À d 5 CARTES QOU+EN JEU * À | JEU. À",
+        "artwork_path": "assets\\extracted\\Scan_20260723_221056.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_221113.jpg",
+        "layout": "background",
+        "faction_tab": "red",
+        "cost": "40",
+        "victory_points": "4",
+        "name": "REPTILOÏDE",
+        "effect_text": null,
+        "artwork_path": "assets\\extracted\\Scan_20260723_221113.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_221125.jpg",
+        "layout": "background",
+        "faction_tab": null,
+        "cost": "9",
+        "victory_points": "1",
+        "name": "HÉROÏQUE",
+        "effect_text": "° é st VOUS AVEZ 3 CARTES Ë. e- Se j e e.",
+        "artwork_path": "assets\\extracted\\Scan_20260723_221125.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_221138.jpg",
+        "layout": "background",
+        "faction_tab": null,
+        "cost": "5",
+        "victory_points": "1",
+        "name": "DÉMONIAQUE",
+        "effect_text": "| Ÿ DÉFAUSSEZ 2 CARTES K, PUIS ACTIVEZ CETTE CARTE DEUX FOIS : @",
+        "artwork_path": "assets\\extracted\\Scan_20260723_221138.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_221220.jpg",
+        "layout": "background",
+        "faction_tab": null,
+        "cost": null,
+        "victory_points": "4",
+        "name": "MAIRE",
+        "effect_text": "D] #",
+        "artwork_path": "assets\\extracted\\Scan_20260723_221220.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_221238.jpg",
+        "layout": "background",
+        "faction_tab": null,
+        "cost": "5",
+        "victory_points": null,
+        "name": "SYMPA",
+        "effect_text": null,
+        "artwork_path": "assets\\extracted\\Scan_20260723_221238.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_221255.jpg",
+        "layout": "background",
+        "faction_tab": "red",
+        "cost": "14",
+        "victory_points": "41",
+        "name": "MVETINEIC",
+        "effect_text": "D a D 4 D $ à | A Ca",
+        "artwork_path": "assets\\extracted\\Scan_20260723_221255.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_221313.jpg",
+        "layout": "background",
+        "faction_tab": "blue",
+        "cost": "2",
+        "victory_points": "X",
+        "name": "VÉTÉRINAIRE",
+        "effect_text": "; CHAQUE CARTE Q_ DANS VOTRE k ARE PLUS GRAND GROUPE DE CARTES @ À",
+        "artwork_path": "assets\\extracted\\Scan_20260723_221313.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_221327.jpg",
+        "layout": "background",
+        "faction_tab": null,
+        "cost": "09",
+        "victory_points": "X",
+        "name": "fahñhaaAtaInñnnir",
+        "effect_text": ": MARQUEZ 2 POINTS POUR | d CHAQUE CARTE A DU PLU E li. GRAND GROUPE DE CARTES MR. À",
+        "artwork_path": "assets\\extracted\\Scan_20260723_221327.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_221343.jpg",
+        "layout": "background",
+        "faction_tab": null,
+        "cost": "9",
+        "victory_points": "4",
+        "name": "ANORARI EC",
+        "effect_text": "- DONNEZ 1 CARTE DE VOTRE MAIN : À UN(E) ADVERSAIRE, PUIS:",
+        "artwork_path": "assets\\extracted\\Scan_20260723_221343.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_221408.jpg",
+        "layout": "background",
+        "faction_tab": "red",
+        "cost": null,
+        "victory_points": "4",
+        "name": "AVEC EXPLOSIES | |",
+        "effect_text": "RACIVURINEZ ! VANKIL LS Ÿ (AUTRE QUE CELLE-CI), puis __ ACTIVEZ CETTE CARTE DEUX FOIS:",
+        "artwork_path": "assets\\extracted\\Scan_20260723_221408.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_221424.jpg",
+        "layout": "background",
+        "faction_tab": null,
+        "cost": null,
+        "victory_points": "1",
+        "name": "BOURREAU",
+        "effect_text": "À RETOURNEZ 1 CARrE M, PUIS À ACTIVEZ CETTE CARTE DEUX FOIS : @",
+        "artwork_path": "assets\\extracted\\Scan_20260723_221424.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_221446.jpg",
+        "layout": "background",
+        "faction_tab": "red",
+        "cost": "6",
+        "victory_points": "X",
+        "name": "TOP MODEL",
+        "effect_text": "r IVANOVLE é FVIIN TD R=- DA pouce CAE Qoas À CETTE LIGNE ET GÉTTE COLONNE.",
+        "artwork_path": "assets\\extracted\\Scan_20260723_221446.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_221502.jpg",
+        "layout": "background",
+        "faction_tab": null,
+        "cost": "4",
+        "victory_points": "4",
+        "name": "À DEUX TÊTES",
+        "effect_text": "DONNEZ 1 CARTE L/ DE VOTRE MAIN: À UN(E) ADVERSAIRE, PUIS:",
+        "artwork_path": "assets\\extracted\\Scan_20260723_221502.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_221534.jpg",
+        "layout": "background",
+        "faction_tab": null,
+        "cost": "9",
+        "victory_points": "1",
+        "name": "tINIVEDÇITOIDE",
+        "effect_text": "To Si CETTE CARTE SE TIROUVE À DIRECTEMENT AU-DESSUS | D'UNE CARTE f), ALORS ; . Æ",
+        "artwork_path": "assets\\extracted\\Scan_20260723_221534.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_221609.jpg",
+        "layout": "background",
+        "faction_tab": "red",
+        "cost": "4",
+        "victory_points": "4",
+        "name": "DE LA EÔRET",
+        "effect_text": "| SI VOUS AVEZ PLUS DE QUE À ; À VOTRE VOISIN(E) DE GAUCHE, ALORS : Le",
+        "artwork_path": "assets\\extracted\\Scan_20260723_221609.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_221625.jpg",
+        "layout": "background",
+        "faction_tab": "blue",
+        "cost": "7",
+        "victory_points": "4X",
+        "name": "INCIRMIÈRE",
+        "effect_text": "DONNEZ & À UN(E) ADVERSAIRE, PUIS- . ACTIVEZ CETTE CARTE DEUX FOIS :",
+        "artwork_path": "assets\\extracted\\Scan_20260723_221625.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_221638.jpg",
+        "layout": "background",
+        "faction_tab": "red",
+        "cost": null,
+        "victory_points": "1",
+        "name": "= RÉVOLUTIONNAIRE",
+        "effect_text": "Si VOUS AVEZ 3 (| ou + EN JEU, ALORS : :",
+        "artwork_path": "assets\\extracted\\Scan_20260723_221638.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_221653.jpg",
+        "layout": "background",
+        "faction_tab": null,
+        "cost": null,
+        "victory_points": "4",
+        "name": "CUARITARIE",
+        "effect_text": "# DONNEZ (3) À UN(E) ADVERSAIRE, PUIS |)",
+        "artwork_path": "assets\\extracted\\Scan_20260723_221653.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_221705.jpg",
+        "layout": "background",
+        "faction_tab": "red",
+        "cost": "2",
+        "victory_points": null,
+        "name": "| PSYCHOPATHE",
+        "effect_text": "A7 ns SI CETTE CARIE CEST DIRECTEMENT S M AU-DESSUS D'UNE CARTE J, ALORS : %",
+        "artwork_path": "assets\\extracted\\Scan_20260723_221705.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_221803.jpg",
+        "layout": "hero",
+        "faction_tab": "blue",
+        "cost": null,
+        "victory_points": null,
+        "name": null,
+        "effect_text": "PIRAIE",
+        "artwork_path": "assets\\extracted\\Scan_20260723_221803.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_221912.jpg",
+        "layout": "hero",
+        "faction_tab": "red",
+        "cost": null,
+        "victory_points": null,
+        "name": null,
+        "effect_text": "VRINUTC",
+        "artwork_path": "assets\\extracted\\Scan_20260723_221912.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_222047.jpg",
+        "layout": "hero",
+        "faction_tab": "blue",
+        "cost": null,
+        "victory_points": null,
+        "name": null,
+        "effect_text": "RECRIINNOIE CR",
+        "artwork_path": "assets\\extracted\\Scan_20260723_222047.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_222106.jpg",
+        "layout": "hero",
+        "faction_tab": "blue",
+        "cost": null,
+        "victory_points": null,
+        "name": null,
+        "effect_text": "JOUEUR",
+        "artwork_path": "assets\\extracted\\Scan_20260723_222106.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_222124.jpg",
+        "layout": "hero",
+        "faction_tab": "red",
+        "cost": null,
+        "victory_points": null,
+        "name": "Æ",
+        "effect_text": "BARBARE",
+        "artwork_path": "assets\\extracted\\Scan_20260723_222124.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_222144.jpg",
+        "layout": "hero",
+        "faction_tab": "blue",
+        "cost": null,
+        "victory_points": null,
+        "name": null,
+        "effect_text": "MIME",
+        "artwork_path": "assets\\extracted\\Scan_20260723_222144.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_222212.jpg",
+        "layout": "hero",
+        "faction_tab": "red",
+        "cost": null,
+        "victory_points": null,
+        "name": null,
+        "effect_text": "DIABLOTIN",
+        "artwork_path": "assets\\extracted\\Scan_20260723_222212.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_222250.jpg",
+        "layout": "hero",
+        "faction_tab": "red",
+        "cost": null,
+        "victory_points": null,
+        "name": null,
+        "effect_text": "LEFRECHAUN",
+        "artwork_path": "assets\\extracted\\Scan_20260723_222250.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_223252.jpg",
+        "layout": "hero",
+        "faction_tab": "pink",
+        "cost": null,
+        "victory_points": null,
+        "name": "SN ASS Li",
+        "effect_text": "GOBELIN",
+        "artwork_path": "assets\\extracted\\Scan_20260723_223252.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_223325.jpg",
+        "layout": "hero",
+        "faction_tab": "blue",
+        "cost": null,
+        "victory_points": null,
+        "name": null,
+        "effect_text": "LENERAL",
+        "artwork_path": "assets\\extracted\\Scan_20260723_223325.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_223340.jpg",
+        "layout": "hero",
+        "faction_tab": "pink",
+        "cost": null,
+        "victory_points": null,
+        "name": null,
+        "effect_text": "RURJTLR LUI TN",
+        "artwork_path": "assets\\extracted\\Scan_20260723_223340.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_223402.jpg",
+        "layout": "hero",
+        "faction_tab": "pink",
+        "cost": null,
+        "victory_points": null,
+        "name": null,
+        "effect_text": "FAUNE CE",
+        "artwork_path": "assets\\extracted\\Scan_20260723_223402.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_223435.jpg",
+        "layout": "hero",
+        "faction_tab": "blue",
+        "cost": null,
+        "victory_points": null,
+        "name": null,
+        "effect_text": "ASSASSIN",
+        "artwork_path": "assets\\extracted\\Scan_20260723_223435.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_223510.jpg",
+        "layout": "hero",
+        "faction_tab": "blue",
+        "cost": null,
+        "victory_points": null,
+        "name": null,
+        "effect_text": "DUC",
+        "artwork_path": "assets\\extracted\\Scan_20260723_223510.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_223550.jpg",
+        "layout": "hero",
+        "faction_tab": "pink",
+        "cost": null,
+        "victory_points": null,
+        "name": null,
+        "effect_text": "VAMPIRE",
+        "artwork_path": "assets\\extracted\\Scan_20260723_223550.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_223604.jpg",
+        "layout": "hero",
+        "faction_tab": "blue",
+        "cost": null,
+        "victory_points": null,
+        "name": null,
+        "effect_text": "EOUKUL",
+        "artwork_path": "assets\\extracted\\Scan_20260723_223604.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_223655.jpg",
+        "layout": "hero",
+        "faction_tab": "blue",
+        "cost": null,
+        "victory_points": null,
+        "name": null,
+        "effect_text": "GAMEUSE",
+        "artwork_path": "assets\\extracted\\Scan_20260723_223655.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_223712.jpg",
+        "layout": "hero",
+        "faction_tab": "pink",
+        "cost": null,
+        "victory_points": null,
+        "name": null,
+        "effect_text": "CHAROGNARD",
+        "artwork_path": "assets\\extracted\\Scan_20260723_223712.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_223742.jpg",
+        "layout": "hero",
+        "faction_tab": "pink",
+        "cost": null,
+        "victory_points": null,
+        "name": "I [UE",
+        "effect_text": "LICORNE",
+        "artwork_path": "assets\\extracted\\Scan_20260723_223742.jpg"
+    },
+    {
+        "source": "assets\\raw\\Scan_20260723_223804.jpg",
+        "layout": "hero",
+        "faction_tab": "pink",
+        "cost": null,
+        "victory_points": null,
+        "name": null,
+        "effect_text": "FANIUME",
+        "artwork_path": "assets\\extracted\\Scan_20260723_223804.jpg"
+    }
+]

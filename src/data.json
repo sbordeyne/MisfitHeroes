@@ -1,0 +1,238 @@
+{
+    "heroes": [
+        {
+            "name": "Baron",
+            "cost": 0,
+            "effect": {
+                "text": "Gagnez :5g: pour chacun de vos :human: en jeu."
+            },
+            "faction": "human",
+            "artwork_url": "assets/fg/fg_baron.png"
+        },
+        {
+            "name": "Blob",
+            "cost": null,
+            "effect": { "text": null },
+            "faction": null,
+            "artwork_url": "assets/fg/fg_blob.png"
+        },
+        {
+            "name": "Chasseuse",
+            "cost": null,
+            "effect": { "text": null },
+            "faction": null,
+            "artwork_url": "assets/fg/fg_chasseuse.png"
+        },
+        {
+            "name": "Genie",
+            "cost": null,
+            "effect": { "text": null },
+            "faction": null,
+            "artwork_url": "assets/fg/fg_genie.png"
+        },
+        {
+            "name": "Golem",
+            "cost": null,
+            "effect": { "text": null },
+            "faction": null,
+            "artwork_url": "assets/fg/fg_golem.png"
+        },
+        {
+            "name": "Kobold",
+            "cost": null,
+            "effect": { "text": null },
+            "faction": null,
+            "artwork_url": "assets/fg/fg_kobold.png"
+        },
+        {
+            "name": "Moine",
+            "cost": null,
+            "effect": { "text": null },
+            "faction": null,
+            "artwork_url": "assets/fg/fg_moine.png"
+        },
+        {
+            "name": "Nain",
+            "cost": null,
+            "effect": { "text": null },
+            "faction": null,
+            "artwork_url": "assets/fg/fg_nain.png"
+        },
+        {
+            "name": "Scientifique",
+            "cost": null,
+            "effect": { "text": null },
+            "faction": null,
+            "artwork_url": "assets/fg/fg_scientifique.png"
+        },
+        {
+            "name": "Vicomte",
+            "cost": null,
+            "effect": { "text": null },
+            "faction": null,
+            "artwork_url": "assets/fg/fg_vicomte.png"
+        }
+    ],
+    "backgrounds": [
+        {
+            "name": "Angelique",
+            "cost": null,
+            "victoryPoints": null,
+            "effect": { "category": null, "text": null },
+            "faction": null,
+            "artwork_url": "assets/bg/bg_angelique.jpg"
+        },
+        {
+            "name": "Antique",
+            "cost": null,
+            "victoryPoints": null,
+            "effect": { "category": null, "text": null },
+            "faction": null,
+            "artwork_url": "assets/bg/bg_antique.jpg"
+        },
+        {
+            "name": "Athletique",
+            "cost": null,
+            "victoryPoints": null,
+            "effect": { "category": null, "text": null },
+            "faction": null,
+            "artwork_url": "assets/bg/bg_athletique.jpg"
+        },
+        {
+            "name": "Danslenoir",
+            "cost": null,
+            "victoryPoints": null,
+            "effect": { "category": null, "text": null },
+            "faction": null,
+            "artwork_url": "assets/bg/bg_danslenoir.jpg"
+        },
+        {
+            "name": "Desmarais",
+            "cost": null,
+            "victoryPoints": null,
+            "effect": { "category": null, "text": null },
+            "faction": null,
+            "artwork_url": "assets/bg/bg_desmarais.jpg"
+        },
+        {
+            "name": "Ermite",
+            "cost": null,
+            "victoryPoints": null,
+            "effect": { "category": null, "text": null },
+            "faction": null,
+            "artwork_url": "assets/bg/bg_ermite.jpg"
+        },
+        {
+            "name": "Ko",
+            "cost": null,
+            "victoryPoints": null,
+            "effect": { "category": null, "text": null },
+            "faction": null,
+            "artwork_url": "assets/bg/bg_ko.jpg"
+        },
+        {
+            "name": "Parlementaire",
+            "cost": null,
+            "victoryPoints": null,
+            "effect": { "category": null, "text": null },
+            "faction": null,
+            "artwork_url": "assets/bg/bg_parlementaire.jpg"
+        },
+        {
+            "name": "Psychiatre",
+            "cost": null,
+            "victoryPoints": null,
+            "effect": { "category": null, "text": null },
+            "faction": null,
+            "artwork_url": "assets/bg/bg_psychiatre.jpg"
+        },
+        {
+            "name": "Troglodyte",
+            "cost": null,
+            "victoryPoints": null,
+            "effect": { "category": null, "text": null },
+            "faction": null,
+            "artwork_url": "assets/bg/bg_troglodyte.jpg"
+        }
+    ],
+    "cardBacks": {
+        "hero": "assets/fg/fg_card_back.png",
+        "background": "assets/bg/bg_card_back.jpg"
+    },
+    "rawScans": [
+        "assets/raw/20260723_124600.jpg",
+        "assets/raw/20260723_132400.jpg",
+        "assets/raw/20260723_221754.jpg",
+        "assets/raw/Scan_20260723_122744.jpg",
+        "assets/raw/Scan_20260723_122759.jpg",
+        "assets/raw/Scan_20260723_122835.jpg",
+        "assets/raw/Scan_20260723_122846.jpg",
+        "assets/raw/Scan_20260723_122910.jpg",
+        "assets/raw/Scan_20260723_122923.jpg",
+        "assets/raw/Scan_20260723_122934.jpg",
+        "assets/raw/Scan_20260723_123100.jpg",
+        "assets/raw/Scan_20260723_123140.jpg",
+        "assets/raw/Scan_20260723_123154.jpg",
+        "assets/raw/Scan_20260723_123209.jpg",
+        "assets/raw/Scan_20260723_123223.jpg",
+        "assets/raw/Scan_20260723_123237.jpg",
+        "assets/raw/Scan_20260723_123715.jpg",
+        "assets/raw/Scan_20260723_123729.jpg",
+        "assets/raw/Scan_20260723_123749.jpg",
+        "assets/raw/Scan_20260723_132253.jpg",
+        "assets/raw/Scan_20260723_132317.jpg",
+        "assets/raw/Scan_20260723_132341.jpg",
+        "assets/raw/Scan_20260723_132417.jpg",
+        "assets/raw/Scan_20260723_132511.jpg",
+        "assets/raw/Scan_20260723_132700.jpg",
+        "assets/raw/Scan_20260723_134037.jpg",
+        "assets/raw/Scan_20260723_134109.jpg",
+        "assets/raw/Scan_20260723_134315.jpg",
+        "assets/raw/Scan_20260723_134602.jpg",
+        "assets/raw/Scan_20260723_134620.jpg",
+        "assets/raw/Scan_20260723_134654.jpg",
+        "assets/raw/Scan_20260723_134748.jpg",
+        "assets/raw/Scan_20260723_134840.jpg",
+        "assets/raw/Scan_20260723_134905.jpg",
+        "assets/raw/Scan_20260723_221056.jpg",
+        "assets/raw/Scan_20260723_221113.jpg",
+        "assets/raw/Scan_20260723_221125.jpg",
+        "assets/raw/Scan_20260723_221138.jpg",
+        "assets/raw/Scan_20260723_221220.jpg",
+        "assets/raw/Scan_20260723_221238.jpg",
+        "assets/raw/Scan_20260723_221255.jpg",
+        "assets/raw/Scan_20260723_221313.jpg",
+        "assets/raw/Scan_20260723_221327.jpg",
+        "assets/raw/Scan_20260723_221343.jpg",
+        "assets/raw/Scan_20260723_221408.jpg",
+        "assets/raw/Scan_20260723_221424.jpg",
+        "assets/raw/Scan_20260723_221446.jpg",
+        "assets/raw/Scan_20260723_221502.jpg",
+        "assets/raw/Scan_20260723_221534.jpg",
+        "assets/raw/Scan_20260723_221609.jpg",
+        "assets/raw/Scan_20260723_221625.jpg",
+        "assets/raw/Scan_20260723_221638.jpg",
+        "assets/raw/Scan_20260723_221653.jpg",
+        "assets/raw/Scan_20260723_221705.jpg",
+        "assets/raw/Scan_20260723_221803.jpg",
+        "assets/raw/Scan_20260723_221912.jpg",
+        "assets/raw/Scan_20260723_222047.jpg",
+        "assets/raw/Scan_20260723_222106.jpg",
+        "assets/raw/Scan_20260723_222124.jpg",
+        "assets/raw/Scan_20260723_222144.jpg",
+        "assets/raw/Scan_20260723_222212.jpg",
+        "assets/raw/Scan_20260723_222250.jpg",
+        "assets/raw/Scan_20260723_223252.jpg",
+        "assets/raw/Scan_20260723_223325.jpg",
+        "assets/raw/Scan_20260723_223340.jpg",
+        "assets/raw/Scan_20260723_223402.jpg",
+        "assets/raw/Scan_20260723_223435.jpg",
+        "assets/raw/Scan_20260723_223510.jpg",
+        "assets/raw/Scan_20260723_223550.jpg",
+        "assets/raw/Scan_20260723_223604.jpg",
+        "assets/raw/Scan_20260723_223655.jpg",
+        "assets/raw/Scan_20260723_223712.jpg",
+        "assets/raw/Scan_20260723_223742.jpg",
+        "assets/raw/Scan_20260723_223804.jpg"
+    ]
+}

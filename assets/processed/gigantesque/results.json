@@ -1,0 +1,55 @@
+{
+    "source": "assets/raw/Scan_20260723_122835.jpg",
+    "layout": "background",
+    "faction": "monster",
+    "effect_category": "condition",
+    "name": "GIGANTESQUE",
+    "effect_text": "SI VOUS AVEZ PLUS DE :m: QUE\nVOTRE VOISIN(E) DE GAUCHE, ALORS :",
+    "cost": 1,
+    "victory_points": 1,
+    "regions": {
+        "cost": {
+            "x": 0.0,
+            "y": 0.0,
+            "width": 0.17,
+            "height": 0.12
+        },
+        "victory_points": {
+            "x": 0.83,
+            "y": 0.0,
+            "width": 0.17,
+            "height": 0.12
+        },
+        "faction_tab": {
+            "x": 0.0,
+            "y": 0.15,
+            "width": 0.19,
+            "height": 0.45
+        },
+        "effect_category": {
+            "x": 0.07,
+            "y": 0.76,
+            "width": 0.13,
+            "height": 0.1
+        },
+        "artwork": {
+            "x": 0.0,
+            "y": 0.0,
+            "width": 1.0,
+            "height": 0.7143
+        },
+        "name": {
+            "x": 0.12,
+            "y": 0.63,
+            "width": 0.76,
+            "height": 0.13
+        },
+        "effect": {
+            "x": 0.03,
+            "y": 0.76,
+            "width": 0.97,
+            "height": 0.18
+        }
+    },
+    "artwork_path": "assets/processed/gigantesque/artwork.png"
+}
