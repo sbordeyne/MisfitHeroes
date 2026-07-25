@@ -529,6 +529,114 @@
       "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/vicomte.png",
       "points": -1,
       "layout": "foregrounds"
+    },
+    {
+      "name": "CYCLOPE",
+      "cost": 3,
+      "effect": {
+        "text": "GAGNEZ :water: :rock: :rock:",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/cyclope.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "FÉE",
+      "cost": 3,
+      "effect": {
+        "text": "GAGNEZ :resource: :resource:",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/fee.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "MAGICIEN",
+      "cost": 1,
+      "effect": {
+        "text": "GAGNEZ :resource:, PUIS DEFAUSSEZ\nENTRE 0 ET 3 :resource: ET GAGNEZ :resource:\nPOUR CHAQUE :resource: AINSI DEFAUSSEE",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/magicien.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "MAJORDOME",
+      "cost": 4,
+      "effect": {
+        "text": "ACTIVEZ LA CARTE\nDIRECTEMENT A GAUCHE DE CELLE-CI",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/majordome.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "MARCHAND",
+      "cost": 0,
+      "effect": {
+        "text": "DEFAUSSEZ ENTRE 0 ET 4 :resource:. GAGNEZ 20:g:\nPOUR CHAQUE :resource: DEFAUSSEE CE TOUR",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/marchand.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "ORC",
+      "cost": 6,
+      "effect": {
+        "text": "GAGNEZ :leaf: :leaf: :leaf: OU 30:g:",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/orc.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "RAMEUR",
+      "cost": 16,
+      "effect": {
+        "text": "RETOURNEZ CETTE CARTE,\nPUIS ACTIVEZ TOUTES LES AUTRES CARTES\nDE CETTE LIGNE.",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/rameur.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "TROLL",
+      "cost": 3,
+      "effect": {
+        "text": "GAGNEZ :leaf: :leaf: :water:",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/troll.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "VAGABOND",
+      "cost": 1,
+      "effect": {
+        "text": "GAGNEZ 5:g: ET PIOCHEZ 2 CARTES.",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/vagabond.png",
+      "points": -1,
+      "layout": "foregrounds"
     }
   ]
 }
