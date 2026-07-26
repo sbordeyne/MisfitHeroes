@@ -4,6 +4,22 @@ end
 
 State = {}
 
+local function copyTableWithKeyChanged(t, key, newValue)
+    local t2 = {}
+    for k,v in pairs(t) do
+        if type(v) == "table" then
+            t2[k] = copyTableWithKeyChanged(v, key, newValue)
+        else
+            if k == key then
+                t2[k] = newValue
+            else
+                t2[k] = v
+            end
+        end
+    end
+    return t2
+end
+
 -- Fractional (x, y) center of each resource's token icon on the board's
 -- face texture (assets/board.png, 1072x1400px), as (pixelX / width,
 -- pixelY / height). Same left-to-right / top-to-bottom convention as
@@ -39,11 +55,20 @@ end
 
 function onLoad(saved_data)
     --Checks if there is a saved data. If there is, it gets the saved value for 'count'
-    if saved_data ~= '' then
-        local loaded_data = JSON.decode(saved_data)
+    -- (an object that's never been saved gets nil here, not ''; and a save
+    -- taken while State was itself nil round-trips as the string "null",
+    -- which decodes back to nil -- so the decoded result needs checking too,
+    -- not just the raw saved_data string, or a corrupted save stays corrupted)
+    local loaded_data = nil
+    if saved_data ~= nil and saved_data ~= '' then
+        loaded_data = JSON.decode(saved_data)
+    end
+
+    if loaded_data ~= nil and #loaded_data > 0 then
+        printToAll("State : "..JSON.encode(loaded_data))
         State = loaded_data
     else
-        local player_order = tonumber(self.getDescription())
+        local player_order = 1
         State = {
             order = player_order,
             money = 35 + 5 * (player_order - 1),
@@ -54,145 +79,96 @@ function onLoad(saved_data)
             cards = {},
         }
     end
-    b_display_leaf = generateButtons("leaf", TOKEN_FRAC.leaf, {1})
-    b_display_rock = generateButtons("rock", TOKEN_FRAC.rock, {1})
-    b_display_water = generateButtons("water", TOKEN_FRAC.water, {1})
-    b_display_money = generateButtons("money", TOKEN_FRAC.money, {1, 5, 10})
-    b_display_points = generateButtons("points", TOKEN_FRAC.points, {})
+
+    b_display_leaf = generateButton("leaf")
+    b_display_rock = generateButton("rock")
+    b_display_water = generateButton("water")
+    b_display_money = generateButton("money")
+    b_display_points = generateButton("points")
 end
 
-function increase_leaf()
-    State.leaf = State.leaf + 1
+function on_btn_money(obj, color, alt_click)
+    if alt_click then
+        if State.money > 0 then
+            State = copyTableWithKeyChanged(State, "money", State.money - 1)
+        end
+    else
+        State = copyTableWithKeyChanged(State, "money", State.money + 1)
+    end
+    b_display_money.label = tostring(State.money)
+    obj.editButton(b_display_money)
+end
+
+function on_btn_leaf(obj, color, alt_click)
+    if alt_click then
+        if State.leaf > 0 then
+            State = copyTableWithKeyChanged(State, "leaf", State.leaf - 1)
+        end
+    else
+        State = copyTableWithKeyChanged(State, "leaf", State.leaf + 1)
+    end
     b_display_leaf.label = tostring(State.leaf)
-    self.editButton(b_display_leaf)
+    obj.editButton(b_display_leaf)
 end
 
-function increase_rock()
-    State.rock = State.rock + 1
+function on_btn_rock(obj, color, alt_click)
+    if alt_click then
+        if State.rock > 0 then
+            State = copyTableWithKeyChanged(State, "rock", State.rock - 1)
+        end
+    else
+        State = copyTableWithKeyChanged(State, "rock", State.rock + 1)
+    end
     b_display_rock.label = tostring(State.rock)
-    self.editButton(b_display_rock)
+    obj.editButton(b_display_rock)
 end
 
-function increase_water()
-    State.water = State.water + 1
+function on_btn_water(obj, color, alt_click)
+    if alt_click then
+        if State.water > 0 then
+            State = copyTableWithKeyChanged(State, "water", State.water - 1)
+        end
+    else
+        State = copyTableWithKeyChanged(State, "water", State.water + 1)
+    end
     b_display_water.label = tostring(State.water)
-    self.editButton(b_display_water)
+    obj.editButton(b_display_water)
 end
 
-function increase_money()
-    State.money = State.money + 1
-    b_display_money.label = tostring(State.money)
-    self.editButton(b_display_money)
-end
-
-function decrease_leaf()
-    if State.leaf > 0 then
-        State.leaf = State.leaf - 1
-        b_display_leaf.label = tostring(State.leaf)
-        self.editButton(b_display_leaf)
-    end
-end
-
-function decrease_rock()
-    if State.rock > 0 then
-        State.rock = State.rock - 1
-        b_display_rock.label = tostring(State.rock)
-        self.editButton(b_display_rock)
-    end
-end
-
-function decrease_water()
-    if State.water > 0 then
-        State.water = State.water - 1
-        b_display_water.label = tostring(State.water)
-        self.editButton(b_display_water)
-    end
-end
-
-function decrease_money()
-    if State.money > 0 then
-        State.money = State.money - 1
-        b_display_money.label = tostring(State.money)
-        self.editButton(b_display_money)
-    end
-end
-
-function increase5_money()
-    State.money = State.money + 5
-    b_display_money.label = tostring(State.money)
-    self.editButton(b_display_money)
-end
-
-function decrease5_money()
-    if State.money >= 5 then
-        State.money = State.money - 5
-        b_display_money.label = tostring(State.money)
-        self.editButton(b_display_money)
-    end
-end
-
-function increase10_money()
-    State.money = State.money + 10
-    b_display_money.label = tostring(State.money)
-    self.editButton(b_display_money)
-end
-
-function decrease10_money()
-    if State.money >= 10 then
-        State.money = State.money - 10
-        b_display_money.label = tostring(State.money)
-        self.editButton(b_display_money)
-    end
+function on_btn_points(obj, color, alt_click)
 end
 
 
-function doNothing()
-end
-
--- Measured live via the diagnostic print: this board's local (unscaled)
--- footprint is about 4.49 x 4.98 units (getBounds().size {21.1, 0.15, 23.4}
--- / getScale() {4.7, 1, 4.7}), and adjacent tokens sit only ~0.9-1.0 units
--- apart in that space. The old +/- offset (0.75) was sized for a much
--- bigger assumed board and reached almost all the way into the next
--- resource's buttons -- that's what "all over the place" was. These are
--- sized to fit inside that ~0.9 unit gap instead.
-local PLUS_MINUS_X_OFFSET = 0.16
-local PLUS_MINUS_Z_BASE = 0.06
-local PLUS_MINUS_Z_STEP = 0.12
+-- editButton() requires `index` to know which existing button to update --
+-- "the only parameter that is required is the index" -- but createButton()
+-- doesn't accept an index; it's auto-assigned by creation order (0, 1, 2...)
+-- and can't be read back. Since onLoad always creates buttons in the same
+-- fixed order, this tracks what that auto-assigned index will be so it can
+-- be stored on b_display for later editButton() calls. Without it,
+-- editButton had no way to identify the right button, which is what showed
+-- up as the button "moving to the cursor".
+local nextButtonIndex = 0
 
 -- tokenFrac: {x, y} fractional position of the resource's token icon on
 -- the board texture (see TOKEN_FRAC). The count display is anchored just
 -- "above" it (DISPLAY_OFFSET_FRAC); the +/- buttons flank the display the
 -- same way they always have, just relative to that anchor instead of a
 -- fixed slot.
-function generateButtons(resource, tokenFrac, increments)
-    printToAll("State : "..JSON.encode(State))
-    local resource_count = 0
-    if increments == nil then
-        increments = {1}
-    end
-
+function generateButton(resource)
+    local tokenFrac = TOKEN_FRAC[resource]
+    local resource_count = State[resource]
     local anchor = fracToLocal(tokenFrac.x, tokenFrac.y + DISPLAY_OFFSET_FRAC, 0.1)
-
-    local b_display = {
-        click_function = 'doNothing', function_owner = self, label = tostring(resource_count),
-        position = anchor, width = 100, height = 100, font_size = 70
-    }
-    for i, increment in ipairs(increments) do
-        local b_plus = {
-            click_function = 'increase'..increment..'_'..resource, function_owner = self, label =  '+'..increment,
-            position = {anchor[1] + PLUS_MINUS_X_OFFSET, anchor[2], anchor[3] + PLUS_MINUS_Z_BASE - (i-1)*PLUS_MINUS_Z_STEP},
-            width = 50, height = 70, font_size = 40
-        }
-        local b_minus = {
-            click_function = 'decrease'..increment..'_'..resource, function_owner = self, label =  '-'..increment,
-            position = {anchor[1] - PLUS_MINUS_X_OFFSET, anchor[2], anchor[3] + PLUS_MINUS_Z_BASE - (i-1)*PLUS_MINUS_Z_STEP},
-            width = 50, height = 70, font_size = 40
-        }
-        self.createButton(b_plus)
-        self.createButton(b_minus)
+    local tooltip = "LMB +1\nRMB -1"
+    if resource == "points" then
+        tooltip = ""
     end
-
+    local b_display = {
+        click_function = 'on_btn_'..resource, function_owner = self, label = tostring(resource_count),
+        position = anchor, width = 100, height = 100, font_size = 70,
+        tooltip = tooltip,
+    }
+    b_display.index = nextButtonIndex
     self.createButton(b_display)
+    nextButtonIndex = nextButtonIndex + 1
     return b_display
 end
