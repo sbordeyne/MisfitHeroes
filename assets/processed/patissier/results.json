@@ -1,11 +1,11 @@
 {
-    "source": "assets/raw/Scan_20260725_120030.jpg",
+    "source": "assets/raw/Scan_20260725_192800.jpg",
     "layout": "foreground",
     "faction": "human",
     "effect_category": null,
-    "name": "VOLEUR",
-    "effect_text": "GAGNEZ 20 :g: .",
-    "cost": 1,
+    "name": "PÂTISSIER",
+    "effect_text": "GAGNEZ :resource: :resource: DE DIFFÉRENTS TYPES.",
+    "cost": 2,
     "victory_points": null,
     "regions": {
         "artwork": {
@@ -39,5 +39,5 @@
             "height": 0.11
         }
     },
-    "artwork_path": "assets/processed/voleur/voleur.png"
+    "artwork_path": "assets/processed/patissier/patissier.png"
 }

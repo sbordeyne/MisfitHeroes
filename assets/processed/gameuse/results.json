@@ -1,0 +1,43 @@
+{
+    "source": "assets/raw/Scan_20260723_223655.jpg",
+    "layout": "hero",
+    "faction": "human",
+    "effect_category": null,
+    "name": "GAMEUSE",
+    "effect_text": "ACTIVEZ 1 DE VOS CARTES :victory_calc:.",
+    "cost": 5,
+    "victory_points": null,
+    "regions": {
+        "artwork": {
+            "x": 0.0,
+            "y": 0.0,
+            "width": 1.0,
+            "height": 0.7143
+        },
+        "cost": {
+            "x": 0.0234,
+            "y": 0.1168,
+            "width": 0.111,
+            "height": 0.0712
+        },
+        "faction_tab": {
+            "x": 0.0175,
+            "y": 0.1944,
+            "width": 0.1288,
+            "height": 0.4422
+        },
+        "name": {
+            "x": 0.3971,
+            "y": 0.5046,
+            "width": 0.0158,
+            "height": 0.0094
+        },
+        "effect": {
+            "x": 0.3734,
+            "y": 0.6612,
+            "width": 0.2341,
+            "height": 0.0584
+        }
+    },
+    "artwork_path": "assets/processed/gameuse/gameuse.png"
+}

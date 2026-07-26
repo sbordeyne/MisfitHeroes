@@ -1,11 +1,11 @@
 {
-    "source": "assets/raw/Scan_20260725_120030.jpg",
+    "source": "assets/raw/Scan_20260725_193126.jpg",
     "layout": "foreground",
     "faction": "human",
     "effect_category": null,
-    "name": "VOLEUR",
-    "effect_text": "GAGNEZ 20 :g: .",
-    "cost": 1,
+    "name": "SOLDAT",
+    "effect_text": "GAGNEZ :leaf: :water: .",
+    "cost": null,
     "victory_points": null,
     "regions": {
         "artwork": {
@@ -13,12 +13,6 @@
             "y": 0.0,
             "width": 1.0,
             "height": 0.85
-        },
-        "cost": {
-            "x": 0.0399,
-            "y": 0.0203,
-            "width": 0.1148,
-            "height": 0.0978
         },
         "faction_tab": {
             "x": 0.058,
@@ -39,5 +33,5 @@
             "height": 0.11
         }
     },
-    "artwork_path": "assets/processed/voleur/voleur.png"
+    "artwork_path": "assets/processed/soldat/soldat.png"
 }

@@ -1,10 +1,10 @@
 {
-    "source": "assets/raw/Scan_20260725_120030.jpg",
+    "source": "assets/raw/Scan_20260725_193147.jpg",
     "layout": "foreground",
     "faction": "human",
     "effect_category": null,
-    "name": "VOLEUR",
-    "effect_text": "GAGNEZ 20 :g: .",
+    "name": "CRIEUR PUBLIC",
+    "effect_text": "CHOISISSEZ ENTRE : TOUS LES JOUEURS PIOCHENT 1 CARTE ET VOUS GAGNEZ 30 :g: ; OU TOUS LES JOUEURS GAGNENT 10 :g: ET VOUS PIOCHEZ 3 CARTES.",
     "cost": 1,
     "victory_points": null,
     "regions": {
@@ -39,5 +39,5 @@
             "height": 0.11
         }
     },
-    "artwork_path": "assets/processed/voleur/voleur.png"
+    "artwork_path": "assets/processed/crieur_public/crieur_public.png"
 }

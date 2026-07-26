@@ -1,10 +1,10 @@
 {
-    "source": "assets/raw/Scan_20260725_120030.jpg",
+    "source": "assets/raw/Scan_20260725_192238.jpg",
     "layout": "foreground",
-    "faction": "human",
+    "faction": "monster",
     "effect_category": null,
-    "name": "VOLEUR",
-    "effect_text": "GAGNEZ 20 :g: .",
+    "name": "COLPORTEUR",
+    "effect_text": "PIOCHEZ 2 CARTES. DÉFAUSSEZ AUTANT DE CARTES QUE SOUHAITÉ. GAGNEZ 5 :g: POUR CHAQUE CARTE AINSI DÉFAUSSÉE.",
     "cost": 1,
     "victory_points": null,
     "regions": {
@@ -39,5 +39,5 @@
             "height": 0.11
         }
     },
-    "artwork_path": "assets/processed/voleur/voleur.png"
+    "artwork_path": "assets/processed/colporteur/colporteur.png"
 }

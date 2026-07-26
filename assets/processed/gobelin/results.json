@@ -1,0 +1,31 @@
+{
+    "source": "assets/raw/Scan_20260723_223252.jpg",
+    "layout": "hero",
+    "faction": "monster",
+    "effect_category": null,
+    "name": "GOBELIN",
+    "effect_text": "GAGNEZ :leaf: :rock:.",
+    "cost": 0,
+    "victory_points": null,
+    "regions": {
+        "artwork": {
+            "x": 0.0,
+            "y": 0.0,
+            "width": 1.0,
+            "height": 0.7143
+        },
+        "name": {
+            "x": 0.3913,
+            "y": 0.5386,
+            "width": 0.1909,
+            "height": 0.1414
+        },
+        "effect": {
+            "x": 0.3867,
+            "y": 0.6699,
+            "width": 0.1848,
+            "height": 0.0404
+        }
+    },
+    "artwork_path": "assets/processed/gobelin/gobelin.png"
+}

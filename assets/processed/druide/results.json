@@ -1,11 +1,11 @@
 {
-    "source": "assets/raw/Scan_20260725_120030.jpg",
+    "source": "assets/raw/Scan_20260725_192059.jpg",
     "layout": "foreground",
     "faction": "human",
     "effect_category": null,
-    "name": "VOLEUR",
-    "effect_text": "GAGNEZ 20 :g: .",
-    "cost": 1,
+    "name": "DRUIDE",
+    "effect_text": "RECRUTEZ 1 CARTE :monster: POUR 8 :g: DE MOINS (MAIS PAS MOINS DE 0 :g: ).",
+    "cost": 2,
     "victory_points": null,
     "regions": {
         "artwork": {
@@ -39,5 +39,5 @@
             "height": 0.11
         }
     },
-    "artwork_path": "assets/processed/voleur/voleur.png"
+    "artwork_path": "assets/processed/druide/druide.png"
 }

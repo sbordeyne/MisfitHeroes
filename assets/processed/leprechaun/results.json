@@ -1,0 +1,43 @@
+{
+    "source": "assets/raw/Scan_20260723_222250.jpg",
+    "layout": "hero",
+    "faction": "monster",
+    "effect_category": null,
+    "name": "LEPRECHAUN",
+    "effect_text": "GAGNEZ 30:g: ou :resource: :resource:",
+    "cost": 4,
+    "victory_points": null,
+    "regions": {
+        "artwork": {
+            "x": 0.0,
+            "y": 0.0,
+            "width": 1.0,
+            "height": 0.7143
+        },
+        "cost": {
+            "x": 0.0458,
+            "y": 0.1081,
+            "width": 0.131,
+            "height": 0.073
+        },
+        "faction_tab": {
+            "x": 0.0186,
+            "y": 0.1889,
+            "width": 0.1659,
+            "height": 0.4411
+        },
+        "name": {
+            "x": 0.4119,
+            "y": 0.48,
+            "width": 0.1938,
+            "height": 0.014
+        },
+        "effect": {
+            "x": 0.3697,
+            "y": 0.6616,
+            "width": 0.2686,
+            "height": 0.0408
+        }
+    },
+    "artwork_path": "assets/processed/leprechaun/leprechaun.png"
+}
