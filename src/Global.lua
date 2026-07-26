@@ -6,6 +6,7 @@
 
 -- #include Card
 -- #include PlayerGrid
+-- #include ControlPanel
 
 -- Faction constants. A hero and background of different factions combine into "purple".
 local FACTION = {
@@ -321,101 +322,14 @@ function onPlayerChangeColor(color)
 end
 
 -- ==============================================
--- World-space control panel (Start button + extension toggles)
+-- World-space control panel (see src/ControlPanel.lua)
 -- ==============================================
--- Placeholder position -- needs tuning against the actual table asset, same
--- as RING_RADIUS above.
-local CONTROL_PANEL_POS = { x = 0, y = 1, z = -14 }
-
--- Extension key -> enabled. "base" is the only extension that currently
--- exists; add new keys to both this table and EXTENSION_ORDER as they're
--- built.
-Extensions = { base = true }
-local EXTENSION_ORDER = { "base" }
-
-local controlPanel
-
-function buildControlPanel()
-    controlPanel = spawnObject({
-        type = "BlockSquare",
-        position = CONTROL_PANEL_POS,
-        rotation = { 0, 0, 0 },
-        scale = { 4, 0.1, 2 },
-    })
-    controlPanel.setName("MisfitControlPanel")
-    controlPanel.setColorTint({ 0.1, 0.1, 0.12 })
-    controlPanel.setLock(true)
-    controlPanel.interactable = false
-
-    refreshControlPanelUI()
-end
-
-function refreshControlPanelUI()
-    local children = {
-        { tag = "Text", attributes = { text = "MISFIT HEROES", fontSize = "26", color = "#FFFFFF" } },
-        {
-            tag = "Button",
-            attributes = {
-                id = "start_button",
-                onClick = "Global/onStartClick",
-                width = "160",
-                height = "50",
-                color = "#2E8B57",
-                textColor = "#FFFFFF",
-                fontSize = "28",
-            },
-            value = "Start",
-        },
-        { tag = "Text", attributes = { text = "Extensions", fontSize = "22", color = "#FFFFFF" } },
-    }
-
-    for _, key in ipairs(EXTENSION_ORDER) do
-        table.insert(children, {
-            tag = "HorizontalLayout",
-            attributes = { childAlignment = "MiddleLeft", spacing = "8" },
-            children = {
-                {
-                    tag = "Toggle",
-                    attributes = {
-                        id = "ext_" .. key,
-                        isOn = tostring(Extensions[key]),
-                        onValueChanged = "Global/onExtensionToggle",
-                    },
-                },
-                { tag = "Text", attributes = { text = key, fontSize = "24", color = "#FFFFFF" } },
-            },
-        })
-    end
-
-    controlPanel.UI.setXmlTable({
-        {
-            tag = "Panel",
-            attributes = {
-                position = "0 0.2 0",
-                rotation = "90 0 0",
-                scale = "0.02 0.02 0.02",
-                width = "300",
-                height = "220",
-                color = "#1A1A1ACC",
-            },
-            children = {
-                {
-                    tag = "VerticalLayout",
-                    attributes = { childAlignment = "UpperCenter", spacing = "10" },
-                    children = children,
-                },
-            },
-        },
-    })
-end
-
-function onExtensionToggle(player, value, id)
+function onControlPanelToggle(player, value, id)
     local key = string.gsub(id, "^ext_", "")
-    Extensions[key] = (value == "True")
-    printToAll((player.steam_name or "Someone") .. " set extension '" .. key .. "' to " .. tostring(Extensions[key]), { 0.7, 0.7, 1 })
+    ControlPanel.setEnabled(key, value == "True")
 end
 
 function onLoad()
-    buildControlPanel()
+    ControlPanel.build()
     buildPlayerGrids()
 end

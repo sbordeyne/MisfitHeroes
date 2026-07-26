@@ -23,7 +23,6 @@ local GRID_SIZE = 4
 -- DECAL_SCALE/LAYOUT in Card.lua).
 local CELL_SPACING = 2.5
 local ZONE_HEIGHT = 3
-local BASE_THICKNESS = 0.05
 
 local COLOR_LEGAL = "#3DDC5AAA"
 local COLOR_ILLEGAL = "#00000000" -- fully transparent: no highlight
@@ -106,7 +105,13 @@ function PlayerGrid:build()
         type = "BlockSquare",
         position = self.centerPos,
         rotation = { 0, self.facingAngle, 0 },
-        scale = { GRID_SIZE * CELL_SPACING, BASE_THICKNESS, GRID_SIZE * CELL_SPACING },
+        -- Must stay uniform {1,1,1}: both setSnapPoints' local `position`
+        -- and an attached UI Panel's `scale` attribute (see refreshHighlights)
+        -- are applied on top of the object's own scale, so sizing the base's
+        -- footprint via a non-uniform object scale would silently blow up
+        -- the snap point positions and crush/distort the cell highlights
+        -- (same bug that made ControlPanel render nothing).
+        scale = { 1, 1, 1 },
     })
     self.base.setName("MisfitGrid_" .. self.color)
     self.base.setColorTint({ 0.15, 0.15, 0.15 })

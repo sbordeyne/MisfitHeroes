@@ -112,9 +112,10 @@ def resolve_all(input_path: Path, output_path: Path) -> set[Path]:
     touched: set[Path] = set()
     bundled = inline_includes(input_path, (), touched)
 
+    now = time.strftime("%Y-%m-%d %H:%M:%S")
     with open(output_path, "w", encoding="utf-8", newline="") as f:
         f.write(bundled)
-    print(f"Wrote {rel(output_path)}")
+    print(f"{now} :: Wrote {rel(output_path)}")
     return touched
 
 
