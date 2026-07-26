@@ -27,7 +27,7 @@ Card.FACTION = {
 
 Card.BG_EFFECT = {
     CONDITION = "condition",
-    ADDITIONAL_COST = "additional_cost",
+    ADDITIONAL_COST = "extra_cost",
     ON_PLAY = "on_play",
     VICTORY_CALC = "victory_calc",
 }
@@ -38,7 +38,7 @@ local BG_EFFECT = Card.BG_EFFECT
 -- Point this at wherever assets/ ends up hosted (Steam Cloud, GitHub raw,
 -- etc). Local file paths only work for the machine that's actually running
 -- the TTS client you're testing in -- see the same warning in Global.lua.
-local ASSET_BASE = "https://raw.githubusercontent.com/REPLACE_ME/MisfitHeroes/main/assets/"
+local ASSET_BASE = "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/"
 
 local UI_ASSETS = {
     cost = ASSET_BASE .. "ui/ui_cost.png",
@@ -57,13 +57,17 @@ local UI_ASSETS = {
 
 -- :marker: token -> icon image, and the UI custom-asset name it's registered under.
 local ICON_MARKERS = {
-    g = { name = "icon_g", url = ASSET_BASE .. "font/coin.png" },
+    g = { name = "icon_g", url = ASSET_BASE .. "font/g.png" },
     human = { name = "icon_human", url = ASSET_BASE .. "font/human.png" },
     monster = { name = "icon_monster", url = ASSET_BASE .. "font/monster.png" },
-    plant = { name = "icon_plant", url = ASSET_BASE .. "font/plant.png" },
+    leaf = { name = "icon_leaf", url = ASSET_BASE .. "font/leaf.png" },
     rock = { name = "icon_rock", url = ASSET_BASE .. "font/rock.png" },
     water = { name = "icon_water", url = ASSET_BASE .. "font/water.png" },
     resource = { name = "icon_resource", url = ASSET_BASE .. "font/resource.png" },
+    condition = { name = "icon_condition", url = ASSET_BASE .. "font/condition.png" },
+    extra_cost = { name = "icon_extra_cost", url = ASSET_BASE .. "font/extra_cost.png" },
+    victory_calc = { name = "icon_victory_calc", url = ASSET_BASE .. "font/victory_calc.png" },
+    on_play = { name = "icon_on_play", url = ASSET_BASE .. "font/on_play.png" },
 }
 
 local FONT_ASSET_NAME = "ComickBookCAPS"
@@ -155,12 +159,8 @@ end
 -- "X"; otherwise it's the sum of both halves. Mirrors
 -- Global.lua's computeCombinedVictoryPoints.
 function Card:computeVictoryPoints()
-    local heroVP = self.hero.victoryPoints or 0
-    local backgroundVP = self.background.victoryPoints or 0
-    if heroVP == "X" or backgroundVP == "X" then
-        return "X"
-    end
-    return heroVP + backgroundVP
+    local backgroundVP = self.background.victoryPoints
+    return backgroundVP
 end
 
 --------------------------------------------------------------------------

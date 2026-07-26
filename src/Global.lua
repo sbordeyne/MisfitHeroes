@@ -5,6 +5,7 @@
 -- with background art on blank base cards, "sleeving" them together.
 
 -- #include Card
+-- #include PlayerGrid
 
 -- Faction constants. A hero and background of different factions combine into "purple".
 local FACTION = {
@@ -14,57 +15,99 @@ local FACTION = {
     PURPLE = "purple", -- only ever appears as a COMPUTED combined faction, not set on individual cards
 }
 
--- Effect categories that apply to background effects.
-local BG_EFFECT = {
-    CONDITION = "condition",           -- a condition of play
-    ADDITIONAL_COST = "additional_cost",
-    ON_PLAY = "on_play",
-    VICTORY_CALC = "victory_calc",     -- means victoryPoints should be "X" on this background
-}
+-- Card data (96 heroes as "foregrounds", 96 backgrounds) is fetched at
+-- runtime from data/base.json rather than hardcoded here -- see
+-- loadMisfitHeroesData() below. heroData/backgroundData stay nil until the
+-- first load completes.
+local DATA_URL = "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/data/base.json"
+local ASSET_BASE = "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/"
 
--- Fill these in with your 96 heroes and 96 backgrounds.
--- URLs must be publicly reachable (Steam Cloud, GitHub raw links, imgbb, etc.)
--- Local file paths will NOT work in Tabletop Simulator.
--- "id" is a stable identifier you can reference in other scripts (e.g. ability lookups).
---
--- victoryPoints: 1 or "X" (use "X" whenever the value is computed by an effect, e.g. VICTORY_CALC).
--- effect.text: plain-language rules text, shown to the player or used by your ability-resolution code.
-local heroData = {
-    {
-        id = "hero_01", name = "Vicomte", url = "https://steamusercontent-a.akamaihd.net/ugc/12703178047108682101/C5EAA096971785661FE6F6B126B5ED1CD7D6CFB6/",
-        cost = 1, faction = FACTION.BLUE, victoryPoints = 0,
-        effect = { text = "Piochez une carte pour chaque carte HEROS dans votre tableau." },
-    },
-    {
-        id = "hero_02", name = "Scientifique", url = "https://steamusercontent-a.akamaihd.net/ugc/12409751618063215871/23979E112F2433438EBB8C53DC9F7C478EC96889/",
-        cost = 2, faction = FACTION.BLUE, victoryPoints = 0,
-        effect = { text = "Recrutez une carte MUTANTE pour 8g de moins (mais pas moins de 0)" },
-    },
-    -- ... continue for all 96
-}
-
-local backgroundData = {
-    {
-        id = "bg_01", name = "Angélique", url = "https://steamusercontent-a.akamaihd.net/ugc/9817866855122808077/2FF9ECCB762A436DD2B261E04B7975AAC0BDABF1/",
-        cost = 0, faction = FACTION.NONE, victoryPoints = 1,
-        effect = { category = BG_EFFECT.ON_PLAY, text = "Gain 1 gold when this card is played." },
-    },
-    {
-        id = "bg_02", name = "Antique", url = "https://steamusercontent-a.akamaihd.net/ugc/14282936292201905579/D9C227EC3E167F2CDCCC07E2073F4CFE10F0B59D/",
-        cost = 14, faction = FACTION.BLUE, victoryPoints = "X",
-        effect = { category = BG_EFFECT.VICTORY_CALC, text = "Worth 1 VP per Blue hero you control." },
-    },
-    -- ... continue for all 96
-}
+local heroData = nil
+local backgroundData = nil
 
 -- A plain blank card face/back used as the base for every card.
-local blankFaceURL = "https://steamusercontent-a.akamaihd.net/ugc/16250680365902369776/2C162E297E869BDD1746BCAF54B0F71F9D94D21D/"
-local blankBackURL = "https://steamusercontent-a.akamaihd.net/ugc/17283040185869791068/93E26E679A1ACBDC42E514E073291D429BAEFA47/"
+local blankFaceURL = ASSET_BASE .. "cards/bg_card_front.png"
+local blankBackURL = ASSET_BASE .. "cards/bg_card_back.png"
+
+-- data/base.json's faction strings ("human" / "monster" / "none") mapped
+-- onto the BLUE/RED/NONE constants that Card.lua's ribbon assets
+-- (ui_faction_blue/red/purple.png) are keyed on. Mismatched factions still
+-- combine into PURPLE regardless of what the labels say.
+local JSON_FACTION_MAP = {
+    human = FACTION.BLUE,
+    monster = FACTION.RED,
+    none = FACTION.NONE,
+}
+
+-- Converts one data/base.json entry (a background or foreground) into the
+-- {id, name, url, cost, faction, victoryPoints, effect} shape the deck
+-- builder and Card.lua expect.
+--
+-- isHero forces victoryPoints to 0: every foreground entry's "points" field
+-- is a meaningless -1 placeholder (heroes never carry their own VP -- see
+-- Card:computeVictoryPoints, which only reads the background side). For
+-- backgrounds, points is the real VP value, with -1 meaning "X" (computed
+-- by a VICTORY_CALC effect).
+local function convertEntry(entry, index, prefix, isHero)
+    local victoryPoints = 0
+    if not isHero then
+        victoryPoints = (entry.points == -1) and "X" or entry.points
+    end
+
+    return {
+        id = string.format("%s_%02d", prefix, index),
+        name = entry.name,
+        url = entry.artwork_url,
+        cost = entry.cost,
+        faction = JSON_FACTION_MAP[entry.faction] or FACTION.NONE,
+        victoryPoints = victoryPoints,
+        effect = {
+            category = entry.effect and entry.effect.category,
+            text = entry.effect and entry.effect.text,
+        },
+    }
+end
+
+-- Fetches data/base.json and (re)builds heroData/backgroundData from it,
+-- then calls onReady(). Safe to call again later (e.g. to pick up edits to
+-- the hosted JSON) since it always overwrites both tables from scratch.
+function loadMisfitHeroesData(onReady)
+    WebRequest.get(DATA_URL, function(request)
+        if request.is_error then
+            printToAll("Failed to load card data from " .. DATA_URL .. ": " .. request.error, {1, 0, 0})
+            return
+        end
+
+        local decoded = JSON.decode(request.text)
+        if not decoded or not decoded.backgrounds or not decoded.foregrounds then
+            printToAll("Card data at " .. DATA_URL .. " is missing 'backgrounds'/'foregrounds'.", {1, 0, 0})
+            return
+        end
+
+        backgroundData = {}
+        for i, entry in ipairs(decoded.backgrounds) do
+            table.insert(backgroundData, convertEntry(entry, i, "bg", false))
+        end
+
+        heroData = {}
+        for i, entry in ipairs(decoded.foregrounds) do
+            table.insert(heroData, convertEntry(entry, i, "hero", true))
+        end
+
+        onReady()
+    end)
+end
 
 local spawnedCards = {}
 
 -- Call this to (re)build the deck, e.g. bound to a button or chat command.
+-- Loads data/base.json first if it hasn't been fetched yet.
 function setupMisfitHeroesDeck()
+    if not heroData or not backgroundData then
+        loadMisfitHeroesData(setupMisfitHeroesDeck)
+        return
+    end
+
     if #heroData ~= #backgroundData then
         printToAll("Hero and background lists must be the same length!", {1, 0, 0})
         return
@@ -190,4 +233,189 @@ function onChat(message, player)
         setupMisfitHeroesDeck()
         return false
     end
+end
+
+-- ==============================================
+-- Per-player grids
+-- ==============================================
+-- Seated players are spaced evenly around a ring centered on the table.
+-- This does NOT try to match true TTS seat facing (that's table-asset
+-- specific and not reliably queryable) -- angles are just divided evenly,
+-- so RING_RADIUS and the resulting grid placement will need visual tuning
+-- against the actual table.
+local RING_RADIUS = 10
+local RING_Y = 1
+
+-- Seats that never own a grid.
+local NON_PLAYER_COLORS = { Black = true, Grey = true }
+
+function buildPlayerGrids()
+    local seated = {}
+    for _, player in ipairs(Player.getPlayers()) do
+        if player.seated and not NON_PLAYER_COLORS[player.color] then
+            table.insert(seated, player.color)
+        end
+    end
+    if #seated == 0 then return end
+    table.sort(seated)
+
+    destroyPlayerGrids()
+
+    for i, color in ipairs(seated) do
+        local angleDeg = (i - 1) * (360 / #seated)
+        local rad = math.rad(angleDeg)
+        local centerPos = {
+            x = RING_RADIUS * math.sin(rad),
+            y = RING_Y,
+            z = -RING_RADIUS * math.cos(rad),
+        }
+        local facing = angleDeg + 180 -- face back toward the table center
+
+        local grid = PlayerGrid.new(color, centerPos, facing)
+        grid:build()
+        PlayerGrid.instances[color] = grid
+    end
+end
+
+function destroyPlayerGrids()
+    for _, grid in pairs(PlayerGrid.instances) do
+        grid:destroy()
+    end
+    PlayerGrid.instances = {}
+end
+
+-- Grids get rebuilt as players join/leave/switch seats, but never while any
+-- grid already has cards on it -- once play has started, seating changes no
+-- longer reshuffle the board out from under placed cards.
+function anyGridOccupied()
+    for _, grid in pairs(PlayerGrid.instances) do
+        if not grid:isEmpty() then return true end
+    end
+    return false
+end
+
+function refreshPlayerGridsIfSafe()
+    if not anyGridOccupied() then
+        buildPlayerGrids()
+    end
+end
+
+function onObjectEnterZone(zone, enter_object)
+    PlayerGrid.handleZoneEvent(zone)
+end
+
+function onObjectLeaveZone(zone, leave_object)
+    PlayerGrid.handleZoneEvent(zone)
+end
+
+function onPlayerConnect(player)
+    refreshPlayerGridsIfSafe()
+end
+
+function onPlayerDisconnect(player)
+    refreshPlayerGridsIfSafe()
+end
+
+function onPlayerChangeColor(color)
+    refreshPlayerGridsIfSafe()
+end
+
+-- ==============================================
+-- World-space control panel (Start button + extension toggles)
+-- ==============================================
+-- Placeholder position -- needs tuning against the actual table asset, same
+-- as RING_RADIUS above.
+local CONTROL_PANEL_POS = { x = 0, y = 1, z = -14 }
+
+-- Extension key -> enabled. "base" is the only extension that currently
+-- exists; add new keys to both this table and EXTENSION_ORDER as they're
+-- built.
+Extensions = { base = true }
+local EXTENSION_ORDER = { "base" }
+
+local controlPanel
+
+function buildControlPanel()
+    controlPanel = spawnObject({
+        type = "BlockSquare",
+        position = CONTROL_PANEL_POS,
+        rotation = { 0, 0, 0 },
+        scale = { 4, 0.1, 2 },
+    })
+    controlPanel.setName("MisfitControlPanel")
+    controlPanel.setColorTint({ 0.1, 0.1, 0.12 })
+    controlPanel.setLock(true)
+    controlPanel.interactable = false
+
+    refreshControlPanelUI()
+end
+
+function refreshControlPanelUI()
+    local children = {
+        { tag = "Text", attributes = { text = "MISFIT HEROES", fontSize = "26", color = "#FFFFFF" } },
+        {
+            tag = "Button",
+            attributes = {
+                id = "start_button",
+                onClick = "Global/onStartClick",
+                width = "160",
+                height = "50",
+                color = "#2E8B57",
+                textColor = "#FFFFFF",
+                fontSize = "28",
+            },
+            value = "Start",
+        },
+        { tag = "Text", attributes = { text = "Extensions", fontSize = "22", color = "#FFFFFF" } },
+    }
+
+    for _, key in ipairs(EXTENSION_ORDER) do
+        table.insert(children, {
+            tag = "HorizontalLayout",
+            attributes = { childAlignment = "MiddleLeft", spacing = "8" },
+            children = {
+                {
+                    tag = "Toggle",
+                    attributes = {
+                        id = "ext_" .. key,
+                        isOn = tostring(Extensions[key]),
+                        onValueChanged = "Global/onExtensionToggle",
+                    },
+                },
+                { tag = "Text", attributes = { text = key, fontSize = "24", color = "#FFFFFF" } },
+            },
+        })
+    end
+
+    controlPanel.UI.setXmlTable({
+        {
+            tag = "Panel",
+            attributes = {
+                position = "0 0.2 0",
+                rotation = "90 0 0",
+                scale = "0.02 0.02 0.02",
+                width = "300",
+                height = "220",
+                color = "#1A1A1ACC",
+            },
+            children = {
+                {
+                    tag = "VerticalLayout",
+                    attributes = { childAlignment = "UpperCenter", spacing = "10" },
+                    children = children,
+                },
+            },
+        },
+    })
+end
+
+function onExtensionToggle(player, value, id)
+    local key = string.gsub(id, "^ext_", "")
+    Extensions[key] = (value == "True")
+    printToAll((player.steam_name or "Someone") .. " set extension '" .. key .. "' to " .. tostring(Extensions[key]), { 0.7, 0.7, 1 })
+end
+
+function onLoad()
+    buildControlPanel()
+    buildPlayerGrids()
 end

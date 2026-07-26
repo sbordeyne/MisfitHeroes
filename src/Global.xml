@@ -1,6 +1,3 @@
-<Button 
-    onClick="onStartClick" 
-    width="50"
-    height="20"
-    position="-500 400 0"
->Start</Button>
+<!-- Start button + extension toggles now live on the world-space control
+     panel spawned by buildControlPanel() in Global.lua, not on Global's
+     screen-space UI. -->

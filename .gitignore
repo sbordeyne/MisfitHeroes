@@ -1,3 +1,5 @@
 __pycache__/
 *.py[cod]
 rawdone
+.claude/
+**/*.-1.lua

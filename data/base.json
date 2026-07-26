@@ -1,0 +1,2310 @@
+{
+  "backgrounds": [
+    {
+      "name": "ADO",
+      "cost": 3,
+      "effect": {
+        "text": "SI CETTE CARTE SE TROUVE DANS LA 2E COLONNE, ALORS :",
+        "category": "condition"
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/ado.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "ANGÉLIQUE",
+      "cost": 0,
+      "effect": {
+        "text": "DONNEZ :resource: A UN(E) ADVERSAIRE, PUIS :",
+        "category": "extra_cost"
+      },
+      "faction": "none",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/angelique.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "ANTIQUE",
+      "cost": 14,
+      "effect": {
+        "text": "MARQUEZ 2 POINTS POUR CHAQUE CARTE :condition: DE CETTE LIGNE ET DE CETTE COLONNE.",
+        "category": "victory_calc"
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/antique.png",
+      "points": -1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "ARAIGNEE",
+      "cost": 11,
+      "effect": {
+        "text": "GAGNEZ :leaf: :leaf:, PUIS :",
+        "category": "on_play"
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/araignee.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "ARCHITECTE",
+      "cost": 18,
+      "effect": {
+        "text": "MARQUEZ 2 POINTS POUR CHAQUE CARTE :condition: DANS VOTRE PLUS GRAND GROUPE DE CARTES :condition:.",
+        "category": "victory_calc"
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/architecte.png",
+      "points": -1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "ATHLETIQUE",
+      "cost": 12,
+      "effect": {
+        "text": "PIOCHEZ 1 CARTE,\nGAGNEZ :resource:, GAGNEZ 10 :g: PUIS :",
+        "category": "on_play"
+      },
+      "faction": "none",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/athletique.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "AVEC DIPLÔME",
+      "cost": 7,
+      "effect": {
+        "text": "GAGNEZ 10:g:, PUIS :",
+        "category": "on_play"
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/avec_diplome.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "À TENTACULE",
+      "cost": 11,
+      "effect": {
+        "text": "GAGNEZ :water: :water:, PUIS :",
+        "category": "on_play"
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/a_tentacule.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "CÉLÈBRE",
+      "cost": 9,
+      "effect": {
+        "text": "PIOCHEZ 3 CARTES, PUIS :",
+        "category": "on_play"
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/celebre.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "DANS LE NOIR",
+      "cost": 2,
+      "effect": {
+        "text": "DEFAUSSEZ 1 CARTE :mutant:\nOU 2 AUTRES CARTES, PUIS :",
+        "category": "extra_cost"
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/dans_le_noir.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "DES MARAIS",
+      "cost": 6,
+      "effect": {
+        "text": "GAGNEZ :water:, PUIS :",
+        "category": "on_play"
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/des_marais.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "ERMITE",
+      "cost": 1,
+      "effect": {
+        "text": "DÉFAUSSEZ 1 CARTE DE LA MÊME\nFACTION QUE CELLE-CI, PUIS:",
+        "category": "extra_cost"
+      },
+      "faction": "none",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/ermite.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "GIGANTESQUE",
+      "cost": 1,
+      "effect": {
+        "text": "SI VOUS AVEZ PLUS DE :rock: QUE\nVOTRE VOISIN(E) DE GAUCHE, ALORS :",
+        "category": "condition"
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/gigantesque.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "K.O.",
+      "cost": 2,
+      "effect": {
+        "text": "DEFAUSSEZ :resource: OU 7:g:, PUIS :",
+        "category": "extra_cost"
+      },
+      "faction": "none",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/ko.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "MARITIME",
+      "cost": 4,
+      "effect": {
+        "text": "SI VOUS AVEZ PLUS DE :water: VOTRE VOISIN(E) DE GAUCHE, ALORS :",
+        "category": "condition"
+      },
+      "faction": "none",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/maritime.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "MEMBRE DE SECTE",
+      "cost": 2,
+      "effect": {
+        "text": "SI VOUS AVEZ 3 CARTES :mutant:\nOU + EN JEU, ALORS :",
+        "category": "condition"
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/membre_de_secte.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "PARLEMENTAIRE",
+      "cost": 0,
+      "effect": {
+        "text": "Si VOUS AVEZ AU MOINS\n2 TUILES QUÊTE, ALORS :",
+        "category": "condition"
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/parlementaire.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "POST-APO",
+      "cost": 18,
+      "effect": {
+        "text": "MARQUEZ 2 POINTS POUR CHAQUE\nCARTE :extra_cost: DANS VOTRE PLUS GRAND\nGROUPE DE CARTES :extra_cost:.",
+        "category": "victory_calc"
+      },
+      "faction": "none",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/post_apo.png",
+      "points": -1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "PSYCHIATRE",
+      "cost": 7,
+      "effect": {
+        "text": "DONNEZ :rock: À UN(E) ADVERSAIRE. PUIS\nACTIVEZ CETTE CARTE DEUX FOIS :",
+        "category": "extra_cost"
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/psychiatre.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "SOUS HYPNOSE",
+      "cost": 7,
+      "effect": {
+        "text": "DÉFAUSSEZ :resource: :resource:, PUIS ACTIVEZ\nCETTE CARTE DEUX FOIS :",
+        "category": "extra_cost"
+      },
+      "faction": "none",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/sous_hypnose.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "TROGLODYTE",
+      "cost": 10,
+      "effect": {
+        "text": "GAGNEZ :water: :rock:, PUIS :",
+        "category": "on_play"
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/troglodyte.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "ARCHIVISTE",
+      "cost": 5,
+      "effect": {
+        "text": "ECHANGEZ LA POSITION\nDE 2 DE VOS CARTES, PUIS :",
+        "category": "on_play"
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/archiviste.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "À LA RETRAITE",
+      "cost": 3,
+      "effect": {
+        "text": "SI CETTE CARTE EST PRÉSENTE\nDANS LA 4E COLONNE, ALORS :",
+        "category": "condition"
+      },
+      "faction": "none",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/a_la_retraite.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "COSMIQUE",
+      "cost": 16,
+      "effect": {
+        "text": "MARQUEZ 2 POINTS\nPOUR CHAQUE CARTE :on_play: DANS\nCETTE LIGNE ET CETTE COLONNE.",
+        "category": "victory_calc"
+      },
+      "faction": "none",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/cosmique.png",
+      "points": -1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "DES CAVERNES",
+      "cost": 6,
+      "effect": {
+        "text": "GAGNEZ :leaf:, PUIS :",
+        "category": "extra_cost"
+      },
+      "faction": "none",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/des_cavernes.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "DE CIRQUE",
+      "cost": 18,
+      "effect": {
+        "text": "MARQUEZ 7 POINTS SI VOUS AVEZ\n5 CARTES :monster: OU + EN JEU.",
+        "category": "victory_calc"
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/de_cirque.png",
+      "points": -1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "PERSPICACE",
+      "cost": 30,
+      "effect": {
+        "text": "MARQUEZ 2 POINTS POUR\nCHAQUE CARTE :extra_cost: DANS\nCETTE LIGNE ET CETTE COLONNE.",
+        "category": "victory_calc"
+      },
+      "faction": "none",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/perspicace.png",
+      "points": -1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "PSYCHOPATHE",
+      "cost": 2,
+      "effect": {
+        "text": "SI CETTE CARTE EST DIRECTEMENT\nAU-DESSUS D'UNE CARTE :mutant:, ALORS :",
+        "category": "condition"
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/psychopathe.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "SOUS RADIATIONS",
+      "cost": 6,
+      "effect": {
+        "text": "RETOURNEZ UNE AUTRE CARTE\nDANS CETTE LIGNE. \nPUIS ACTIVEZ CELLE-LÀ DEUX FOIS :",
+        "category": "extra_cost"
+      },
+      "faction": "none",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/sous_radiations.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "ABOMINABLE",
+      "cost": 22,
+      "effect": {
+        "text": "MARQUEZ 2 POINTS POUR CHAQUE CARTE :mutant: DU PLUS GRAND GROUPE DE CARTES :mutant:",
+        "category": "victory_calc"
+      },
+      "faction": null,
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/abominable.png",
+      "points": -1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "ADORABLE",
+      "cost": 2,
+      "effect": {
+        "text": "DONNEZ 1 CARTE DE VOTRE MAIN À UN(E) ADVERSAIRE, PUIS :",
+        "category": "extra_cost"
+      },
+      "faction": null,
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/adorable.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "ANIMISTE",
+      "cost": 2,
+      "effect": {
+        "text": "SI CETTE CARTE SE TROUVE DIRECTEMENT À DROITE D'UNE CARTE :monster:, ALORS :",
+        "category": "condition"
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/animiste.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "APOCALYPTIQUE",
+      "cost": null,
+      "effect": {
+        "text": "DÉFAUSSEZ 1 CARTE :human: 1 CARTE :monster: ET 1 CARTE :mutant:, PUIS ACTIVEZ CETTE CARTE DEUX FOIS :",
+        "category": "extra_cost"
+      },
+      "faction": null,
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/apocalyptique.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "AU TOP",
+      "cost": 2,
+      "effect": {
+        "text": "SI VOUS AVEZ PLUS DE :resource: QUE VOTRE VOISIN(E) DE GAUCHE, ALORS :",
+        "category": "condition"
+      },
+      "faction": null,
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/au_top.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "AVEC EXPLOSIFS",
+      "cost": 8,
+      "effect": {
+        "text": "RETOURNEZ 1 CARTE (AUTRE QUE CELLE-CI), PUIS ACTIVEZ CETTE CARTE DEUX FOIS :",
+        "category": "extra_cost"
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/avec_explosifs.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "À BRAS MULTIPLES",
+      "cost": 7,
+      "effect": {
+        "text": "GAGNEZ :resource:, PUIS :",
+        "category": "on_play"
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/a_bras_multiples.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "À DEUX TÊTES",
+      "cost": 1,
+      "effect": {
+        "text": "DONNEZ 1 CARTE :human: DE VOTRE MAIN À UN(E) ADVERSAIRE, PUIS :",
+        "category": "extra_cost"
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/a_deux_tetes.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "À GRIFFES",
+      "cost": 13,
+      "effect": {
+        "text": "GAGNEZ :resource: :resource:, PUIS :",
+        "category": "on_play"
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/a_griffes.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "À LA FRIPERIE",
+      "cost": 2,
+      "effect": {
+        "text": "SI VOUS AVEZ MOINS DE 6 :g:, ALORS ACTIVEZ CETTE CARTE DEUX FOIS :",
+        "category": "condition"
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/a_la_friperie.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "BÉBÉ",
+      "cost": 3,
+      "effect": {
+        "text": "SI CETTE CARTE SE TROUVE EN 1RE COLONNE, ALORS :",
+        "category": "condition"
+      },
+      "faction": null,
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/bebe.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "BERSERKER",
+      "cost": 5,
+      "effect": {
+        "text": "DÉFAUSSEZ 2 CARTES :monster:, PUIS ACTIVEZ CETTE CARTE DEUX FOIS :",
+        "category": "extra_cost"
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/berserker.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "BOURREAU",
+      "cost": 5,
+      "effect": {
+        "text": "RETOURNEZ 1 CARTE :mutant:, PUIS ACTIVEZ CETTE CARTE DEUX FOIS :",
+        "category": "extra_cost"
+      },
+      "faction": null,
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/bourreau.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "CANNIBALE",
+      "cost": 2,
+      "effect": {
+        "text": "DÉFAUSSEZ 1 CARTE :human: OU 2 AUTRES CARTES, PUIS :",
+        "category": "extra_cost"
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/cannibale.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "CHARITABLE",
+      "cost": null,
+      "effect": {
+        "text": "DONNEZ 3 :g: À UN(E) ADVERSAIRE, PUIS :",
+        "category": "extra_cost"
+      },
+      "faction": null,
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/charitable.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "CROQUE-MORT",
+      "cost": 16,
+      "effect": {
+        "text": "MARQUEZ 2 POINTS POUR CHAQUE CARTE :mutant: DANS CETTE LIGNE ET CETTE COLONNE.",
+        "category": "victory_calc"
+      },
+      "faction": null,
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/croque_mort.png",
+      "points": -1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "CUPIDE",
+      "cost": 2,
+      "effect": {
+        "text": "SI VOUS AVEZ AU MOINS 30 :g:, ALORS :",
+        "category": "condition"
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/cupide.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "DANS LE DÉSERT",
+      "cost": 7,
+      "effect": {
+        "text": "DONNEZ :water: À UN(E) ADVERSAIRE, PUIS ACTIVEZ CETTE CARTE DEUX FOIS :",
+        "category": "extra_cost"
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/dans_le_desert.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "DÉMONIAQUE",
+      "cost": 5,
+      "effect": {
+        "text": "DÉFAUSSEZ 2 CARTES :mutant:, PUIS ACTIVEZ CETTE CARTE DEUX FOIS :",
+        "category": "extra_cost"
+      },
+      "faction": null,
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/demoniaque.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "DES FORCES DU MAL",
+      "cost": 16,
+      "effect": {
+        "text": "MARQUEZ 2 POINTS POUR CHAQUE SET DE CARTES :human:, :monster: ET :mutant: DANS VOTRE TABLEAU.",
+        "category": "victory_calc"
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/des_forces_du_mal.png",
+      "points": -1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "DE LA FORÊT",
+      "cost": 1,
+      "effect": {
+        "text": "SI VOUS AVEZ PLUS DE :leaf: QUE VOTRE VOISIN(E) DE GAUCHE, ALORS :",
+        "category": "condition"
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/de_la_foret.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "ÉLECTRIQUE",
+      "cost": 2,
+      "effect": {
+        "text": "DÉFAUSSEZ 1 CARTE :monster: OU 2 AUTRES CARTES, PUIS :",
+        "category": "extra_cost"
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/electrique.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "EN APESANTEUR",
+      "cost": 6,
+      "effect": {
+        "text": "GAGNEZ :rock:, PUIS :",
+        "category": "on_play"
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/en_apesanteur.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "EN CRISE DE L'ÂGE",
+      "cost": 3,
+      "effect": {
+        "text": "SI CETTE CARTE EST PRÉSENTE DANS LA 3E COLONNE, ALORS :",
+        "category": "condition"
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/en_crise_de_l_age.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "EN JET PACK",
+      "cost": 11,
+      "effect": {
+        "text": "GAGNEZ :rock: :rock:, PUIS :",
+        "category": "on_play"
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/en_jet_pack.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "EN MODE DÉFENSE",
+      "cost": 4,
+      "effect": {
+        "text": "SI VOUS AVEZ PLUS DE CARTES EN JEU QUE VOTRE VOISIN(E) DE GAUCHE, ALORS :",
+        "category": "condition"
+      },
+      "faction": null,
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/en_mode_defense.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "EN MUTATION",
+      "cost": 1,
+      "effect": {
+        "text": "DONNEZ 1 CARTE :mutant: DE VOTRE MAIN À UN(E) ADVERSAIRE, PUIS :",
+        "category": "extra_cost"
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/en_mutation.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "EN SOIRÉE",
+      "cost": 2,
+      "effect": {
+        "text": "SI VOUS AVEZ 5 CARTES OU PLUS EN MAIN, ALORS :",
+        "category": "condition"
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/en_soiree.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "FAN DE MUTANTS",
+      "cost": 2,
+      "effect": {
+        "text": "SI CETTE CARTE SE TROUVE DIRECTEMENT À DROITE D'UNE CARTE :mutant:, ALORS :",
+        "category": "condition"
+      },
+      "faction": null,
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/fan_de_mutants.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "GANGSTER",
+      "cost": 22,
+      "effect": {
+        "text": "MARQUEZ 2 POINTS POUR CHAQUE CARTE :human: DANS VOTRE PLUS GRAND GROUPE DE CARTES :human:",
+        "category": "victory_calc"
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/gangster.png",
+      "points": -1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "-GAROU",
+      "cost": 1,
+      "effect": {
+        "text": "DONNEZ 1 CARTE :monster: DE VOTRE MAIN À UN(E) ADVERSAIRE, PUIS :",
+        "category": "extra_cost"
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/garou.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "HÉRÉTIQUE",
+      "cost": 18,
+      "effect": {
+        "text": "MARQUEZ 7 POINTS SI VOUS AVEZ 5 CARTES :mutant: OU + EN JEU.",
+        "category": "victory_calc"
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/heretique.png",
+      "points": -1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "HÉROÏQUE",
+      "cost": 2,
+      "effect": {
+        "text": "SI VOUS AVEZ 3 CARTES :human: OU + EN JEU, ALORS :",
+        "category": "condition"
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/heroique.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "HORRORIFIQUE",
+      "cost": null,
+      "effect": {
+        "text": "SI VOUS AVEZ MOINS DE CARTES EN MAIN QUE VOTRE VOISIN(E) DE GAUCHE, ALORS :",
+        "category": "condition"
+      },
+      "faction": null,
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/horrorifique.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "HOSTILE",
+      "cost": 2,
+      "effect": {
+        "text": "SI CETTE CARTE EST DIRECTEMENT AU-DESSUS D'UNE CARTE :monster:, ALORS :",
+        "category": "condition"
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/hostile.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "H.P.I.",
+      "cost": 6,
+      "effect": {
+        "text": "SI VOUS AVEZ LES 4 TYPES DE TUILE QUÊTE ALORS ACTIVEZ CETTE CARTE TROIS FOIS :",
+        "category": "condition"
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/h_p_i.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "IMMONDE",
+      "cost": 8,
+      "effect": {
+        "text": "DÉFAUSSEZ 2 CARTES, PUIS ACTIVEZ CETTE CARTE DEUX FOIS :",
+        "category": "extra_cost"
+      },
+      "faction": null,
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/immonde.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "INFIRMIÈRE",
+      "cost": 7,
+      "effect": {
+        "text": "DONNEZ :leaf: À UN(E) ADVERSAIRE, PUIS ACTIVEZ CETTE CARTE DEUX FOIS :",
+        "category": "extra_cost"
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/infirmiere.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "INFLAMMABLE",
+      "cost": 4,
+      "effect": {
+        "text": "DÉFAUSSEZ :water: :water:, PUIS ACTIVEZ CETTE CARTE DEUX FOIS :",
+        "category": "extra_cost"
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/inflammable.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "MAIRE",
+      "cost": 6,
+      "effect": {
+        "text": "PIOCHEZ 2 CARTES, DÉFAUSSEZ 2 CARTES, PUIS :",
+        "category": "on_play"
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/maire.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "MERCENAIRE",
+      "cost": null,
+      "effect": {
+        "text": "SI VOUS AVEZ :leaf: :water: :rock:, ALORS :",
+        "category": "condition"
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/mercenaire.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "MINABLE",
+      "cost": 2,
+      "effect": {
+        "text": "SI VOUS AVEZ MOINS DE :resource: QUE VOTRE VOISIN(E) DE GAUCHE, ALORS :",
+        "category": "condition"
+      },
+      "faction": null,
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/minable.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "MINUSCULE",
+      "cost": 4,
+      "effect": {
+        "text": "DÉFAUSSEZ :rock: :rock:, PUIS ACTIVEZ CETTE CARTE DEUX FOIS :",
+        "category": "extra_cost"
+      },
+      "faction": null,
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/minuscule.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "MONARQUE",
+      "cost": 18,
+      "effect": {
+        "text": "MARQUEZ 7 POINTS SI VOUS AVEZ 5 CARTES :human: OU + EN JEU.",
+        "category": "victory_calc"
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/monarque.png",
+      "points": -1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "MYSTIQUE",
+      "cost": 14,
+      "effect": {
+        "text": "ACTIVEZ CETTE CARTE DEUX FOIS :",
+        "category": "on_play"
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/mystique.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "NOVICE",
+      "cost": 5,
+      "effect": {
+        "text": "GAGNEZ 5 :g:, PUIS :",
+        "category": "on_play"
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/novice.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "PAUVRE",
+      "cost": null,
+      "effect": {
+        "text": "SI VOUS AVEZ MOINS DE :g: QUE VOTRE VOISIN(E) DE GAUCHE, ALORS :",
+        "category": "condition"
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/pauvre.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "PHILANTROPE",
+      "cost": 2,
+      "effect": {
+        "text": "SI CETTE CARTE SE TROUVE DIRECTEMENT À DROITE D'UNE CARTE :human:, ALORS :",
+        "category": "condition"
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/philantrope.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "POLAIRE",
+      "cost": 4,
+      "effect": {
+        "text": "DÉFAUSSEZ :leaf: :leaf:, PUIS ACTIVEZ CETTE CARTE DEUX FOIS :",
+        "category": "extra_cost"
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/polaire.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "POLITIQUE",
+      "cost": 16,
+      "effect": {
+        "text": "MARQUEZ 2 POINTS POUR CHAQUE CARTE :human: DANS CETTE LIGNE ET CETTE COLONNE.",
+        "category": "victory_calc"
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/politique.png",
+      "points": -1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "POPULAIRE",
+      "cost": 7,
+      "effect": {
+        "text": "PIOCHEZ 2 CARTES, PUIS :",
+        "category": "on_play"
+      },
+      "faction": null,
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/populaire.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "PRODIGE",
+      "cost": 8,
+      "effect": {
+        "text": "PIOCHEZ 2 CARTES, GAGNEZ :resource: OU GAGNEZ 10 :g:, PUIS :",
+        "category": "on_play"
+      },
+      "faction": null,
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/prodige.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "QUI GARDE TOUT",
+      "cost": 2,
+      "effect": {
+        "text": "SI VOUS AVEZ 6 :resource: OU +, ALORS :",
+        "category": "condition"
+      },
+      "faction": null,
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/qui_garde_tout.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "RÉVOLUTIONNAIRE",
+      "cost": 2,
+      "effect": {
+        "text": "SI VOUS AVEZ 3 :monster: OU + EN JEU, ALORS :",
+        "category": "condition"
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/revolutionnaire.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "RICHE",
+      "cost": 2,
+      "effect": {
+        "text": "SI VOUS AVEZ PLUS DE :g: QUE VOTRE VOISIN(E) DE GAUCHE, ALORS :",
+        "category": "condition"
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/riche.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "SALE",
+      "cost": 3,
+      "effect": {
+        "text": "DÉFAUSSEZ 1 CARTE, PUIS :",
+        "category": "extra_cost"
+      },
+      "faction": null,
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/sale.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "SANGUINAIRE",
+      "cost": 5,
+      "effect": {
+        "text": "DÉFAUSSEZ 2 CARTES :human:, PUIS ACTIVEZ CETTE CARTE DEUX FOIS :",
+        "category": "extra_cost"
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/sanguinaire.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "SCORPION",
+      "cost": 10,
+      "effect": {
+        "text": "GAGNEZ :leaf: :rock:, PUIS :",
+        "category": "on_play"
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/scorpion.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "SERIAL-KILLER",
+      "cost": 5,
+      "effect": {
+        "text": "RETOURNEZ 1 CARTE :human:, PUIS ACTIVEZ CETTE CARTE DEUX FOIS :",
+        "category": "extra_cost"
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/serial_killer.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "SOLITAIRE",
+      "cost": 3,
+      "effect": {
+        "text": "SI VOUS N'AVEZ PLUS DE CARTES EN MAIN, ALORS ACTIVEZ CETTE CARTE TROIS FOIS :",
+        "category": "condition"
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/solitaire.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "SYMPA",
+      "cost": 5,
+      "effect": {
+        "text": "PIOCHEZ 1 CARTE, PUIS :",
+        "category": "on_play"
+      },
+      "faction": null,
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/sympa.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "TAXIDERMISTE",
+      "cost": 5,
+      "effect": {
+        "text": "RETOURNEZ 1 CARTE :monster:, PUIS ACTIVEZ CETTE CARTE DEUX FOIS :",
+        "category": "extra_cost"
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/taxidermiste.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "TOP MODEL",
+      "cost": 16,
+      "effect": {
+        "text": "MARQUEZ 2 POINTS POUR CHAQUE CARTE :monster: DANS CETTE LIGNE ET CETTE COLONNE",
+        "category": "victory_calc"
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/top_model.png",
+      "points": -1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "TOXIQUE",
+      "cost": 6,
+      "effect": {
+        "text": "RETOURNEZ UNE CARTE AUTRE QUE CELLE-CI DANS CETTE COLONNE, PUIS ACTIVEZ CELLE-LÀ DEUX FOIS :",
+        "category": "extra_cost"
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/toxique.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "UNIVERSITAIRE",
+      "cost": 2,
+      "effect": {
+        "text": "SI CETTE CARTE SE TROUVE DIRECTEMENT AU-DESSUS D'UNE CARTE :human:, ALORS :",
+        "category": "condition"
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/universitaire.png",
+      "points": 1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "VÉTÉRINAIRE",
+      "cost": 22,
+      "effect": {
+        "text": "MARQUEZ 2 POINTS POUR CHAQUE CARTE :monster: DANS VOTRE PLUS GRAND GROUPE DE CARTES :monster:",
+        "category": "victory_calc"
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/veterinaire.png",
+      "points": -1,
+      "layout": "backgrounds"
+    },
+    {
+      "name": "REPTILOÏDE",
+      "cost": 10,
+      "effect": {
+        "text": "GAGNEZ :water: :leaf:, PUIS :",
+        "category": "on_play"
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/backgrounds/reptiloide.png",
+      "points": 1,
+      "layout": "backgrounds"
+    }
+  ],
+  "foregrounds": [
+    {
+      "name": "BANDIT",
+      "cost": 2,
+      "effect": {
+        "text": "GAGNEZ 25:g:",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/bandit.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "FANTÔME",
+      "cost": 6,
+      "effect": {
+        "text": "ACTIVEZ 1 DE VOS CARTES\nDE LA PREMIÈRE COLONNE.",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/fantome.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "PICKPOCKET",
+      "cost": 0,
+      "effect": {
+        "text": "GAGNEZ 15:g:",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/pickpocket.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "PIRATE",
+      "cost": 6,
+      "effect": {
+        "text": "GAGNEZ :water: :water: :water: OU 30:g:",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/pirate.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "REINE",
+      "cost": 5,
+      "effect": {
+        "text": "PIOCHEZ 5 CARTES.",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/reine.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "BARON",
+      "cost": 0,
+      "effect": {
+        "text": "GAGNEZ 5:g: POUR\nCHACUNE DE VOS CARTES :human: EN JEU.",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/baron.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "BLOB",
+      "cost": 1,
+      "effect": {
+        "text": "PIOCHEZ 1 CARTE POUR\nCHAQUE CARTE :mutant: DANS VOTRE TABLEAU.",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/blob.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "CHASSEUSE",
+      "cost": 1,
+      "effect": {
+        "text": "PIOCHEZ 3 CARTES.",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/chasseuse.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "GENIE",
+      "cost": 9,
+      "effect": {
+        "text": "CHOISISSEZ 3 EFFETS\n(ILS PEUVENT ÊTRE RÉPÉTÉS) : GAGNEZ 10:g:,\nGAGNEZ :ressource: OU PIOCHEZ 2 CARTES.",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/genie.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "GOLEM",
+      "cost": 3,
+      "effect": {
+        "text": "GAGNEZ :rock: :rock: :rock:. \nLES AUTRES JOUEURS GAGNENT :rock:.",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/golem.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "KOBOLD",
+      "cost": 6,
+      "effect": {
+        "text": "GAGNEZ :rock: :rock: :rock: OU 30:g:",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/kobold.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "MOINE",
+      "cost": 4,
+      "effect": {
+        "text": "DÉFAUSSEZ AUTANT DE CARTES \nQUE SOUHAITÉ. GAGNEZ 15:g: POUR \nCHAQUE CARTE AINSI DÉFAUSSÉE.",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/moine.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "NAIN",
+      "cost": 0,
+      "effect": {
+        "text": "GAGNEZ :water: :rock:",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/nain.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "SCENTIFIQUE",
+      "cost": 2,
+      "effect": {
+        "text": "RECRUTEZ 1 CARTE :mutant: POUR 8:g:\nDE MOINS (MAIS PAS MOINS DE 0:g:).",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/scentifique.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "VICOMTE",
+      "cost": 1,
+      "effect": {
+        "text": "PIOCHEZ 1 CARTE\nPOUR CHAQUE CARTE :human: DANS VOTRE TABLEAU.",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/vicomte.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "CYCLOPE",
+      "cost": 3,
+      "effect": {
+        "text": "GAGNEZ :water: :rock: :rock:",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/cyclope.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "FÉE",
+      "cost": 3,
+      "effect": {
+        "text": "GAGNEZ :resource: :resource:",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/fee.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "MAGICIEN",
+      "cost": 1,
+      "effect": {
+        "text": "GAGNEZ :resource:, PUIS DEFAUSSEZ\nENTRE 0 ET 3 :resource: ET GAGNEZ :resource:\nPOUR CHAQUE :resource: AINSI DEFAUSSEE",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/magicien.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "MAJORDOME",
+      "cost": 4,
+      "effect": {
+        "text": "ACTIVEZ LA CARTE\nDIRECTEMENT A GAUCHE DE CELLE-CI",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/majordome.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "MARCHAND",
+      "cost": 0,
+      "effect": {
+        "text": "DEFAUSSEZ ENTRE 0 ET 4 :resource:. GAGNEZ 20:g:\nPOUR CHAQUE :resource: DEFAUSSEE CE TOUR",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/marchand.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "ORC",
+      "cost": 6,
+      "effect": {
+        "text": "GAGNEZ :leaf: :leaf: :leaf: OU 30:g:",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/orc.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "RAMEUR",
+      "cost": 16,
+      "effect": {
+        "text": "RETOURNEZ CETTE CARTE,\nPUIS ACTIVEZ TOUTES LES AUTRES CARTES\nDE CETTE LIGNE.",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/rameur.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "TROLL",
+      "cost": 3,
+      "effect": {
+        "text": "GAGNEZ :leaf: :leaf: :water:",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/troll.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "VAGABOND",
+      "cost": 1,
+      "effect": {
+        "text": "GAGNEZ 5:g: ET PIOCHEZ 2 CARTES.",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/vagabond.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "AGENT",
+      "cost": 8,
+      "effect": {
+        "text": "ACTIVEZ UNE CARTE COÛTANT 12 :g: OU +.",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/agent.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "ALCHIMISTE",
+      "cost": 0,
+      "effect": {
+        "text": "GAGNEZ :resource:, PUIS DEFAUSSEZ\nENTRE 0 ET 5 :resource: ET GAGNEZ 15:g:\nPOUR CHAQUE :resource: AINSI DEFAUSSEE.",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/alchimiste.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "ASSASSIN",
+      "cost": 3,
+      "effect": {
+        "text": "DEFAUSSEZ 1 CARTE ET DECLENCHEZ\nL'EFFET DE SA ZONE D'ACTIVATION.",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/assassin.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "BARBARE",
+      "cost": 3,
+      "effect": {
+        "text": "GAGNEZ :leaf: :rock: :rock:",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/barbare.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "BARDE",
+      "cost": 5,
+      "effect": {
+        "text": "ACTIVEZ 1 CARTE DANS CETTE COLONNE.",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/barde.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "BASILIC",
+      "cost": 4,
+      "effect": {
+        "text": "RECRUTEZ 1 CARTE :on_play: . PAYEZ SON COÛT.",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/basilic.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "BONIMENTEUR",
+      "cost": null,
+      "effect": {
+        "text": "GAGNEZ 5 :g: POUR CHACUNE DE VOS CARTES :mutant: EN JEU.",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/bonimenteur.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "BOUCANIÈRE",
+      "cost": null,
+      "effect": {
+        "text": "GAGNEZ :water: ET 10 :g: .",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/boucaniere.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "BOUFFON",
+      "cost": 3,
+      "effect": {
+        "text": "ACTIVEZ LA CARTE DIRECTEMENT EN DESSOUS DE CELLE-CI.",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/bouffon.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "CENTAURE",
+      "cost": 5,
+      "effect": {
+        "text": "GAGNEZ :leaf: :leaf: :leaf: .",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/centaure.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "CHAROGNARD",
+      "cost": 0,
+      "effect": {
+        "text": "NOMMEZ :leaf:, :water: OU :rock: ET REVELEZ DES CARTES\nDE LA PIOCHE JUSQU'A REVELER UNE CARTE\nCOMPORTANT CE GAIN OU :resource:.\nPIOCHEZ CETTE CARTE ET DEFAUSSEZ LES AUTRES",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/charognard.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "CHASSEUR DE TRÉSOR",
+      "cost": 1,
+      "effect": {
+        "text": "GAGNEZ 5 :g: POUR CHACUNE DE VOS :resource: .",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/chasseur_de_tresor.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "CHEF DE GUERRE",
+      "cost": 4,
+      "effect": {
+        "text": "GAGNEZ :leaf: :water: :rock: .",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/chef_de_guerre.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "CHEVALIER",
+      "cost": 3,
+      "effect": {
+        "text": "GAGNEZ :leaf: :leaf: :rock: .",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/chevalier.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "COLLECTEUR DE TAXE",
+      "cost": 1,
+      "effect": {
+        "text": "GAGNEZ 5 :g: POUR CHAQUE CARTE DANS VOTRE MAIN.",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/collecteur_de_taxe.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "COLPORTEUR",
+      "cost": 1,
+      "effect": {
+        "text": "PIOCHEZ 2 CARTES. DÉFAUSSEZ AUTANT DE CARTES QUE SOUHAITÉ. GAGNEZ 5 :g: POUR CHAQUE CARTE AINSI DÉFAUSSÉE.",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/colporteur.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "COURTIER",
+      "cost": 1,
+      "effect": {
+        "text": "NOMMEZ UNE FACTION ET PIOCHEZ 6 CARTES. GARDEZ LES CARTES QUI CORRESPONDENT À CETTE FACTION ET DÉFAUSSEZ LES AUTRES.",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/courtier.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "CRIEUR PUBLIC",
+      "cost": 1,
+      "effect": {
+        "text": "CHOISISSEZ ENTRE : TOUS LES JOUEURS PIOCHENT 1 CARTE ET VOUS GAGNEZ 30 :g: ; OU TOUS LES JOUEURS GAGNENT 10 :g: ET VOUS PIOCHEZ 3 CARTES.",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/crieur_public.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "CULTISTE",
+      "cost": 5,
+      "effect": {
+        "text": "ACTIVEZ 1 CARTE DANS CETTE LIGNE",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/cultiste.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "DIABLOTIN",
+      "cost": 5,
+      "effect": {
+        "text": "ACTIVEZ 1 DE VOS CARTES :extra_cost:.",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/diablotin.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "DRUIDE",
+      "cost": 2,
+      "effect": {
+        "text": "RECRUTEZ 1 CARTE :monster: POUR 8 :g: DE MOINS (MAIS PAS MOINS DE 0 :g: ).",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/druide.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "DRYADE",
+      "cost": 2,
+      "effect": {
+        "text": "GAGNEZ :leaf: :leaf: OU 20:g:",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/dryade.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "DUC",
+      "cost": 2,
+      "effect": {
+        "text": "PIOCHEZ 4 CARTES.\nLES AUTRES JOUEURS PIOCHENT 1 CARTE.",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/duc.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "ELFE",
+      "cost": 1,
+      "effect": {
+        "text": "GAGNEZ :leaf: :leaf: .",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/elfe.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "ENCHANTERESSE",
+      "cost": 1,
+      "effect": {
+        "text": "ACTIVEZ 1 DE VOS CARTES COÛTANT 6 :g: OU MOINS.",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/enchanteresse.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "ESCROC",
+      "cost": 4,
+      "effect": {
+        "text": "RECRUTEZ 1 CARTE :extra_cost: POUR 0:g:\nIGNOREZ SA ZONE DE RECRUTEMENT,\nPUIS ACTIVEZ-LA.",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/escroc.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "ESPRIT",
+      "cost": 6,
+      "effect": {
+        "text": "ACTIVEZ 1 DE VOS CARTES DE LA 2E COLONNE.",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/esprit.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "FAUNE",
+      "cost": 3,
+      "effect": {
+        "text": "GAGNEZ :leaf: :leaf: :leaf:.\nLES AUTRES JOUEURS GAGNENT :leaf:.",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/faune.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "FERMIER",
+      "cost": null,
+      "effect": {
+        "text": "GAGNEZ :leaf: ET 10 :g: .",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/fermier.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "GAMEUSE",
+      "cost": 5,
+      "effect": {
+        "text": "ACTIVEZ 1 DE VOS CARTES :victory_calc:.",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/gameuse.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "GARDE",
+      "cost": 1,
+      "effect": {
+        "text": "PIOCHEZ 1 CARTE POUR CHAQUE CARTE :monster: DANS VOTRE TABLEAU.",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/garde.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "GÉANT",
+      "cost": 8,
+      "effect": {
+        "text": "GAGNEZ :resource: :resource: :resource: .",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/geant.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "GÉNÉRAL",
+      "cost": 8,
+      "effect": {
+        "text": "RETOURNEZ CETTE CARTE.\nPUIS ACTIVEZ TOUTES VOS CARTES\nAVEC UN COÛT DE 6:g: OU MOINS",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/general.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "GNOME",
+      "cost": 4,
+      "effect": {
+        "text": "GAGNEZ 30 :g: OU PIOCHEZ 4 CARTES.",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/gnome.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "GOBELIN",
+      "cost": 0,
+      "effect": {
+        "text": "GAGNEZ :leaf: :rock:.",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/gobelin.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "GOULE",
+      "cost": 5,
+      "effect": {
+        "text": "ACTIVEZ 1 DE VOS CARTES :condition: .",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/goule.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "HALFELIN",
+      "cost": 2,
+      "effect": {
+        "text": "GAGNEZ :rock: :rock: OU 20 :g: .",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/halfelin.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "HOMME-GRENOUILLE",
+      "cost": 3,
+      "effect": {
+        "text": "GAGNEZ :water: :water: :water: . LES AUTRES JOUEURS GAGNENT :water: .",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/homme_grenouille.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "HORS-LA-LOI",
+      "cost": 9,
+      "effect": {
+        "text": "GAGNEZ 1:g:. REPETEZ CECI JUSQU'A AVOIR LE PLUS DE :g:.",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/hors_la_loi.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "INGÉNIEURE",
+      "cost": 16,
+      "effect": {
+        "text": "RETOURNEZ CETTE CARTE, PUIS ACTIVEZ TOUTES LES AUTRES CARTES DE CETTE COLONNE.",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/ingenieure.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "INVENTEUR",
+      "cost": 2,
+      "effect": {
+        "text": "RÉVÉLEZ DES CARTES DE LA PIOCHE JUSQU'À ATTEINDRE UN COÛT TOTAL DE 30 :g: OU + ET PRENEZ CES CARTES.",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/inventeur.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "JOUEUR",
+      "cost": 4,
+      "effect": {
+        "text": "REVELEZ 3 CARTES DE LA PIOCHE,\nGAGNEZ :g: EGALES AU TOTAL DE LEURS\nCOÛTS PUIS DEFAUSSEZ CES CARTES.",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/joueur.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "KAIJU",
+      "cost": 5,
+      "effect": {
+        "text": "ACTIVEZ 1 DE VOS CARTES :mutant: .",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/kaiju.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "LEPRECHAUN",
+      "cost": 4,
+      "effect": {
+        "text": "GAGNEZ 30:g: ou :resource: :resource:",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/leprechaun.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "LICORNE",
+      "cost": 6,
+      "effect": {
+        "text": "GAGNEZ :resource: :resource: :resource:\nLES AUTRES JOUEURS GAGNENT :resource:",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/licorne.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "MAGE",
+      "cost": null,
+      "effect": {
+        "text": "DÉFAUSSEZ ENTRE 0 ET 6 :resource: ET GAGNEZ :resource: POUR CHAQUE :resource: AINSI DÉFAUSSÉE.",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/mage.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "MÉTAMORPHE",
+      "cost": 5,
+      "effect": {
+        "text": "ACTIVEZ 1 DE VOS CARTES :monster: .",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/metamorphe.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "MIME",
+      "cost": 5,
+      "effect": {
+        "text": "ACTIVEZ 1 DE VOS CARTES :human:.",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/mime.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "MINEUR",
+      "cost": 0,
+      "effect": {
+        "text": "GAGNEZ :rock: ET 10:g:",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/mineur.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "MINOTAURE",
+      "cost": 1,
+      "effect": {
+        "text": "GAGNEZ :rock: :rock: .",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/minotaure.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "MONSTRE MARIN",
+      "cost": 3,
+      "effect": {
+        "text": "GAGNEZ :leaf: :water: :water: .",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/monstre_marin.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "NÉCROMANCIEN",
+      "cost": 2,
+      "effect": {
+        "text": "RECRUTEZ 1 CARTE :human: POUR 8 :g: DE MOINS (MAIS PAS MOINS DE 0 :g: ).",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/necromancien.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "NINJA",
+      "cost": 4,
+      "effect": {
+        "text": "RECRUTEZ 1 CARTE :condition: POUR 0 :g: . IGNOREZ SA ZONE DE RECRUTEMENT, PUIS ACTIVEZ-LA.",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/ninja.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "PÂTISSIER",
+      "cost": 2,
+      "effect": {
+        "text": "GAGNEZ :resource: :resource: DE DIFFÉRENTS TYPES.",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/patissier.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "PATRON",
+      "cost": 1,
+      "effect": {
+        "text": "GAGNEZ 30 :g: . LES AUTRES JOUEURS GAGNENT 10 :g: .",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/patron.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "PLONGEUR",
+      "cost": 2,
+      "effect": {
+        "text": "GAGNEZ :water: :water: OU 20 :g: .",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/plongeur.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "PRINCE",
+      "cost": 3,
+      "effect": {
+        "text": "PIOCHEZ 4 CARTES",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/prince.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "PRINCESSE",
+      "cost": 3,
+      "effect": {
+        "text": "PIOCHEZ 5 CARTES, GARDEZ-EN 2, ET DÉFAUSSEZ LES AUTRES.",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/princesse.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "ROI",
+      "cost": 4,
+      "effect": {
+        "text": "PIOCHEZ DES CARTES UNE À UNE JUSQU'À AVOIR LE PLUS DE CARTES EN MAIN.",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/roi.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "SEIGNEUR",
+      "cost": 2,
+      "effect": {
+        "text": "NOMMEZ UNE FACTION ET GAGNEZ 5:g:\nPOUR CHAQUE CARTE DE VOTRE MAIN\nDE CETTE FACTION",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/seigneur.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "SIRÈNE",
+      "cost": 1,
+      "effect": {
+        "text": "GAGNEZ :water: :water: .",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/sirene.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "SOIGNEUSE",
+      "cost": null,
+      "effect": {
+        "text": "GAGNEZ 5 :g: POUR CHACUNE DE VOS CARTES :monster: .",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/soigneuse.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "SOLDAT",
+      "cost": null,
+      "effect": {
+        "text": "GAGNEZ :leaf: :water: .",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/soldat.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "SQUELETTE",
+      "cost": 6,
+      "effect": {
+        "text": "ACTIVEZ 1 DE VOS CARTES DE LA 4E COLONNE.",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/squelette.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "TRITON",
+      "cost": 5,
+      "effect": {
+        "text": "GAGNEZ :water: :water: :water: .",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/triton.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "VAMPIRE",
+      "cost": 4,
+      "effect": {
+        "text": "ACTIVEZ 1 DE VOS CARTES :on_play:.",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/vampire.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "VENDEUR AMBULANT",
+      "cost": 3,
+      "effect": {
+        "text": "PIOCHEZ 1 CARTE, PUIS DÉFAUSSEZ UN NOMBRE SOUHAITÉ DE CARTES ET GAGNEZ :resource: POUR CHAQUE CARTE AINSI DÉFAUSSÉE.",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/vendeur_ambulant.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "VIKING",
+      "cost": 3,
+      "effect": {
+        "text": "GAGNEZ :water: :water: :rock: .",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/viking.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "VOLEUR",
+      "cost": 1,
+      "effect": {
+        "text": "GAGNEZ 20 :g: .",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/voleur.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "WEDDING PLANNER",
+      "cost": 1,
+      "effect": {
+        "text": "NOMMEZ UNE FACTION ET RÉVÉLEZ DES CARTES DE LA PIOCHE JUSQU'À CE QUE 2 CORRESPONDENT. GARDEZ-LES ET DÉFAUSSEZ LES AUTRES.",
+        "category": ""
+      },
+      "faction": "human",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/wedding_planner.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "YÉTI",
+      "cost": 5,
+      "effect": {
+        "text": "GAGNEZ :rock: :rock: :rock: .",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/yeti.png",
+      "points": -1,
+      "layout": "foregrounds"
+    },
+    {
+      "name": "ZOMBIE",
+      "cost": 6,
+      "effect": {
+        "text": "ACTIVEZ 1 DE VOS CARTES DE LA 3E COLONNE.",
+        "category": ""
+      },
+      "faction": "monster",
+      "artwork_url": "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/cards/foregrounds/zombie.png",
+      "points": -1,
+      "layout": "foregrounds"
+    }
+  ]
+}
