@@ -39,6 +39,23 @@ local TOKEN_FRAC = {
 -- see it in-editor.
 local DISPLAY_OFFSET_FRAC = -0.03
 
+-- Fractional center of each of the 16 card-slot cells (4 cols x 4 rows,
+-- measured from the card-back tiles printed on the board texture -- 210px
+-- column pitch, 290px row pitch out of the 1072x1400 image), plus the
+-- quest-token marker: the blank square at the top-right of the icon row
+-- (same row as TOKEN_FRAC's icons, rightmost slot, never assigned to a
+-- resource).
+local CARD_SLOT_COL_FRAC = { 121.5 / 1072, 331.5 / 1072, 541.5 / 1072, 751.5 / 1072 }
+local CARD_SLOT_ROW_FRAC = { 376.5 / 1400, 666.5 / 1400, 956.5 / 1400, 1246.5 / 1400 }
+local QUEST_SLOT_FRAC = { x = 973 / 1072, y = 101.5 / 1400 }
+
+-- Zone/snap-point footprint sizes, as a fraction of the texture -- 90% of
+-- each slot's measured pitch (card slots) or measured size (quest square),
+-- same margin convention as PlayerGrid.lua's CELL_SPACING * 0.9.
+local CARD_SLOT_SIZE_FRAC = { x = 189 / 1072, z = 261 / 1400 }
+local QUEST_SLOT_SIZE_FRAC = { x = 123 / 1072, z = 126 / 1400 }
+local ZONE_HEIGHT = 3
+
 -- Converts a fractional (x, y) position on the board's face texture into a
 -- position local to this object, using its live bounds rather than a
 -- hardcoded board size -- getBounds() reports world-space (scaled) size, so
@@ -51,6 +68,86 @@ local function fracToLocal(fracX, fracZ, y)
     local width = size.x / scale.x
     local length = size.z / scale.z
     return { (fracX - 0.5) * width, y, (fracZ - 0.5) * length }
+end
+
+-- Converts a fractional (x, y) position into a WORLD position instead --
+-- unlike buttons/snap points (local to this object), zones are separate
+-- objects spawned via spawnObject, so they need real world coordinates.
+-- Uses getBounds() directly (already world-space) rather than fracToLocal,
+-- so no scale division/multiplication round-trip is needed -- just rotate
+-- the offset by the board's own yaw so this still works if the board isn't
+-- axis-aligned.
+local function fracToWorld(fracX, fracZ, y)
+    local bounds = self.getBounds()
+    local rad = math.rad(self.getRotation().y)
+    local offsetX = (fracX - 0.5) * bounds.size.x
+    local offsetZ = (fracZ - 0.5) * bounds.size.z
+    local worldX = offsetX * math.cos(rad) - offsetZ * math.sin(rad)
+    local worldZ = offsetX * math.sin(rad) + offsetZ * math.cos(rad)
+    return { bounds.center.x + worldX, bounds.center.y + y, bounds.center.z + worldZ }
+end
+
+-- Destroys any zones a previous onLoad already spawned for this specific
+-- board (matched by name + proximity, so reloading during testing doesn't
+-- pile up duplicates, and so this doesn't touch other players' boards
+-- running the same script).
+local function destroyStaleZones()
+    local origin = self.getPosition()
+    for _, obj in ipairs(getAllObjects()) do
+        if obj.getName():find("^BoardZone_") then
+            local p = obj.getPosition()
+            local dx, dz = p.x - origin.x, p.z - origin.z
+            if math.sqrt(dx * dx + dz * dz) < 30 then
+                obj.destruct()
+            end
+        end
+    end
+end
+
+-- Builds one Zone + one snap point per card slot (16, in a 4x4 grid), plus
+-- one extra pair on the quest-token marker at the top-right of the board.
+local function buildSlotZonesAndSnapPoints()
+    destroyStaleZones()
+
+    local slots = {}
+    for row = 1, #CARD_SLOT_ROW_FRAC do
+        for col = 1, #CARD_SLOT_COL_FRAC do
+            table.insert(slots, {
+                fracX = CARD_SLOT_COL_FRAC[col],
+                fracZ = CARD_SLOT_ROW_FRAC[row],
+                tag = "CardSlot_" .. row .. "_" .. col,
+                sizeFrac = CARD_SLOT_SIZE_FRAC,
+            })
+        end
+    end
+    table.insert(slots, {
+        fracX = QUEST_SLOT_FRAC.x,
+        fracZ = QUEST_SLOT_FRAC.y,
+        tag = "QuestSlot",
+        sizeFrac = QUEST_SLOT_SIZE_FRAC,
+    })
+
+    local snapPoints = {}
+    local bounds = self.getBounds()
+    for _, slot in ipairs(slots) do
+        table.insert(snapPoints, {
+            position = fracToLocal(slot.fracX, slot.fracZ, 0.1),
+            rotation = { 0, 0, 0 },
+            rotation_snap = true,
+            tags = { slot.tag },
+        })
+
+        local worldPos = fracToWorld(slot.fracX, slot.fracZ, ZONE_HEIGHT / 2)
+        local zone = spawnObject({
+            type = "ScriptingTrigger",
+            position = worldPos,
+            rotation = { 0, self.getRotation().y, 0 },
+            scale = { slot.sizeFrac.x * bounds.size.x, ZONE_HEIGHT, slot.sizeFrac.z * bounds.size.z },
+        })
+        zone.setName("BoardZone_" .. slot.tag)
+    end
+
+    self.setSnapPoints(snapPoints)
 end
 
 function onLoad(saved_data)
@@ -85,6 +182,8 @@ function onLoad(saved_data)
     b_display_water = generateButton("water")
     b_display_money = generateButton("money")
     b_display_points = generateButton("points")
+
+    buildSlotZonesAndSnapPoints()
 end
 
 function on_btn_money(obj, color, alt_click)
