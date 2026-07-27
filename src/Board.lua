@@ -49,6 +49,15 @@ local CARD_SLOT_COL_FRAC = { 331.5 / 1072, 541.5 / 1072, 751.5 / 1072, 961.5 / 1
 local CARD_SLOT_ROW_FRAC = { 376.5 / 1400, 666.5 / 1400, 956.5 / 1400, 1246.5 / 1400 }
 local QUEST_SLOT_FRAC = { x = 973 / 1072, y = 101.5 / 1400 }
 
+-- Small hand-tuned correction applied only to where a card actually SNAPS
+-- (not to the zones, which were re-verified pixel-accurate against the
+-- printed grid's own border lines). A small consistent left-right residual
+-- remained even with correct column centers -- likely something in how TTS
+-- resolves this object's local-to-world placement for snap points
+-- specifically that isn't inspectable from script. Nudge in small steps
+-- (0.002-0.005 =~ 2-5px) and reload; positive shifts right, negative left.
+local CARD_SLOT_SNAP_X_NUDGE_FRAC = -0.007
+
 -- Zone/snap-point footprint sizes, as a fraction of the texture -- 90% of
 -- each slot's measured pitch (card slots) or measured size (quest square),
 -- same margin convention as PlayerGrid.lua's CELL_SPACING * 0.9.
@@ -132,7 +141,11 @@ local function buildSlotZonesAndSnapPoints()
     -- TEMP DIAGNOSTIC -- remove once the X-axis offset is confirmed fixed.
     printToAll("bounds=" .. JSON.encode(bounds) .. " scale=" .. JSON.encode(self.getScale()) .. " rotation=" .. JSON.encode(self.getRotation()), { 1, 1, 0 })
     for _, slot in ipairs(slots) do
-        local localPos = fracToLocal(slot.fracX, slot.fracZ, 0.1)
+        local snapFracX = slot.fracX
+        if slot.tag:find("^CardSlot_") then
+            snapFracX = snapFracX + CARD_SLOT_SNAP_X_NUDGE_FRAC
+        end
+        local localPos = fracToLocal(snapFracX, slot.fracZ, 0.1)
         table.insert(snapPoints, {
             position = localPos,
             rotation = { 0, 0, 0 },
