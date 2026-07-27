@@ -45,7 +45,7 @@ local DISPLAY_OFFSET_FRAC = -0.03
 -- quest-token marker: the blank square at the top-right of the icon row
 -- (same row as TOKEN_FRAC's icons, rightmost slot, never assigned to a
 -- resource).
-local CARD_SLOT_COL_FRAC = { 121.5 / 1072, 331.5 / 1072, 541.5 / 1072, 751.5 / 1072 }
+local CARD_SLOT_COL_FRAC = { 331.5 / 1072, 541.5 / 1072, 751.5 / 1072, 961.5 / 1072 }
 local CARD_SLOT_ROW_FRAC = { 376.5 / 1400, 666.5 / 1400, 956.5 / 1400, 1246.5 / 1400 }
 local QUEST_SLOT_FRAC = { x = 973 / 1072, y = 101.5 / 1400 }
 
@@ -129,15 +129,25 @@ local function buildSlotZonesAndSnapPoints()
 
     local snapPoints = {}
     local bounds = self.getBounds()
+    -- TEMP DIAGNOSTIC -- remove once the X-axis offset is confirmed fixed.
+    printToAll("bounds=" .. JSON.encode(bounds) .. " scale=" .. JSON.encode(self.getScale()) .. " rotation=" .. JSON.encode(self.getRotation()), { 1, 1, 0 })
     for _, slot in ipairs(slots) do
+        local localPos = fracToLocal(slot.fracX, slot.fracZ, 0.1)
         table.insert(snapPoints, {
-            position = fracToLocal(slot.fracX, slot.fracZ, 0.1),
+            position = localPos,
             rotation = { 0, 0, 0 },
             rotation_snap = true,
-            tags = { slot.tag },
+            -- No `tags` here: tags restrict a snap point to only objects
+            -- carrying that same tag (via object.addTag()) -- cards never
+            -- get one, so a tagged snap point silently accepts nothing.
+            -- slot.tag is still used for the zone's name below, where it's
+            -- just an identifying label, not a filter.
         })
 
         local worldPos = fracToWorld(slot.fracX, slot.fracZ, ZONE_HEIGHT / 2)
+        if slot.tag == "CardSlot_1_1" or slot.tag == "CardSlot_1_4" then
+            printToAll(slot.tag .. " fracX=" .. slot.fracX .. " local=" .. JSON.encode(localPos) .. " world=" .. JSON.encode(worldPos), { 1, 1, 0 })
+        end
         local zone = spawnObject({
             type = "ScriptingTrigger",
             position = worldPos,
@@ -148,6 +158,71 @@ local function buildSlotZonesAndSnapPoints()
     end
 
     self.setSnapPoints(snapPoints)
+end
+
+-- TEMP DIAGNOSTIC -- onObjectEnterZone/onObjectLeaveZone fire for every
+-- zone in the whole game, in every object's script, not just this board's
+-- own -- filter to zones named "BoardZone_*" that are actually close to
+-- this board so multiple Board instances don't spam each other. Remove
+-- once zone behavior is confirmed working.
+local function isOwnZone(zone)
+    if not zone.getName():find("^BoardZone_") then return false end
+    local origin = self.getPosition()
+    local p = zone.getPosition()
+    local dx, dz = p.x - origin.x, p.z - origin.z
+    return math.sqrt(dx * dx + dz * dz) < 30
+end
+
+function onObjectEnterZone(zone, enter_object)
+    if isOwnZone(zone) then
+        -- use_snap_points lives on the DRAGGED object, not the board -- an
+        -- object with it disabled will never lock onto any of this board's
+        -- snap points no matter how correct their positions are. Force it
+        -- on as soon as something wanders into one of our zones, so it's
+        -- already enabled by the time the player actually drops it.
+        if not enter_object.use_snap_points then
+            enter_object.use_snap_points = true
+        end
+
+        printToAll(zone.getName() .. " ENTER: " .. enter_object.getName() .. " (" .. enter_object.tag .. ")", { 0, 1, 1 })
+        -- Give the snap a moment to settle, then compare where the card
+        -- actually landed to where this zone (which shares its center with
+        -- the matching snap point) thinks it should be.
+        Wait.time(function()
+            local zonePos = zone.getPosition()
+            local cardPos = enter_object.getPosition()
+            printToAll(
+                zone.getName() .. " settled delta: dx=" .. (cardPos.x - zonePos.x)
+                .. " dy=" .. (cardPos.y - zonePos.y)
+                .. " dz=" .. (cardPos.z - zonePos.z),
+                { 1, 0, 1 }
+            )
+        end, 0.3)
+    end
+end
+
+function onObjectLeaveZone(zone, leave_object)
+    if isOwnZone(zone) then
+        printToAll(zone.getName() .. " LEAVE: " .. leave_object.getName() .. " (" .. leave_object.tag .. ")", { 1, 0.5, 0 })
+    end
+end
+
+-- onObjectDrop fires for every object dropped anywhere, in every object's
+-- own script -- only react when this specific board is the one that moved.
+-- Snap points are genuinely local to the object so they track it for free;
+-- zones are independent objects at a fixed world position, so they need to
+-- be torn down and respawned at the board's new spot.
+--
+-- The rebuild is delayed rather than run immediately on drop: onObjectDrop
+-- fires the instant the object is released, which can be before its smooth
+-- move/rotate animation has actually finished settling. Reading
+-- getBounds()/getRotation() at that instant risks baking in a transient,
+-- not-yet-final transform, which would throw off every zone by however far
+-- the board still had left to travel/rotate.
+function onObjectDrop(player_color, dropped_object)
+    if dropped_object == self then
+        Wait.time(buildSlotZonesAndSnapPoints, 0.5)
+    end
 end
 
 function onLoad(saved_data)
