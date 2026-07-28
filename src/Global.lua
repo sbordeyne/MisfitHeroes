@@ -136,7 +136,7 @@ end
 -- actually create/reload each object before we try to call into its script.
 function spawnNextCard(i, total, backgrounds, foregrounds)
     if i > total then
-        printToAll("Misfit Heroes: " .. #spawnedCards .. " cards dealt.", { 0, 1, 0 })
+        Wait.time(function() assembleDeck(spawnedCards) end, 1)
         return
     end
 
@@ -151,32 +151,45 @@ function spawnNextCard(i, total, backgrounds, foregrounds)
         scale = { 1, 1, 1 },
     })
 
-    card.setCustomObject({
-        type = 0, -- rectangular
-        face = blankFaceURL,
-        back = blankBackURL,
-        unique_back = false,
-    })
-    -- setLuaScript() only takes effect once the object reloads -- see
-    -- api.tabletopsimulator.com/object/#setluascript.
-    card.setLuaScript(cardScriptText)
-
-    local cardGUID = card.getGUID()
-    card.reload()
-
     local background = backgrounds[i]
     local foreground = foregrounds[i]
 
+    -- setCustomObject/setLuaScript "will not work correctly if used in the
+    -- same frame the object is spawned" (TTS API docs) -- waiting a frame
+    -- before touching the freshly spawned card is what was silently leaving
+    -- every card without Card.lua actually attached (so setStateFromBgFg
+    -- never existed on it, and it stayed on the plain blank face).
     Wait.frames(function()
-        -- reload() respawns the object in place (same GUID) but invalidates
-        -- the original `card` reference -- re-fetch the live object before
-        -- touching it again.
-        card = getObjectFromGUID(cardGUID)
-        card.call("setStateFromBgFg", { background = background, foreground = foreground })
+        card.setCustomObject({
+            type = 0, -- rectangular
+            face = blankFaceURL,
+            back = blankBackURL,
+            unique_back = false,
+        })
+        card.setLuaScript(cardScriptText)
+        -- reload() returns the respawned object directly -- no need to
+        -- track/re-fetch by GUID.
+        card = card.reload()
 
-        table.insert(spawnedCards, card)
-        spawnNextCard(i + 1, total, backgrounds, foregrounds)
-    end, 6)
+        Wait.frames(function()
+            card.call("setStateFromBgFg", { background = background, foreground = foreground })
+
+            table.insert(spawnedCards, card)
+            spawnNextCard(i + 1, total, backgrounds, foregrounds)
+        end, 6)
+    end, 1)
+end
+
+-- Merges all spawned cards into a single shuffled deck, once every card has
+-- had a chance to apply its state/decals -- mirrors old Global.lua's
+-- recombineIntoDeck.
+function assembleDeck(cards)
+    if #cards < 2 then return end
+    local results = group(cards)
+    local deck = results[1]
+    deck.setPosition({ 0, 2, 0 })
+    deck.shuffle()
+    printToAll("Misfit Heroes deck ready - " .. #cards .. " cards.", { 0, 1, 0 })
 end
 
 -- Optional: type !start in chat to trigger dealing.

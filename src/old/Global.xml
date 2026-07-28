@@ -1,3 +1,0 @@
-<!-- Start button + extension toggles now live on the world-space control
-     panel spawned by buildControlPanel() in Global.lua, not on Global's
-     screen-space UI. -->

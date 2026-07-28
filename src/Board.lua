@@ -175,13 +175,13 @@ function onObjectEnterZone(zone, enter_object)
         if not enter_object.use_snap_points then
             enter_object.use_snap_points = true
         end
-        printToAll(zone.getName() .. " ENTER: " .. enter_object.getName() .. " (" .. enter_object.tag .. ")", { 0, 1, 1 })
+        -- printToAll(zone.getName() .. " ENTER: " .. enter_object.getName() .. " (" .. enter_object.tag .. ")", { 0, 1, 1 })
     end
 end
 
 function onObjectLeaveZone(zone, leave_object)
     if isOwnZone(zone) then
-        printToAll(zone.getName() .. " LEAVE: " .. leave_object.getName() .. " (" .. leave_object.tag .. ")", { 1, 0.5, 0 })
+        -- printToAll(zone.getName() .. " LEAVE: " .. leave_object.getName() .. " (" .. leave_object.tag .. ")", { 1, 0.5, 0 })
     end
 end
 
@@ -202,7 +202,7 @@ function onObjectDrop(player_color, dropped_object)
         Wait.time(buildSlotZonesAndSnapPoints, 0.5)
     end
     if dropped_object.tag == "Card" then
-        printToAll("Card dropped: " .. dropped_object.getName() .. " (" .. dropped_object.guid .. ")", { 1, 1, 0 })
+        -- printToAll("Card dropped: " .. dropped_object.getName() .. " (" .. dropped_object.guid .. ")", { 1, 1, 0 })
     end
 end
 
