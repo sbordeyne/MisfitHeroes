@@ -15,6 +15,12 @@ local EFFECT_CATEGORY = {
     CONDITION = "condition",
 }
 
+-- Sentinel for a "variable" victory point value (data/base.json uses -1 for
+-- this on backgrounds whose points are computed by a VICTORY_CALC effect
+-- instead of being fixed) -- picks the ui_victory_x.png badge, which already
+-- has an "X" printed on it, instead of the plain numbered one.
+local VARIABLE_POINTS = "X"
+
 -- Point this at wherever assets/ ends up hosted (Steam Cloud, GitHub raw,
 -- etc). Local file paths only work for the machine that's actually running
 -- the TTS client you're testing in.
@@ -23,6 +29,8 @@ local ASSET_BASE = "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/ref
 local UI_ASSETS = {
     cost = ASSET_BASE .. "ui/ui_cost.png",
     victory = ASSET_BASE .. "ui/ui_victory.png",
+    victoryX = ASSET_BASE .. "ui/ui_victory_x.png",
+    banner = ASSET_BASE .. "ui/ui_banner.png",
     factionHuman = ASSET_BASE .. "ui/ui_faction_human.png",
     factionMonster = ASSET_BASE .. "ui/ui_faction_monster.png",
     factionMutant = ASSET_BASE .. "ui/ui_faction_mutant.png",
@@ -50,26 +58,89 @@ local ICON_MARKERS = {
     on_play = { name = "icon_on_play", url = ASSET_BASE .. "font/on_play.png" },
 }
 
--- Fractional (left, top, right, bottom) layout boxes for a single flat card
--- face (no hero/background split, unlike the old combined-card version).
--- Loosely carried over from src/old/Card.lua's proportions as a starting
--- placeholder -- not yet checked against this card's actual artwork/asset
--- layout, will need eyeballing once real art is in.
+--------------------------------------------------------------------------
+-- Layout
+--------------------------------------------------------------------------
+-- Every ui/ asset is authored 1:1 against this reference canvas (matches
+-- bg_card_front.png's own pixel size) -- no rescaling needed, only correct
+-- positioning. ui_cost anchors by its own top-left corner to the card's
+-- top-left; ui_victory mirrors that to the top-right; ui_banner and every
+-- ui_effect_* variant anchor by their bottom-left corner to the card's
+-- bottom-left. That last group each carries a lot of transparent padding
+-- above its actual ink (e.g. ui_banner.png is a 537px-tall canvas but the
+-- ribbon itself only occupies the top ~178px of it) -- sized specifically so
+-- several of them can share that one bottom-left anchor and still land
+-- stacked in the right place with no manual offset math here.
+local CARD_PX = { width = 1000, height = 1400 }
+
+local ASSET_PX = {
+    cost = { 140, 143 },
+    victory = { 115, 126 },
+    victoryX = { 114, 123 },
+    artwork = { 1000, 1000 },
+    factionHuman = { 100, 554 },
+    factionMonster = { 100, 576 },
+    factionMutant = { 100, 580 },
+    banner = { 1000, 537 },
+    effectOnPlay = { 1000, 359 },
+    effectVictory = { 1000, 358 },
+    effectExtraCost = { 1000, 365 },
+    effectCondition = { 1000, 362 },
+    effectActivation = { 1000, 227 },
+}
+
+local function topLeftBox(px)
+    return { 0, 0, px[1] / CARD_PX.width, px[2] / CARD_PX.height }
+end
+
+local function topRightBox(px)
+    local w = px[1] / CARD_PX.width
+    return { 1 - w, 0, 1, px[2] / CARD_PX.height }
+end
+
+local function bottomLeftBox(px)
+    local h = px[2] / CARD_PX.height
+    return { 0, 1 - h, 1, 1 }
+end
+
+-- Faction ribbons have no anchor rule of their own (unlike the assets
+-- above, their canvas has no built-in padding to lean on) -- best guess is
+-- flush against the left edge, starting right where the cost badge ends.
+local function belowCostBox(px)
+    local costBottom = ASSET_PX.cost[2] / CARD_PX.height
+    return { 0, costBottom, px[1] / CARD_PX.width, costBottom + px[2] / CARD_PX.height }
+end
+
 local LAYOUT = {
-    cost = { 0.0, 0.0, 0.22, 0.18 },
-    victory = { 0.78, 0.0, 1.0, 0.18 },
-    faction = { 0.0, 0.05, 0.22, 0.65 },
-    artwork = { 0.0, 0.0, 1.0, 0.62 },
+    cost = topLeftBox(ASSET_PX.cost),
+    victory = topRightBox(ASSET_PX.victory),
+    victoryX = topRightBox(ASSET_PX.victoryX),
+    artwork = topLeftBox(ASSET_PX.artwork),
 
-    effectBox = { 0.03, 0.64, 1.0, 0.80 },
-    effectText = { 0.08, 0.65, 0.97, 0.79 },
+    factionHuman = belowCostBox(ASSET_PX.factionHuman),
+    factionMonster = belowCostBox(ASSET_PX.factionMonster),
+    factionMutant = belowCostBox(ASSET_PX.factionMutant),
 
-    activationEffectBox = { 0.03, 0.81, 1.0, 0.97 },
-    activationEffectText = { 0.08, 0.82, 0.97, 0.96 },
+    banner = bottomLeftBox(ASSET_PX.banner),
+    effectOnPlay = bottomLeftBox(ASSET_PX.effectOnPlay),
+    effectVictory = bottomLeftBox(ASSET_PX.effectVictory),
+    effectExtraCost = bottomLeftBox(ASSET_PX.effectExtraCost),
+    effectCondition = bottomLeftBox(ASSET_PX.effectCondition),
+    effectActivation = bottomLeftBox(ASSET_PX.effectActivation),
+
+    -- Text-safe sub-boxes, hand-measured against each asset's own painted
+    -- ink (not its full padded canvas) so text doesn't sit on top of the
+    -- ribbon fold / icon square / decorative border art.
+    costText = { 0.04, 0.03, 0.135, 0.10 },
+    victoryText = { 0.895, 0.01, 0.995, 0.075 },
+    bannerText = { 0.28, 0.645, 0.74, 0.75 },
+    effectText = { 0.23, 0.75, 0.90, 0.855 },
+    activationEffectText = { 0.10, 0.855, 0.90, 0.965 },
 }
 
 local FONT_SIZE = {
     badge = 42,  -- cost / VP numbers
+    banner = 30, -- hero / background name
     effect = 26, -- effect box text
 }
 
@@ -117,6 +188,8 @@ function onLoad(saved_data)
             cost = 0,
             background_url = "",
             foreground_url = "",
+            background_name = "",
+            foreground_name = "",
             points = 0,
             effect_category = EFFECT_CATEGORY.NONE,
             effect = "",
@@ -137,7 +210,13 @@ function setStateFromBgFg(params)
     local bgCost = background.cost or 0
     local fgCost = foreground.cost or 0
     local cost = bgCost + fgCost
+    -- data/base.json uses -1 on a background to mean "variable, computed by
+    -- its own VICTORY_CALC effect" -- foregrounds' points are always a
+    -- meaningless -1 placeholder and never contribute here.
     local points = background.points or 0
+    if points == -1 then
+        points = VARIABLE_POINTS
+    end
     local bgFaction = background.faction or FACTION.NONE
     local fgFaction = foreground.faction or FACTION.NONE
     local faction = FACTION.NONE
@@ -156,6 +235,8 @@ function setStateFromBgFg(params)
         faction = faction,
         background_url = background.artwork_url or "",
         foreground_url = foreground.artwork_url or "",
+        background_name = background.name or "",
+        foreground_name = foreground.name or "",
         effect_category = background.effect.category or EFFECT_CATEGORY.NONE,
         effect = background.effect.text or "",
         activation_effect = foreground.effect.text or "",
@@ -366,44 +447,63 @@ end
 
 local function renderCost()
     queueImageDecal("Cost Coin", UI_ASSETS.cost, LAYOUT.cost)
-    queueTextBox("cost_text", LAYOUT.cost, { tokenize(tostring(State.cost)) }, FONT_SIZE.badge)
+    queueTextBox("cost_text", LAYOUT.costText, { tokenize(tostring(State.cost)) }, FONT_SIZE.badge)
 end
 
 local function renderVictoryPoints()
+    if State.points == VARIABLE_POINTS then
+        -- ui_victory_x.png already has the "X" printed on it -- no text overlay.
+        queueImageDecal("Victory Trophy", UI_ASSETS.victoryX, LAYOUT.victoryX)
+        return
+    end
     queueImageDecal("Victory Trophy", UI_ASSETS.victory, LAYOUT.victory)
-    queueTextBox("victory_text", LAYOUT.victory, { tokenize(tostring(State.points)) }, FONT_SIZE.badge)
+    queueTextBox("victory_text", LAYOUT.victoryText, { tokenize(tostring(State.points)) }, FONT_SIZE.badge)
 end
 
 local function renderFaction()
     if State.faction == FACTION.NONE then return end
 
-    local urlByFaction = {
-        [FACTION.HUMAN] = UI_ASSETS.factionHuman,
-        [FACTION.MONSTER] = UI_ASSETS.factionMonster,
-        [FACTION.MUTANT] = UI_ASSETS.factionMutant,
+    local assetByFaction = {
+        [FACTION.HUMAN] = { url = UI_ASSETS.factionHuman, box = LAYOUT.factionHuman },
+        [FACTION.MONSTER] = { url = UI_ASSETS.factionMonster, box = LAYOUT.factionMonster },
+        [FACTION.MUTANT] = { url = UI_ASSETS.factionMutant, box = LAYOUT.factionMutant },
     }
-    queueImageDecal("Faction Ribbon", urlByFaction[State.faction], LAYOUT.faction)
+    local asset = assetByFaction[State.faction]
+    queueImageDecal("Faction Ribbon", asset.url, asset.box)
+end
+
+local function renderBanner()
+    if State.foreground_name == "" and State.background_name == "" then return end
+
+    queueImageDecal("Name Banner", UI_ASSETS.banner, LAYOUT.banner)
+    queueTextBox(
+        "banner_text",
+        LAYOUT.bannerText,
+        { tokenize(State.foreground_name), tokenize(State.background_name) },
+        FONT_SIZE.banner
+    )
 end
 
 local function renderEffectBox()
     if State.effect_category == EFFECT_CATEGORY.NONE or State.effect == "" then return end
 
-    local urlByCategory = {
-        [EFFECT_CATEGORY.ON_PLAY] = UI_ASSETS.effectOnPlay,
-        [EFFECT_CATEGORY.VICTORY_CALC] = UI_ASSETS.effectVictory,
-        [EFFECT_CATEGORY.EXTRA_COST] = UI_ASSETS.effectExtraCost,
-        [EFFECT_CATEGORY.CONDITION] = UI_ASSETS.effectCondition,
+    local assetByCategory = {
+        [EFFECT_CATEGORY.ON_PLAY] = { url = UI_ASSETS.effectOnPlay, box = LAYOUT.effectOnPlay },
+        [EFFECT_CATEGORY.VICTORY_CALC] = { url = UI_ASSETS.effectVictory, box = LAYOUT.effectVictory },
+        [EFFECT_CATEGORY.EXTRA_COST] = { url = UI_ASSETS.effectExtraCost, box = LAYOUT.effectExtraCost },
+        [EFFECT_CATEGORY.CONDITION] = { url = UI_ASSETS.effectCondition, box = LAYOUT.effectCondition },
     }
-    local url = urlByCategory[State.effect_category] or UI_ASSETS.effectOnPlay
+    local asset = assetByCategory[State.effect_category]
+        or { url = UI_ASSETS.effectOnPlay, box = LAYOUT.effectOnPlay }
 
-    queueImageDecal("Effect Box", url, LAYOUT.effectBox)
+    queueImageDecal("Effect Box", asset.url, asset.box)
     queueTextBox("effect_text", LAYOUT.effectText, tokenizeLines(State.effect), FONT_SIZE.effect)
 end
 
 local function renderActivationEffectBox()
     if State.activation_effect == "" then return end
 
-    queueImageDecal("Activation Effect Box", UI_ASSETS.effectActivation, LAYOUT.activationEffectBox)
+    queueImageDecal("Activation Effect Box", UI_ASSETS.effectActivation, LAYOUT.effectActivation)
     queueTextBox(
         "activation_effect_text",
         LAYOUT.activationEffectText,
@@ -427,6 +527,7 @@ function render()
     renderCost()
     renderVictoryPoints()
     renderFaction()
+    renderBanner()
     renderEffectBox()
     renderActivationEffectBox()
 
