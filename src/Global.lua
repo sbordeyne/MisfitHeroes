@@ -189,6 +189,7 @@ function assembleDeck(cards)
     local deck = results[1]
     deck.setPosition({ 0, 2, 0 })
     deck.shuffle()
+    deck.flip()
     printToAll("Misfit Heroes deck ready - " .. #cards .. " cards.", { 0, 1, 0 })
 end
 
