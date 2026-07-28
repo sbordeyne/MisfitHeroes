@@ -129,7 +129,13 @@ function onLoad(saved_data)
     render()
 end
 
-function setStateFromBgFg(background, foreground)
+-- Bound as a single table, not two positional args: card.call() (see
+-- startGame() in Global.lua) only ever passes one `parameters` table to the
+-- target function, so { background = ..., foreground = ... } is the only
+-- shape a remote call can actually deliver.
+function setStateFromBgFg(params)
+    local background = params.background
+    local foreground = params.foreground
     local bgCost = background.cost or 0
     local fgCost = foreground.cost or 0
     local cost = bgCost + fgCost
