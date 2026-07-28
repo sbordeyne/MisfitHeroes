@@ -26,6 +26,10 @@ local VARIABLE_POINTS = "X"
 -- the TTS client you're testing in.
 local ASSET_BASE = "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/"
 
+-- Every entry here doubles as both the URL to fetch AND the name it's
+-- registered under in self.UI's custom assets (see buildAssetList) --
+-- attached-UI Image elements can only reference a pre-registered name, never
+-- a raw URL directly.
 local UI_ASSETS = {
     cost = ASSET_BASE .. "ui/ui_cost.png",
     victory = ASSET_BASE .. "ui/ui_victory.png",
@@ -39,7 +43,6 @@ local UI_ASSETS = {
     effectExtraCost = ASSET_BASE .. "ui/ui_effect_extra_cost.png",
     effectCondition = ASSET_BASE .. "ui/ui_effect_condition.png",
     effectActivation = ASSET_BASE .. "ui/ui_effect_activation.png",
-    font = ASSET_BASE .. "ComickBook_CAPS.ttf",
 }
 
 -- :marker: token -> icon image, and the UI custom-asset name it's registered under.
@@ -57,6 +60,10 @@ local ICON_MARKERS = {
     victory_calc = { name = "icon_victory_calc", url = ASSET_BASE .. "font/victory_calc.png" },
     on_play = { name = "icon_on_play", url = ASSET_BASE .. "font/on_play.png" },
 }
+
+-- Custom-asset names for the two per-card artwork layers (background_url /
+-- foreground_url change every render, unlike everything else above).
+local ART_ASSET_NAME = { background = "bg_art", foreground = "fg_art" }
 
 --------------------------------------------------------------------------
 -- Layout
@@ -149,25 +156,17 @@ local TEXT_COLOR = "#2B1B12"
 -- Object-attached UI: pixel-to-world conversion. TTS UI elements are laid
 -- out in pixels and then scaled down onto the object by `scale`; these two
 -- constants are a starting point and will need tuning against the live card
--- mesh.
+-- mesh. Every element (art, badges, text) goes through this same attached-UI
+-- system now -- TTS decals turned out not to be usable here: their `scale`
+-- is a multiplier on the image's own undocumented "normal" size, not an
+-- absolute world-space size, so there was no reliable way to make a decal
+-- fill a specific fraction of the card. UI panels size in real pixels
+-- instead, which is deterministic.
 local UI_PIXELS_PER_UNIT = 100
 local UI_SCALE = { 0.01, 0.01, 0.01 }
-
--- Decals stack along Y so nothing z-fights; each queued decal grabs the
--- next step automatically.
-local BASE_DECAL_Y = 0.11
-local DECAL_Y_STEP = 0.001
--- UI panels sit just above the topmost decal.
 local UI_Y = 0.2
 
--- render() can be called many times in a row (every setter triggers one), so
--- decals/UI are rebuilt from scratch each call via setDecals/setXmlTable
--- rather than appended to with addDecal -- otherwise every edit would stack
--- another copy of every decal on top of the last.
-local decalYCounter = 0
-local queuedDecals = {}
 local queuedUIElements = {}
-local uiAssetsRegistered = false
 
 function onSave()
     return JSON.encode(State)
@@ -252,14 +251,64 @@ function setState(newState)
     render()
 end
 
+function setCost(cost)
+    State.cost = cost
+    self.render()
+end
+
+function setFaction(faction)
+    State.faction = faction
+    self.render()
+end
+
+function setBackgroundUrl(background_url)
+    State.background_url = background_url
+    self.render()
+end
+
+function setForegroundUrl(foreground_url)
+    State.foreground_url = foreground_url
+    self.render()
+end
+
+function setBackgroundName(background_name)
+    State.background_name = background_name
+    self.render()
+end
+
+function setForegroundName(foreground_name)
+    State.foreground_name = foreground_name
+    self.render()
+end
+
+function setPoints(points)
+    State.points = points
+    self.render()
+end
+
+function setEffectCategory(effect_category)
+    State.effect_category = effect_category
+    self.render()
+end
+
+function setEffect(effect)
+    State.effect = effect
+    self.render()
+end
+
+function setActivationEffect(activation_effect)
+    State.activation_effect = activation_effect
+    self.render()
+end
+
 --------------------------------------------------------------------------
 -- Layout helpers
 --------------------------------------------------------------------------
 
--- Converts a fractional (left, top, right, bottom) card-space box into a
--- world-space {position, rotation, scale}, using the card object's own live
+-- Converts a fractional (left, top, right, bottom) card-space box into this
+-- UI panel's {position, width, height} -- using the card object's own live
 -- bounds rather than a hardcoded card size.
-local function fracToWorld(box, yOffset)
+local function panelGeometry(box)
     local size = self.getBounds().size
     local width, length = size.x, size.z
     local left, top, right, bottom = box[1], box[2], box[3], box[4]
@@ -269,27 +318,14 @@ local function fracToWorld(box, yOffset)
     local boxWidthFrac = right - left
     local boxHeightFrac = bottom - top
 
+    local worldWidth = boxWidthFrac * width
+    local worldHeight = boxHeightFrac * length
+
     return {
-        position = { (centerXFrac - 0.5) * width, yOffset, (centerZFrac - 0.5) * length },
-        rotation = { 90, 0, 0 },
-        scale = { boxWidthFrac * width, 1, boxHeightFrac * length },
+        position = table.concat({ (centerXFrac - 0.5) * width, UI_Y, (centerZFrac - 0.5) * length }, " "),
+        width = tostring(math.floor(worldWidth * UI_PIXELS_PER_UNIT)),
+        height = tostring(math.floor(worldHeight * UI_PIXELS_PER_UNIT)),
     }
-end
-
-local function nextDecalY()
-    decalYCounter = decalYCounter + 1
-    return BASE_DECAL_Y + decalYCounter * DECAL_Y_STEP
-end
-
-local function queueImageDecal(name, url, box)
-    local xf = fracToWorld(box, nextDecalY())
-    table.insert(queuedDecals, {
-        name = name,
-        url = url,
-        position = xf.position,
-        rotation = xf.rotation,
-        scale = xf.scale,
-    })
 end
 
 --------------------------------------------------------------------------
@@ -357,14 +393,53 @@ end
 -- UI building
 --------------------------------------------------------------------------
 
-local function ensureUIAssetsRegistered()
-    if uiAssetsRegistered then return end
-    local assets = { }
+-- Every custom asset the current State can possibly need, rebuilt fresh each
+-- render -- setXmlTable's `assets` param replaces the whole custom-asset
+-- list (same as UI.setCustomAssets), so this can't just register the static
+-- ones once and stop: background_url/foreground_url change per card/render.
+local function buildAssetList()
+    local assets = {}
     for _, icon in pairs(ICON_MARKERS) do
         table.insert(assets, { name = icon.name, url = icon.url })
     end
-    self.UI.setCustomAssets(assets)
-    uiAssetsRegistered = true
+    for name, url in pairs(UI_ASSETS) do
+        table.insert(assets, { name = name, url = url })
+    end
+    if State.background_url ~= "" then
+        table.insert(assets, { name = ART_ASSET_NAME.background, url = State.background_url })
+    end
+    if State.foreground_url ~= "" then
+        table.insert(assets, { name = ART_ASSET_NAME.foreground, url = State.foreground_url })
+    end
+    return assets
+end
+
+-- Queues a Panel containing a single Image filling `box` -- artwork, badges,
+-- ribbons, banner and effect-box art all go through this.
+local function queueImagePanel(id, assetName, box)
+    local geo = panelGeometry(box)
+    table.insert(queuedUIElements, {
+        tag = "Panel",
+        attributes = {
+            id = id,
+            position = geo.position,
+            rotation = "90 0 0",
+            scale = table.concat(UI_SCALE, " "),
+            width = geo.width,
+            height = geo.height,
+            color = "#00000000",
+        },
+        children = {
+            {
+                tag = "Image",
+                attributes = {
+                    image = assetName,
+                    width = geo.width,
+                    height = geo.height,
+                },
+            },
+        },
+    })
 end
 
 -- One row (HorizontalLayout) of alternating Text/Image children for a
@@ -404,7 +479,7 @@ end
 -- vertically, over `box`. `lines` is a list of token lists (see
 -- tokenizeLines); pass {tokens} directly for single-line content.
 local function queueTextBox(id, box, lines, fontSize)
-    local xf = fracToWorld(box, UI_Y)
+    local geo = panelGeometry(box)
 
     local rows = {}
     for _, tokens in ipairs(lines) do
@@ -415,11 +490,11 @@ local function queueTextBox(id, box, lines, fontSize)
         tag = "Panel",
         attributes = {
             id = id,
-            position = table.concat(xf.position, " "),
+            position = geo.position,
             rotation = "90 0 0",
             scale = table.concat(UI_SCALE, " "),
-            width = tostring(math.floor(xf.scale[1] * UI_PIXELS_PER_UNIT)),
-            height = tostring(math.floor(xf.scale[3] * UI_PIXELS_PER_UNIT)),
+            width = geo.width,
+            height = geo.height,
             color = "#00000000",
         },
         children = {
@@ -438,25 +513,25 @@ end
 
 local function renderArtwork()
     if State.background_url ~= "" then
-        queueImageDecal("Background Art", State.background_url, LAYOUT.artwork)
+        queueImagePanel("background_art", ART_ASSET_NAME.background, LAYOUT.artwork)
     end
     if State.foreground_url ~= "" then
-        queueImageDecal("Foreground Art", State.foreground_url, LAYOUT.artwork)
+        queueImagePanel("foreground_art", ART_ASSET_NAME.foreground, LAYOUT.artwork)
     end
 end
 
 local function renderCost()
-    queueImageDecal("Cost Coin", UI_ASSETS.cost, LAYOUT.cost)
+    queueImagePanel("cost_badge", "cost", LAYOUT.cost)
     queueTextBox("cost_text", LAYOUT.costText, { tokenize(tostring(State.cost)) }, FONT_SIZE.badge)
 end
 
 local function renderVictoryPoints()
     if State.points == VARIABLE_POINTS then
         -- ui_victory_x.png already has the "X" printed on it -- no text overlay.
-        queueImageDecal("Victory Trophy", UI_ASSETS.victoryX, LAYOUT.victoryX)
+        queueImagePanel("victory_badge", "victoryX", LAYOUT.victoryX)
         return
     end
-    queueImageDecal("Victory Trophy", UI_ASSETS.victory, LAYOUT.victory)
+    queueImagePanel("victory_badge", "victory", LAYOUT.victory)
     queueTextBox("victory_text", LAYOUT.victoryText, { tokenize(tostring(State.points)) }, FONT_SIZE.badge)
 end
 
@@ -464,18 +539,18 @@ local function renderFaction()
     if State.faction == FACTION.NONE then return end
 
     local assetByFaction = {
-        [FACTION.HUMAN] = { url = UI_ASSETS.factionHuman, box = LAYOUT.factionHuman },
-        [FACTION.MONSTER] = { url = UI_ASSETS.factionMonster, box = LAYOUT.factionMonster },
-        [FACTION.MUTANT] = { url = UI_ASSETS.factionMutant, box = LAYOUT.factionMutant },
+        [FACTION.HUMAN] = { name = "factionHuman", box = LAYOUT.factionHuman },
+        [FACTION.MONSTER] = { name = "factionMonster", box = LAYOUT.factionMonster },
+        [FACTION.MUTANT] = { name = "factionMutant", box = LAYOUT.factionMutant },
     }
     local asset = assetByFaction[State.faction]
-    queueImageDecal("Faction Ribbon", asset.url, asset.box)
+    queueImagePanel("faction_ribbon", asset.name, asset.box)
 end
 
 local function renderBanner()
     if State.foreground_name == "" and State.background_name == "" then return end
 
-    queueImageDecal("Name Banner", UI_ASSETS.banner, LAYOUT.banner)
+    queueImagePanel("name_banner", "banner", LAYOUT.banner)
     queueTextBox(
         "banner_text",
         LAYOUT.bannerText,
@@ -488,22 +563,22 @@ local function renderEffectBox()
     if State.effect_category == EFFECT_CATEGORY.NONE or State.effect == "" then return end
 
     local assetByCategory = {
-        [EFFECT_CATEGORY.ON_PLAY] = { url = UI_ASSETS.effectOnPlay, box = LAYOUT.effectOnPlay },
-        [EFFECT_CATEGORY.VICTORY_CALC] = { url = UI_ASSETS.effectVictory, box = LAYOUT.effectVictory },
-        [EFFECT_CATEGORY.EXTRA_COST] = { url = UI_ASSETS.effectExtraCost, box = LAYOUT.effectExtraCost },
-        [EFFECT_CATEGORY.CONDITION] = { url = UI_ASSETS.effectCondition, box = LAYOUT.effectCondition },
+        [EFFECT_CATEGORY.ON_PLAY] = { name = "effectOnPlay", box = LAYOUT.effectOnPlay },
+        [EFFECT_CATEGORY.VICTORY_CALC] = { name = "effectVictory", box = LAYOUT.effectVictory },
+        [EFFECT_CATEGORY.EXTRA_COST] = { name = "effectExtraCost", box = LAYOUT.effectExtraCost },
+        [EFFECT_CATEGORY.CONDITION] = { name = "effectCondition", box = LAYOUT.effectCondition },
     }
     local asset = assetByCategory[State.effect_category]
-        or { url = UI_ASSETS.effectOnPlay, box = LAYOUT.effectOnPlay }
+        or { name = "effectOnPlay", box = LAYOUT.effectOnPlay }
 
-    queueImageDecal("Effect Box", asset.url, asset.box)
+    queueImagePanel("effect_box", asset.name, asset.box)
     queueTextBox("effect_text", LAYOUT.effectText, tokenizeLines(State.effect), FONT_SIZE.effect)
 end
 
 local function renderActivationEffectBox()
     if State.activation_effect == "" then return end
 
-    queueImageDecal("Activation Effect Box", UI_ASSETS.effectActivation, LAYOUT.effectActivation)
+    queueImagePanel("activation_effect_box", "effectActivation", LAYOUT.effectActivation)
     queueTextBox(
         "activation_effect_text",
         LAYOUT.activationEffectText,
@@ -517,10 +592,6 @@ end
 --------------------------------------------------------------------------
 
 function render()
-    ensureUIAssetsRegistered()
-
-    decalYCounter = 0
-    queuedDecals = {}
     queuedUIElements = {}
 
     renderArtwork()
@@ -531,6 +602,5 @@ function render()
     renderEffectBox()
     renderActivationEffectBox()
 
-    self.setDecals(queuedDecals)
-    self.UI.setXmlTable(queuedUIElements)
+    self.UI.setXmlTable(queuedUIElements, buildAssetList())
 end
