@@ -170,47 +170,7 @@ function setState(newState)
             State[key] = newState[key]
         end
     end
-    self.render()
-end
-
-function setCost(cost)
-    State.cost = cost
-    self.render()
-end
-
-function setFaction(faction)
-    State.faction = faction
-    self.render()
-end
-
-function setBackgroundUrl(background_url)
-    State.background_url = background_url
-    self.render()
-end
-
-function setForegroundUrl(foreground_url)
-    State.foreground_url = foreground_url
-    self.render()
-end
-
-function setPoints(points)
-    State.points = points
-    self.render()
-end
-
-function setEffectCategory(effect_category)
-    State.effect_category = effect_category
-    self.render()
-end
-
-function setEffect(effect)
-    State.effect = effect
-    self.render()
-end
-
-function setActivationEffect(activation_effect)
-    State.activation_effect = activation_effect
-    self.render()
+    render()
 end
 
 --------------------------------------------------------------------------
