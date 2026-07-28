@@ -50,8 +50,6 @@ local ICON_MARKERS = {
     on_play = { name = "icon_on_play", url = ASSET_BASE .. "font/on_play.png" },
 }
 
-local FONT_ASSET_NAME = "ComickBookCAPS"
-
 -- Fractional (left, top, right, bottom) layout boxes for a single flat card
 -- face (no hero/background split, unlike the old combined-card version).
 -- Loosely carried over from src/old/Card.lua's proportions as a starting
@@ -269,7 +267,7 @@ end
 
 local function ensureUIAssetsRegistered()
     if uiAssetsRegistered then return end
-    local assets = { { name = FONT_ASSET_NAME, url = UI_ASSETS.font } }
+    local assets = { }
     for _, icon in pairs(ICON_MARKERS) do
         table.insert(assets, { name = icon.name, url = icon.url })
     end
@@ -296,7 +294,6 @@ local function buildRow(tokens, fontSize)
                 tag = "Text",
                 attributes = {
                     text = token.value,
-                    font = FONT_ASSET_NAME,
                     fontSize = tostring(fontSize),
                     color = TEXT_COLOR,
                 },
