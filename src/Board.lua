@@ -4,22 +4,6 @@ end
 
 State = {}
 
-local function copyTableWithKeyChanged(t, key, newValue)
-    local t2 = {}
-    for k,v in pairs(t) do
-        if type(v) == "table" then
-            t2[k] = copyTableWithKeyChanged(v, key, newValue)
-        else
-            if k == key then
-                t2[k] = newValue
-            else
-                t2[k] = v
-            end
-        end
-    end
-    return t2
-end
-
 -- Fractional (x, y) center of each resource's token icon on the board's
 -- face texture (assets/board.png, 1072x1400px), as (pixelX / width,
 -- pixelY / height). Same left-to-right / top-to-bottom convention as
@@ -138,8 +122,6 @@ local function buildSlotZonesAndSnapPoints()
 
     local snapPoints = {}
     local bounds = self.getBounds()
-    -- TEMP DIAGNOSTIC -- remove once the X-axis offset is confirmed fixed.
-    printToAll("bounds=" .. JSON.encode(bounds) .. " scale=" .. JSON.encode(self.getScale()) .. " rotation=" .. JSON.encode(self.getRotation()), { 1, 1, 0 })
     for _, slot in ipairs(slots) do
         local snapFracX = slot.fracX
         if slot.tag:find("^CardSlot_") then
@@ -158,9 +140,6 @@ local function buildSlotZonesAndSnapPoints()
         })
 
         local worldPos = fracToWorld(slot.fracX, slot.fracZ, ZONE_HEIGHT / 2)
-        if slot.tag == "CardSlot_1_1" or slot.tag == "CardSlot_1_4" then
-            printToAll(slot.tag .. " fracX=" .. slot.fracX .. " local=" .. JSON.encode(localPos) .. " world=" .. JSON.encode(worldPos), { 1, 1, 0 })
-        end
         local zone = spawnObject({
             type = "ScriptingTrigger",
             position = worldPos,
@@ -196,21 +175,7 @@ function onObjectEnterZone(zone, enter_object)
         if not enter_object.use_snap_points then
             enter_object.use_snap_points = true
         end
-
         printToAll(zone.getName() .. " ENTER: " .. enter_object.getName() .. " (" .. enter_object.tag .. ")", { 0, 1, 1 })
-        -- Give the snap a moment to settle, then compare where the card
-        -- actually landed to where this zone (which shares its center with
-        -- the matching snap point) thinks it should be.
-        Wait.time(function()
-            local zonePos = zone.getPosition()
-            local cardPos = enter_object.getPosition()
-            printToAll(
-                zone.getName() .. " settled delta: dx=" .. (cardPos.x - zonePos.x)
-                .. " dy=" .. (cardPos.y - zonePos.y)
-                .. " dz=" .. (cardPos.z - zonePos.z),
-                { 1, 0, 1 }
-            )
-        end, 0.3)
     end
 end
 
@@ -236,6 +201,9 @@ function onObjectDrop(player_color, dropped_object)
     if dropped_object == self then
         Wait.time(buildSlotZonesAndSnapPoints, 0.5)
     end
+    if dropped_object.tag == "Card" then
+        printToAll("Card dropped: " .. dropped_object.getName() .. " (" .. dropped_object.guid .. ")", { 1, 1, 0 })
+    end
 end
 
 function onLoad(saved_data)
@@ -250,7 +218,6 @@ function onLoad(saved_data)
     end
 
     if loaded_data ~= nil and #loaded_data > 0 then
-        printToAll("State : "..JSON.encode(loaded_data))
         State = loaded_data
     else
         local player_order = 1
@@ -277,10 +244,10 @@ end
 function on_btn_money(obj, color, alt_click)
     if alt_click then
         if State.money > 0 then
-            State = copyTableWithKeyChanged(State, "money", State.money - 1)
+            State.money = State.money - 1
         end
     else
-        State = copyTableWithKeyChanged(State, "money", State.money + 1)
+        State.money = State.money + 1
     end
     b_display_money.label = tostring(State.money)
     obj.editButton(b_display_money)
@@ -289,10 +256,10 @@ end
 function on_btn_leaf(obj, color, alt_click)
     if alt_click then
         if State.leaf > 0 then
-            State = copyTableWithKeyChanged(State, "leaf", State.leaf - 1)
+            State.leaf = State.leaf - 1
         end
     else
-        State = copyTableWithKeyChanged(State, "leaf", State.leaf + 1)
+        State.leaf = State.leaf + 1
     end
     b_display_leaf.label = tostring(State.leaf)
     obj.editButton(b_display_leaf)
@@ -301,10 +268,10 @@ end
 function on_btn_rock(obj, color, alt_click)
     if alt_click then
         if State.rock > 0 then
-            State = copyTableWithKeyChanged(State, "rock", State.rock - 1)
+            State.rock = State.rock - 1
         end
     else
-        State = copyTableWithKeyChanged(State, "rock", State.rock + 1)
+        State.rock = State.rock + 1
     end
     b_display_rock.label = tostring(State.rock)
     obj.editButton(b_display_rock)
@@ -313,10 +280,10 @@ end
 function on_btn_water(obj, color, alt_click)
     if alt_click then
         if State.water > 0 then
-            State = copyTableWithKeyChanged(State, "water", State.water - 1)
+            State.water = State.water - 1
         end
     else
-        State = copyTableWithKeyChanged(State, "water", State.water + 1)
+        State.water = State.water + 1
     end
     b_display_water.label = tostring(State.water)
     obj.editButton(b_display_water)
