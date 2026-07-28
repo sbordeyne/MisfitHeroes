@@ -249,11 +249,22 @@ local function tokenize(text)
 end
 
 -- Splits multi-line text (authors hard-break long effect text with "\n")
--- into one token list per line.
+-- into one token list per line. Uses a plain (non-pattern) search rather
+-- than gmatch("(.-)\n") -- MoonSharp's lazy-match backtracking hits a
+-- "pattern too complex" recursion limit on lines with no "\n" (i.e. most
+-- single-line effect text) well before real Lua would.
 local function tokenizeLines(text)
+    text = text or ""
     local lines = {}
-    for line in string.gmatch((text or "") .. "\n", "(.-)\n") do
-        table.insert(lines, tokenize(line))
+    local pos = 1
+    while true do
+        local s = string.find(text, "\n", pos, true)
+        if not s then
+            table.insert(lines, tokenize(string.sub(text, pos)))
+            break
+        end
+        table.insert(lines, tokenize(string.sub(text, pos, s - 1)))
+        pos = s + 1
     end
     if #lines == 0 then
         lines = { {} }
