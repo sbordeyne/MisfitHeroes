@@ -26,10 +26,8 @@ local VARIABLE_POINTS = "X"
 -- the TTS client you're testing in.
 local ASSET_BASE = "https://raw.githubusercontent.com/sbordeyne/MisfitHeroes/refs/heads/master/assets/"
 
--- Every entry here doubles as both the URL to fetch AND the name it's
--- registered under in self.UI's custom assets (see buildAssetList) --
--- attached-UI Image elements can only reference a pre-registered name, never
--- a raw URL directly.
+-- Rendered as decals (see queueImageDecal) -- decals take a URL directly, no
+-- pre-registration needed, unlike attached-UI Image elements.
 local UI_ASSETS = {
     cost = ASSET_BASE .. "ui/ui_cost.png",
     victory = ASSET_BASE .. "ui/ui_victory.png",
@@ -60,10 +58,6 @@ local ICON_MARKERS = {
     victory_calc = { name = "icon_victory_calc", url = ASSET_BASE .. "font/victory_calc.png" },
     on_play = { name = "icon_on_play", url = ASSET_BASE .. "font/on_play.png" },
 }
-
--- Custom-asset names for the two per-card artwork layers (background_url /
--- foreground_url change every render, unlike everything else above).
-local ART_ASSET_NAME = { background = "bg_art", foreground = "fg_art" }
 
 --------------------------------------------------------------------------
 -- Layout
@@ -153,20 +147,36 @@ local FONT_SIZE = {
 
 local TEXT_COLOR = "#2B1B12"
 
--- Object-attached UI: pixel-to-world conversion. TTS UI elements are laid
--- out in pixels and then scaled down onto the object by `scale`; these two
--- constants are a starting point and will need tuning against the live card
--- mesh. Every element (art, badges, text) goes through this same attached-UI
--- system now -- TTS decals turned out not to be usable here: their `scale`
--- is a multiplier on the image's own undocumented "normal" size, not an
--- absolute world-space size, so there was no reliable way to make a decal
--- fill a specific fraction of the card. UI panels size in real pixels
--- instead, which is deterministic.
+-- Object-attached UI (used for text -- decals can't render text): pixel-to-
+-- world conversion. UI elements are laid out in pixels and then scaled down
+-- onto the object by `scale`; these two constants are a starting point and
+-- will need tuning against the live card mesh.
 local UI_PIXELS_PER_UNIT = 100
 local UI_SCALE = { 0.01, 0.01, 0.01 }
 local UI_Y = 0.2
 
+-- Decals (used for art/badges/ribbons/boxes): TTS's decal `scale` is a
+-- multiplier against the image's own undocumented "normal" size -- NOT an
+-- absolute world-space size, and NOT the same value as a UI panel's pixel
+-- width/height. DECAL_PIXELS_PER_UNIT is our best working estimate of that
+-- "normal size" reference, reverse-engineered from a known-working example
+-- (a 640x800px card overlay needed roughly scale=(2.11,3.03) to cover a
+-- similarly-proportioned card -- see chat, 2026-07-29). Since every asset
+-- here is authored 1:1 against the same 1000x1400 CARD_PX reference canvas,
+-- one calibrated constant sizes ALL of them correctly at once -- if
+-- everything renders too small/large, adjust this single number; relative
+-- proportions between elements should stay correct regardless.
+local DECAL_PIXELS_PER_UNIT = 650
+
+-- Decals stack along Y so nothing z-fights; each queued decal grabs the
+-- next step automatically.
+local BASE_DECAL_Y = 0.11
+local DECAL_Y_STEP = 0.001
+
+local decalYCounter = 0
+local queuedDecals = {}
 local queuedUIElements = {}
+local decalScale = { x = 1, y = 1 }
 
 function onSave()
     return JSON.encode(State)
@@ -328,6 +338,47 @@ local function panelGeometry(box)
     }
 end
 
+-- decalScale is the same for every decal on this card (see
+-- DECAL_PIXELS_PER_UNIT) -- only needs recomputing once per render, from the
+-- object's current (possibly still-settling) live bounds.
+local function computeDecalScale()
+    local size = self.getBounds().size
+    return {
+        x = size.x * DECAL_PIXELS_PER_UNIT / CARD_PX.width,
+        y = size.z * DECAL_PIXELS_PER_UNIT / CARD_PX.height,
+    }
+end
+
+local function nextDecalY()
+    decalYCounter = decalYCounter + 1
+    return BASE_DECAL_Y + decalYCounter * DECAL_Y_STEP
+end
+
+-- Queues a decal covering `box`'s fractional card-space area. Every decal
+-- shares the one precomputed decalScale (see computeDecalScale) -- since
+-- box was itself derived from the asset's own pixel size against CARD_PX,
+-- the asset's pixel size cancels out of the scale math entirely, leaving
+-- the same {x, y} for every decal regardless of which asset it is.
+local function queueImageDecal(name, url, box)
+    local size = self.getBounds().size
+    local width, length = size.x, size.z
+    local left, top, right, bottom = box[1], box[2], box[3], box[4]
+    local centerXFrac = (left + right) / 2
+    local centerZFrac = (top + bottom) / 2
+
+    table.insert(queuedDecals, {
+        name = name,
+        url = url,
+        position = { (centerXFrac - 0.5) * width, nextDecalY(), (centerZFrac - 0.5) * length },
+        rotation = { 90, 0, 0 },
+        -- After the 90-degree tilt, local Y (the image's own height/up-down
+        -- axis) becomes the card's length axis, and local Z (the image's
+        -- thickness) becomes "up off the table" -- height goes in the
+        -- middle slot, not the last one.
+        scale = { decalScale.x, decalScale.y, 1 },
+    })
+end
+
 --------------------------------------------------------------------------
 -- Text tokenizing / marker substitution
 --------------------------------------------------------------------------
@@ -393,53 +444,15 @@ end
 -- UI building
 --------------------------------------------------------------------------
 
--- Every custom asset the current State can possibly need, rebuilt fresh each
--- render -- setXmlTable's `assets` param replaces the whole custom-asset
--- list (same as UI.setCustomAssets), so this can't just register the static
--- ones once and stop: background_url/foreground_url change per card/render.
+-- Icon markers are the only thing left needing pre-registration as custom
+-- UI assets (used inline within text rows) -- everything else (art, badges,
+-- ribbons, banner, effect boxes) is a decal now, which takes a URL directly.
 local function buildAssetList()
     local assets = {}
     for _, icon in pairs(ICON_MARKERS) do
         table.insert(assets, { name = icon.name, url = icon.url })
     end
-    for name, url in pairs(UI_ASSETS) do
-        table.insert(assets, { name = name, url = url })
-    end
-    if State.background_url ~= "" then
-        table.insert(assets, { name = ART_ASSET_NAME.background, url = State.background_url })
-    end
-    if State.foreground_url ~= "" then
-        table.insert(assets, { name = ART_ASSET_NAME.foreground, url = State.foreground_url })
-    end
     return assets
-end
-
--- Queues a Panel containing a single Image filling `box` -- artwork, badges,
--- ribbons, banner and effect-box art all go through this.
-local function queueImagePanel(id, assetName, box)
-    local geo = panelGeometry(box)
-    table.insert(queuedUIElements, {
-        tag = "Panel",
-        attributes = {
-            id = id,
-            position = geo.position,
-            rotation = "90 0 0",
-            scale = table.concat(UI_SCALE, " "),
-            width = geo.width,
-            height = geo.height,
-            color = "#00000000",
-        },
-        children = {
-            {
-                tag = "Image",
-                attributes = {
-                    image = assetName,
-                    width = geo.width,
-                    height = geo.height,
-                },
-            },
-        },
-    })
 end
 
 -- One row (HorizontalLayout) of alternating Text/Image children for a
@@ -513,25 +526,25 @@ end
 
 local function renderArtwork()
     if State.background_url ~= "" then
-        queueImagePanel("background_art", ART_ASSET_NAME.background, LAYOUT.artwork)
+        queueImageDecal("Background Art", State.background_url, LAYOUT.artwork)
     end
     if State.foreground_url ~= "" then
-        queueImagePanel("foreground_art", ART_ASSET_NAME.foreground, LAYOUT.artwork)
+        queueImageDecal("Foreground Art", State.foreground_url, LAYOUT.artwork)
     end
 end
 
 local function renderCost()
-    queueImagePanel("cost_badge", "cost", LAYOUT.cost)
+    queueImageDecal("Cost Coin", UI_ASSETS.cost, LAYOUT.cost)
     queueTextBox("cost_text", LAYOUT.costText, { tokenize(tostring(State.cost)) }, FONT_SIZE.badge)
 end
 
 local function renderVictoryPoints()
     if State.points == VARIABLE_POINTS then
         -- ui_victory_x.png already has the "X" printed on it -- no text overlay.
-        queueImagePanel("victory_badge", "victoryX", LAYOUT.victoryX)
+        queueImageDecal("Victory Trophy", UI_ASSETS.victoryX, LAYOUT.victoryX)
         return
     end
-    queueImagePanel("victory_badge", "victory", LAYOUT.victory)
+    queueImageDecal("Victory Trophy", UI_ASSETS.victory, LAYOUT.victory)
     queueTextBox("victory_text", LAYOUT.victoryText, { tokenize(tostring(State.points)) }, FONT_SIZE.badge)
 end
 
@@ -539,18 +552,18 @@ local function renderFaction()
     if State.faction == FACTION.NONE then return end
 
     local assetByFaction = {
-        [FACTION.HUMAN] = { name = "factionHuman", box = LAYOUT.factionHuman },
-        [FACTION.MONSTER] = { name = "factionMonster", box = LAYOUT.factionMonster },
-        [FACTION.MUTANT] = { name = "factionMutant", box = LAYOUT.factionMutant },
+        [FACTION.HUMAN] = { url = UI_ASSETS.factionHuman, box = LAYOUT.factionHuman },
+        [FACTION.MONSTER] = { url = UI_ASSETS.factionMonster, box = LAYOUT.factionMonster },
+        [FACTION.MUTANT] = { url = UI_ASSETS.factionMutant, box = LAYOUT.factionMutant },
     }
     local asset = assetByFaction[State.faction]
-    queueImagePanel("faction_ribbon", asset.name, asset.box)
+    queueImageDecal("Faction Ribbon", asset.url, asset.box)
 end
 
 local function renderBanner()
     if State.foreground_name == "" and State.background_name == "" then return end
 
-    queueImagePanel("name_banner", "banner", LAYOUT.banner)
+    queueImageDecal("Name Banner", UI_ASSETS.banner, LAYOUT.banner)
     queueTextBox(
         "banner_text",
         LAYOUT.bannerText,
@@ -563,22 +576,22 @@ local function renderEffectBox()
     if State.effect_category == EFFECT_CATEGORY.NONE or State.effect == "" then return end
 
     local assetByCategory = {
-        [EFFECT_CATEGORY.ON_PLAY] = { name = "effectOnPlay", box = LAYOUT.effectOnPlay },
-        [EFFECT_CATEGORY.VICTORY_CALC] = { name = "effectVictory", box = LAYOUT.effectVictory },
-        [EFFECT_CATEGORY.EXTRA_COST] = { name = "effectExtraCost", box = LAYOUT.effectExtraCost },
-        [EFFECT_CATEGORY.CONDITION] = { name = "effectCondition", box = LAYOUT.effectCondition },
+        [EFFECT_CATEGORY.ON_PLAY] = { url = UI_ASSETS.effectOnPlay, box = LAYOUT.effectOnPlay },
+        [EFFECT_CATEGORY.VICTORY_CALC] = { url = UI_ASSETS.effectVictory, box = LAYOUT.effectVictory },
+        [EFFECT_CATEGORY.EXTRA_COST] = { url = UI_ASSETS.effectExtraCost, box = LAYOUT.effectExtraCost },
+        [EFFECT_CATEGORY.CONDITION] = { url = UI_ASSETS.effectCondition, box = LAYOUT.effectCondition },
     }
     local asset = assetByCategory[State.effect_category]
-        or { name = "effectOnPlay", box = LAYOUT.effectOnPlay }
+        or { url = UI_ASSETS.effectOnPlay, box = LAYOUT.effectOnPlay }
 
-    queueImagePanel("effect_box", asset.name, asset.box)
+    queueImageDecal("Effect Box", asset.url, asset.box)
     queueTextBox("effect_text", LAYOUT.effectText, tokenizeLines(State.effect), FONT_SIZE.effect)
 end
 
 local function renderActivationEffectBox()
     if State.activation_effect == "" then return end
 
-    queueImagePanel("activation_effect_box", "effectActivation", LAYOUT.effectActivation)
+    queueImageDecal("Activation Effect Box", UI_ASSETS.effectActivation, LAYOUT.effectActivation)
     queueTextBox(
         "activation_effect_text",
         LAYOUT.activationEffectText,
@@ -592,7 +605,10 @@ end
 --------------------------------------------------------------------------
 
 function render()
+    decalYCounter = 0
+    queuedDecals = {}
     queuedUIElements = {}
+    decalScale = computeDecalScale()
 
     renderArtwork()
     renderCost()
@@ -602,5 +618,6 @@ function render()
     renderEffectBox()
     renderActivationEffectBox()
 
+    self.setDecals(queuedDecals)
     self.UI.setXmlTable(queuedUIElements, buildAssetList())
 end
